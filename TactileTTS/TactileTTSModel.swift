@@ -11,7 +11,6 @@ import AVFoundation
 
 class TactileTTSModel
 {
-
     private var totalUtterances: Int = 0
     private var currentUtterance: Int = 0
     private var totalTextLength: Int = 0
@@ -24,43 +23,29 @@ class TactileTTSModel
     private let speechSynthesizer = AVSpeechSynthesizer()
 
     //housekeeping functions
-    
-    private func registerDefaultSettings() {
-        rate = AVSpeechUtteranceDefaultSpeechRate
-        pitch = 1.0
-        volume = 1.0
-        
-        let defaultSpeechSettings: Dictionary<NSObject, AnyObject> = ["rate": rate, "pitch": pitch, "volume": volume]
-        
-        NSUserDefaults.standardUserDefaults().registerDefaults(defaultSpeechSettings)
-    }
-    
-    private func loadSettings() -> Bool {
-        let userDefaults = NSUserDefaults.standardUserDefaults() as NSUserDefaults
-        
-        if let theRate: Float = userDefaults.valueForKey("rate") as? Float {
-            rate = theRate
-            pitch = userDefaults.valueForKey("pitch") as! Float
-            volume = userDefaults.valueForKey("volume") as! Float
-            return true
-        }
-        return false
-    }
+    //
+    //
+    //
     
     //private speech synthesizer functions
     //
     //
     //
     
-    //public functions
-    //
-    //
-    //
-    
-    func playTTS(theText: String) {
+    private func playTheSegment(theText: NSString) {
         if theText != "" {
             
-            let speechUtterance = AVSpeechUtterance(string: theText)
+            let speechUtterance = AVSpeechUtterance(string: theText as String)
+            
+            //          speechUtterance.rate = 0.25
+            //          speechUtterance.pitchMultiplier = 0.01
+            //          speechUtterance.volume = 1.00
+            
+            speechUtterance.rate = rate
+            speechUtterance.pitchMultiplier = pitch
+            speechUtterance.volume = volume
+            
+            
             if speechSynthesizer.speaking {
                 if speechSynthesizer.paused {
                     speechSynthesizer.continueSpeaking()
@@ -72,15 +57,49 @@ class TactileTTSModel
             }
         }
     }
-
+    
+    private func getSentences(theText:NSString) -> (sentenceArray:NSArray, sentenceCount:Int) {
+        var sentenceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet (charactersInString: ".?!"))
+        let sentenceCount = sentenceArray.count
+        return (sentenceArray,sentenceCount)
+    }
+    
+    //TODO: Create review by sentence from left swipe
+    
+    //TODO: Create navigate forward by sentence from right swipe
+    
+    //public functions
+    //
+    //
+    //
+    
+    func registerDefaultSettings() {
+        rate = AVSpeechUtteranceDefaultSpeechRate
+        pitch = 1.0
+        volume = 1.0
         
+        let defaultSpeechSettings: Dictionary<NSObject, AnyObject> = ["rate": rate, "pitch": pitch, "volume": volume]
         
+        NSUserDefaults.standardUserDefaults().registerDefaults(defaultSpeechSettings)
+    }
+    
+    func loadSettings() -> Bool {
+        let userDefaults = NSUserDefaults.standardUserDefaults() as NSUserDefaults
         
-        
-    init() {  //initializer for the TactileTTS class
-        
-        if !loadSettings() {
-            registerDefaultSettings()
+        if let theRate: Float = userDefaults.valueForKey("rate") as? Float { //if rate exists, chances are everything exists
+            rate = theRate
+            pitch = userDefaults.valueForKey("pitch") as! Float
+            volume = userDefaults.valueForKey("volume") as! Float
+            return true
         }
+        return false
+    }
+    
+    func play(theText: NSString) {
+        playTheSegment(theText)
+    }
+
+    init() {  //initializer for the TactileTTS class
+
     }
 }
