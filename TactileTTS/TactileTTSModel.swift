@@ -96,6 +96,14 @@ class TactileTTSModel
     }
     
     func play(theText: NSString) {
+        let (sentences,sentenceCount) = getSentences(theText)
+        println("Total number of sentences = \(sentenceCount)")
+        
+        for sentence in sentences {
+            println("\(sentence)")
+        }
+            
+            
         playTheSegment(theText)
     }
 
