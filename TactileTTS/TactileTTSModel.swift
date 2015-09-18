@@ -2,7 +2,7 @@
 //  TactileTTSModel.swift
 //  TactileTTS
 //
-//  Created by Administrator on 7/21/15.
+//  Created by David Sweeney on 7/21/15.
 //  Copyright (c) 2015 David Sweeney. All rights reserved.
 //
 
@@ -20,7 +20,6 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     private var paragraphs: [AnyObject] = []
     private var paragraphCount: Int! = 0
     private var sentences: [AnyObject] = []
-//    private var sentences: Array<NSString> = []
     private var sentenceCount: Int! = 0
     private var words: [AnyObject] = []
     private var wordCount: Int! = 0
@@ -38,12 +37,6 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         super.init()
         speechSynthesizer.delegate = self
     }
-
-    //housekeeping functions
-    //
-    //
-    
-    
     
     //delegate functions
     //
@@ -59,7 +52,6 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         }
         
     }
-    
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer!, didStartSpeechUtterance utterance: AVSpeechUtterance!) {
         currentUtterance = currentUtterance + 1
@@ -111,7 +103,6 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         return(paragraphs,paragraphCount)
     }
     
-    
     private func getSentences(theText:NSString) -> (sentences:NSArray, sentenceCount:Int) {
         //load and calculate sentences
         sentences = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
@@ -157,7 +148,6 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     func play(theText: NSString) {  //this entire func gets executed before speech starts
         let (utteranceArray, _) = getSentences(theText) //this parses by sentence
         
-        
         totalUtterances = utteranceArray.count
         currentUtterance = 0
         totalTextLength = 0
@@ -177,6 +167,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             speechSynthesizer.speakUtterance(speechUtterance)            
 
         }
+        println("Total text length: \(totalTextLength)")
     }
     
     func startStop() {
@@ -186,7 +177,6 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     func goForward() {
         println("Swiped right")
     }
-    
     
     func goBack() {
         println("Swiped left")

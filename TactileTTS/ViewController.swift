@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  TactileTTS
 //
-//  Created by Administrator on 7/21/15.
+//  Created by David Sweeney on 7/21/15.
 //  Copyright (c) 2015 David Sweeney. All rights reserved.
 //
 
