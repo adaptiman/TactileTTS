@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
 
     @IBAction func tap(sender: UITapGestureRecognizer) {
-        tts.startStop()
+        tts.pauseUnpause()
     }
     
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
