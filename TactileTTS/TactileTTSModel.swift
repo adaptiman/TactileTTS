@@ -16,18 +16,13 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     private var totalTextLength: Int! = 0
     private var spokenTextLength: Int! = 0
     private var currentCursorPosition: Int! = 0
-
-    private var paragraphs: [AnyObject] = []
-    private var paragraphCount: Int! = 0
-    private var sentences: [AnyObject] = []
-    private var sentenceCount: Int! = 0
-    private var words: [AnyObject] = []
-    private var wordCount: Int! = 0
-
+    private var utteranceArray: [AnyObject] = []
+    private enum ParseType { case ByParagraph, BySentence, ByWord }
     
     private var rate: Float! = 0.55
     private var pitch: Float! = 0.01
     private var volume: Float! = 1.0
+    private var postUtteranceDelay: Double! = 0.005
     
     private let speechSynthesizer = AVSpeechSynthesizer()
     
@@ -50,7 +45,6 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         if currentUtterance == totalUtterances {
             //do something when the utterance is done
         }
-        
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
@@ -67,117 +61,87 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     //
     //
     
-    private func start(speechUtterance: NSObject) -> (Bool) {
-        //TODO: build start function
-        return true
-    }
-
-    private func pause(speechUtterance: NSObject) -> (Bool) {
-        //TODO: build pause function
-        return true
-    }
-
-    private func unpause(speechUtterance: NSObject) -> (Bool) {
-        //TODO: build unpause function
-        return true
-    }
-
-    private func stop(speechUtterance: NSObject) -> (Bool) {
-        //TODO: build stop function
-        return true
-    }
-
-    private func getParagraphs(theText:NSString) -> (paragraphs:NSArray, paragraphCount:Int) {
+    private func getParagraphs(theText:NSString) -> (NSArray) {
         //load and calculate paragraphs
-        paragraphs = theText.componentsSeparatedByCharactersInSet(NSCharacterSet (charactersInString: "\n\n"))
-        paragraphCount = paragraphs.count
-
-        print("Utternance level is: paragraph")
-        print("Total number of paragraphs = \(paragraphCount)")
-        return(paragraphs,paragraphCount)
+        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet (charactersInString: "\n\n"))
+        return(utteranceArray)
     }
     
     private func getSentences(theText:NSString) -> (NSArray) {
         //load and calculate sentences
-        sentences = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
-        
-        sentences.removeAtIndex(sentences.count-1) //removes blank sentence at end of array
-        totalUtterances = sentences.count
-        
-        print("Utternance level is: sentence")
-        print("Total number of sentences = \(sentenceCount)")
-        return sentences
+        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
+        utteranceArray.removeAtIndex(utteranceArray.count-1) //removes blank sentence at end of array
+        return (utteranceArray)
     }
     
-    private func getWords(theText:NSString) -> (words:NSArray, wordCount:Int) {
+    private func getWords(theText:NSString) -> (NSArray) {
         //load and calculate words
-        words = theText.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        wordCount = words.count
-        print("Utternance level is: word")
-        print("Total number of words = \(wordCount)")
-        return(words,wordCount)
+        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        return(utteranceArray)
     }
     
-    
-    //TODO: Create review by sentence from left swipe
-    
-    //TODO: Create navigate forward by sentence from right swipe
-    
+    private func parse(theText: NSString, parseMethod: ParseType) -> NSArray {
+        switch parseMethod {
+        case .ByParagraph:
+            _ = getParagraphs(theText)
+            print("Utterance level is: paragraph")
+        case .BySentence:
+            _ = getSentences(theText)
+            print("Utterance level is: sentence")
+        case .ByWord:
+            _ = getWords(theText)
+            print("Utterance level is: word")
+        }
+        
+        totalUtterances = utteranceArray.count
+        print("Total utterances = \(totalUtterances)")
+        return utteranceArray
+    }
+
     //public functions
     //
     //
     //
     
-    func play(theText: NSString) {  //this entire func gets executed before speech starts
-        let (utteranceArray) = getSentences(theText) //this parses by sentence
+    func startExperiment(theText: NSString) {
+        
+        utteranceArray = parse(theText, parseMethod: .BySentence) as [AnyObject]
         
         for utterance in utteranceArray {
-            
+        
             let speechUtterance = AVSpeechUtterance(string: utterance as! String)
             
             speechUtterance.rate = rate
             speechUtterance.pitchMultiplier = pitch
             speechUtterance.volume = volume
-            speechUtterance.postUtteranceDelay = 0.005 //pause between array elements
+            speechUtterance.postUtteranceDelay = postUtteranceDelay
             
             totalTextLength = totalTextLength + (utterance as! String).utf16.count + 1 //+1 added to allow for space between utterances
-            //println("Number of chars in utterance: \(totalTextLength)") //# of chars in each utterance
-            speechSynthesizer.speakUtterance(speechUtterance)            
-
+            
+            speechSynthesizer.speakUtterance(speechUtterance)
+           
         }
-        print("Total text length: \(totalTextLength)")
+        print("Number of chars in utterances: \(totalTextLength)") //# of chars in each utterance
+
     }
     
-    func pauseUnpause() {
-        print("Tapped at Cursor Position: \(currentCursorPosition)")
+    func pauseContinue() {
+        if speechSynthesizer.speaking {
+            if speechSynthesizer.paused {
+                print("C,\(currentCursorPosition)")
+                speechSynthesizer.continueSpeaking()
+            } else {
+                speechSynthesizer.pauseSpeakingAtBoundary(AVSpeechBoundary.Word)
+                print("P,\(currentCursorPosition)")
+            }
+        }
     }
     
     func goForward() {
-        print("Swiped right at Cursor Position: \(currentCursorPosition)")
+        print("Swiped left at Cursor Position: \(currentCursorPosition)")
     }
     
     func goBack() {
         print("Swiped right at Cursor Position: \(currentCursorPosition)")
     }
-    
-    //    private func playTheSegment(theText: NSString) {
-    //        if theText != "" {
-    //
-    //            let speechUtterance = AVSpeechUtterance(string: theText as String)
-    //
-    //            speechUtterance.rate = rate
-    //            speechUtterance.pitchMultiplier = pitch
-    //            speechUtterance.volume = volume
-    //
-    //            if speechSynthesizer.speaking {
-    //                if speechSynthesizer.paused {
-    //                    speechSynthesizer.continueSpeaking()
-    //                } else {
-    //                    speechSynthesizer.pauseSpeakingAtBoundary(AVSpeechBoundary.Word)
-    //                }
-    //            } else {
-    //                speechSynthesizer.speakUtterance(speechUtterance)
-    //            }
-    //        }
-    //    }
 }

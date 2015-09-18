@@ -14,15 +14,15 @@ class ViewController: UIViewController {
     
 
     @IBAction func tap(sender: UITapGestureRecognizer) {
-        tts.pauseUnpause()
+        tts.pauseContinue()
     }
     
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
-        tts.goForward()
+        tts.goBack()
     }
     
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
-        tts.goBack()
+        tts.goForward()
     }
     
     var tts = TactileTTSModel()
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        tts.play(tvMaterial.text)
+        tts.startExperiment(tvMaterial.text)
     }
 
     override func didReceiveMemoryWarning() {
