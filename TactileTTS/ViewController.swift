@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tvMaterial: UITextView!
     
     @IBAction func StartStop(sender: UITapGestureRecognizer) {
-        tts.play(tvMaterial.text)
+        tts.tap()
     }
     
     var tts = TactileTTSModel()
@@ -21,10 +21,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        if !tts.loadSettings() {
-            tts.registerDefaultSettings()
-        }
+        tts.play(tvMaterial.text)
     }
 
     override func didReceiveMemoryWarning() {
