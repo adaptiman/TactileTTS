@@ -179,8 +179,17 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         }
     }
     
-    func tap() {
+    func startStop() {
         println("Tapped at Cursor Position: \(currentCursorPosition)")
+    }
+    
+    func goForward() {
+        println("Swiped right")
+    }
+    
+    
+    func goBack() {
+        println("Swiped left")
     }
     
     //    private func playTheSegment(theText: NSString) {

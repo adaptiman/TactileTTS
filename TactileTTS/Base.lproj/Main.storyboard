@@ -25,6 +25,8 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="cjl-Ea-EAc" appends="YES" id="HYp-ie-mvu"/>
+                                    <outletCollection property="gestureRecognizers" destination="Wlt-kw-LAf" appends="YES" id="3YK-dm-p7d"/>
+                                    <outletCollection property="gestureRecognizers" destination="AGs-EZ-Rbq" appends="YES" id="QT1-hN-vYU"/>
                                 </connections>
                             </textView>
                         </subviews>
@@ -43,11 +45,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="cjl-Ea-EAc">
                     <connections>
-                        <action selector="StartStop:" destination="BYZ-38-t0r" id="rGe-7M-lmE"/>
+                        <action selector="tap:" destination="BYZ-38-t0r" id="4p8-3H-Zec"/>
                     </connections>
                 </tapGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="Wlt-kw-LAf">
+                    <connections>
+                        <action selector="swipeRight:" destination="BYZ-38-t0r" id="eLc-Vs-0gx"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="AGs-EZ-Rbq">
+                    <connections>
+                        <action selector="swipeLeft:" destination="BYZ-38-t0r" id="D7a-73-RSO"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="500" y="163"/>
+            <point key="canvasLocation" x="773" y="162"/>
         </scene>
     </scenes>
 </document>

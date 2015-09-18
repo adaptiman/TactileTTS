@@ -12,8 +12,17 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var tvMaterial: UITextView!
     
-    @IBAction func StartStop(sender: UITapGestureRecognizer) {
-        tts.tap()
+
+    @IBAction func tap(sender: UITapGestureRecognizer) {
+        tts.startStop()
+    }
+    
+    @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
+        tts.goForward()
+    }
+    
+    @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
+        tts.goBack()
     }
     
     var tts = TactileTTSModel()
