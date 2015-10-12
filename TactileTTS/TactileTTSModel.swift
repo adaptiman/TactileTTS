@@ -48,7 +48,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
-        currentUtterance = currentUtterance + 1
+        //currentUtterance = currentUtterance + 1
         print("Current Utterance: \(currentUtterance)")
     }
     
@@ -93,9 +93,35 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             print("Utterance level is: word")
         }
         
+        //calculate total utterances
         totalUtterances = utteranceArray.count
         print("Total utterances = \(totalUtterances)")
+
+        //calculate total characters
+        for utterance in utteranceArray {
+            totalTextLength = totalTextLength + (utterance as! String).utf16.count + 1 //+1 added to allow for space between utterances
+        }
+        print("Total chars: \(totalTextLength)") //# of chars in each utterance
+        
         return utteranceArray
+    }
+    
+    private func speak() {
+        
+        //for utterance in utteranceArray {
+
+        for i in currentUtterance..<utteranceArray.count {
+            
+            let speechUtterance = AVSpeechUtterance(string: utteranceArray[i] as! String)
+            
+            speechUtterance.rate = rate
+            speechUtterance.pitchMultiplier = pitch
+            speechUtterance.volume = volume
+            speechUtterance.postUtteranceDelay = postUtteranceDelay
+            
+            speechSynthesizer.speakUtterance(speechUtterance)
+            
+        }
     }
 
     //public functions
@@ -106,23 +132,9 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     func startExperiment(theText: NSString) {
         
         utteranceArray = parse(theText, parseMethod: .BySentence) as [AnyObject]
+        currentUtterance = 0
+        speak()
         
-        for utterance in utteranceArray {
-        
-            let speechUtterance = AVSpeechUtterance(string: utterance as! String)
-            
-            speechUtterance.rate = rate
-            speechUtterance.pitchMultiplier = pitch
-            speechUtterance.volume = volume
-            speechUtterance.postUtteranceDelay = postUtteranceDelay
-            
-            totalTextLength = totalTextLength + (utterance as! String).utf16.count + 1 //+1 added to allow for space between utterances
-            
-            speechSynthesizer.speakUtterance(speechUtterance)
-           
-        }
-        print("Number of chars in utterances: \(totalTextLength)") //# of chars in each utterance
-
     }
     
     func pauseContinue() {
@@ -139,9 +151,15 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     
     func goForward() {
         print("Swiped left at Cursor Position: \(currentCursorPosition)")
+        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Word)
+        currentUtterance = currentUtterance + 1
+        speak()
     }
     
     func goBack() {
         print("Swiped right at Cursor Position: \(currentCursorPosition)")
+        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Word)
+        currentUtterance = currentUtterance - 1
+        speak()
     }
 }
