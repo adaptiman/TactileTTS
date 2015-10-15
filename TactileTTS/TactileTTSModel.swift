@@ -144,7 +144,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
                 print("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
                 speechSynthesizer.continueSpeaking()
             } else {
-                speechSynthesizer.pauseSpeakingAtBoundary(AVSpeechBoundary.Word)
+                speechSynthesizer.pauseSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 print("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             }
         }
@@ -156,7 +156,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         if currentUtterance == totalUtterances - 1 {
             //do nothing
         } else {
-            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Word)
+            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
             currentUtterance = currentUtterance + 1
             speak()
         }
@@ -168,7 +168,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         if currentUtterance == 0 {
             //do nothing
         } else {
-            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Word)
+            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
             currentUtterance = currentUtterance - 1
             speak()
         }
