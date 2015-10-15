@@ -42,13 +42,15 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         spokenTextLength = spokenTextLength + utterance.speechString.utf16.count + 1
         print ("Spoken Characters: \(spokenTextLength)") //this is the number of chars with a 0 array
         
+        //if the utterance finished, increment the currentUtterance to the next utterance
+        currentUtterance = currentUtterance + 1
+        
         if currentUtterance == totalUtterances {
             //do something when the utterance is done
         }
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
-        //currentUtterance = currentUtterance + 1
         print("Current Utterance: \(currentUtterance)")
     }
     
@@ -101,7 +103,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         for utterance in utteranceArray {
             totalTextLength = totalTextLength + (utterance as! String).utf16.count + 1 //+1 added to allow for space between utterances
         }
-        print("Total chars: \(totalTextLength)") //# of chars in each utterance
+        print("Total chars: \(totalTextLength)") //# of chars in all utterances
         
         return utteranceArray
     }
@@ -109,7 +111,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     private func speak() {
         
         //for utterance in utteranceArray {
-
+        
         for i in currentUtterance..<utteranceArray.count {
             
             let speechUtterance = AVSpeechUtterance(string: utteranceArray[i] as! String)
@@ -120,7 +122,6 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             speechUtterance.postUtteranceDelay = postUtteranceDelay
             
             speechSynthesizer.speakUtterance(speechUtterance)
-            
         }
     }
 
@@ -140,26 +141,36 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     func pauseContinue() {
         if speechSynthesizer.speaking {
             if speechSynthesizer.paused {
-                print("C,\(currentCursorPosition)")
+                print("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
                 speechSynthesizer.continueSpeaking()
             } else {
                 speechSynthesizer.pauseSpeakingAtBoundary(AVSpeechBoundary.Word)
-                print("P,\(currentCursorPosition)")
+                print("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             }
         }
     }
     
     func goForward() {
-        print("Swiped left at Cursor Position: \(currentCursorPosition)")
-        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Word)
-        currentUtterance = currentUtterance + 1
-        speak()
+        print("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+
+        if currentUtterance == totalUtterances - 1 {
+            //do nothing
+        } else {
+            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Word)
+            currentUtterance = currentUtterance + 1
+            speak()
+        }
     }
     
     func goBack() {
-        print("Swiped right at Cursor Position: \(currentCursorPosition)")
-        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Word)
-        currentUtterance = currentUtterance - 1
-        speak()
+        print("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+   
+        if currentUtterance == 0 {
+            //do nothing
+        } else {
+            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Word)
+            currentUtterance = currentUtterance - 1
+            speak()
+        }
     }
 }
