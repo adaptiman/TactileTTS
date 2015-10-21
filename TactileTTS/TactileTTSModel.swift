@@ -16,7 +16,8 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     private var totalTextLength: Int! = 0
     private var spokenTextLength: Int! = 0
     private var currentCursorPosition: Int! = 0
-    private var utteranceArray: [AnyObject] = []
+//    private var utteranceArray: [AnyObject] = []
+    private var utteranceArray:[(utterance: String, utteranceLength: Int)] = []
     private enum ParseType { case ByParagraph, BySentence, ByWord }
     
     private var rate: Float! = 0.55
@@ -40,18 +41,19 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
         
         spokenTextLength = spokenTextLength + utterance.speechString.utf16.count + 1
-        print ("Spoken Characters: \(spokenTextLength)") //this is the number of chars with a 0 array
+        //print ("Spoken Characters: \(spokenTextLength)") //this is the number of chars with a 0 array
         
         //if the utterance finished, increment the currentUtterance to the next utterance
         currentUtterance = currentUtterance + 1
         
         if currentUtterance == totalUtterances {
-            //do something when the utterance is done
+            //do something when the entire text is done
         }
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
-        print("Current Utterance: \(currentUtterance)")
+        print("currentUtterance: \(currentUtterance)")
+        print("spokenTextLength: \(spokenTextLength)")
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
@@ -63,26 +65,33 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     //
     //
     
-    private func getParagraphs(theText:NSString) -> (NSArray) {
-        //load and calculate paragraphs
-        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet (charactersInString: "\n\n"))
+    private func getParagraphs(theText:NSString) -> [(utterance: String, utteranceLength: Int)] {
+//        //load and calculate paragraphs
+//        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet (charactersInString: "\n\n"))
         return(utteranceArray)
     }
     
-    private func getSentences(theText:NSString) -> (NSArray) {
+    private func getSentences(theText:NSString) -> [(utterance: String, utteranceLength: Int)] {
         //load and calculate sentences
-        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
-        utteranceArray.removeAtIndex(utteranceArray.count-1) //removes blank sentence at end of array
+        
+        let tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
+        for i in 0..<tempArray.count - 1 {
+            utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1)]
+            print("\(utteranceArray[i])")
+        }
+        
+        //utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
+        //utteranceArray.removeAtIndex(utteranceArray.count-1) //removes blank sentence at end of array
         return (utteranceArray)
     }
     
-    private func getWords(theText:NSString) -> (NSArray) {
-        //load and calculate words
-        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        return(utteranceArray)
-    }
+//    private func getWords(theText:NSString) -> (NSArray) {
+//        //load and calculate words
+//        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+//        return()
+//    }
     
-    private func parse(theText: NSString, parseMethod: ParseType) -> NSArray {
+    private func parse(theText: NSString, parseMethod: ParseType) -> [(utterance: String, utteranceLength: Int)] {
         switch parseMethod {
         case .ByParagraph:
             _ = getParagraphs(theText)
@@ -91,7 +100,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             _ = getSentences(theText)
             print("Utterance level is: sentence")
         case .ByWord:
-            _ = getWords(theText)
+//            _ = getWords(theText)
             print("Utterance level is: word")
         }
         
@@ -100,9 +109,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         print("Total utterances = \(totalUtterances)")
 
         //calculate total characters
-        for utterance in utteranceArray {
-            totalTextLength = totalTextLength + (utterance as! String).utf16.count + 1 //+1 added to allow for space between utterances
-        }
+        totalTextLength = utteranceArray.reduce(0){$0 + $1.utteranceLength}
         print("Total chars: \(totalTextLength)") //# of chars in all utterances
         
         return utteranceArray
@@ -114,7 +121,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         
         for i in currentUtterance..<utteranceArray.count {
             
-            let speechUtterance = AVSpeechUtterance(string: utteranceArray[i] as! String)
+            let speechUtterance = AVSpeechUtterance(string: utteranceArray[i].0)
             
             speechUtterance.rate = rate
             speechUtterance.pitchMultiplier = pitch
@@ -131,11 +138,10 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     //
     
     func startExperiment(theText: NSString) {
-        
-        utteranceArray = parse(theText, parseMethod: .BySentence) as [AnyObject]
+        utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
         currentUtterance = 0
+        spokenTextLength = 1
         speak()
-        
     }
     
     func pauseContinue() {
@@ -157,6 +163,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             //do nothing
         } else {
             speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+            spokenTextLength = spokenTextLength + utteranceArray[currentUtterance].utteranceLength
             currentUtterance = currentUtterance + 1
             speak()
         }
@@ -170,6 +177,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         } else {
             speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
             currentUtterance = currentUtterance - 1
+            spokenTextLength = spokenTextLength - utteranceArray[currentUtterance].utteranceLength
             speak()
         }
     }
