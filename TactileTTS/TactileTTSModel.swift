@@ -76,12 +76,13 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         
         let tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
         for i in 0..<tempArray.count - 1 {
-            utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1)]
+            if i == 0 { //this fixes the funky componentsSeparatedByCharactersInSet parsing on the first element
+                utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2)]
+            } else {
+                utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1)]
+            }
             print("\(utteranceArray[i])")
         }
-        
-        //utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
-        //utteranceArray.removeAtIndex(utteranceArray.count-1) //removes blank sentence at end of array
         return (utteranceArray)
     }
     
