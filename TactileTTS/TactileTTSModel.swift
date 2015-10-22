@@ -22,7 +22,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     private var rate: Float! = 0.55
     private var pitch: Float! = 0.01
     private var volume: Float! = 1.0
-    private var postUtteranceDelay: Double! = 0.05
+    private var postUtteranceDelay: Double! = 0.5
     
     private let speechSynthesizer = AVSpeechSynthesizer()
     
