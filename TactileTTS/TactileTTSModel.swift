@@ -22,7 +22,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     private var rate: Float! = 0.55
     private var pitch: Float! = 0.01
     private var volume: Float! = 1.0
-    private var postUtteranceDelay: Double! = 0.005
+    private var postUtteranceDelay: Double! = 0.05
     
     private let speechSynthesizer = AVSpeechSynthesizer()
     
@@ -76,7 +76,12 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         //load and calculate sentences
         let tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
         for i in 0..<tempArray.count - 1 {
-            if i == 0 { //this fixes the funky componentsSeparatedByCharactersInSet parsing on the first element
+//            this fixes the funky componentsSeparatedByCharactersInSet parsing on the first
+//            element, which does NOT have a space attached to the front of the string and
+//            adds a space at the end of the string. In all other cases, the function
+//            adds a space at the beginning of the string (from the space between the
+//            sentences)
+            if i == 0 {
                 utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2)]
             } else {
                 utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1)]
@@ -118,6 +123,10 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     
     private func speak() {
         
+        if speechSynthesizer.speaking {
+            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+        }
+        
         for i in currentUtterance..<utteranceArray.count {
             
             let speechUtterance = AVSpeechUtterance(string: utteranceArray[i].0)
@@ -156,24 +165,24 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     func goForward() {
         print("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
 
-        if currentUtterance == totalUtterances - 1 {
+        if currentUtterance == totalUtterances - 1 { //i.e. if it's the last utterance
             //do nothing
         } else {
-            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
             currentUtterance = currentUtterance + 1
-            speak()
         }
+        
+        speak()
     }
     
     func goBack() {
         print("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
    
-        if currentUtterance == 0 {
+        if currentUtterance == 0 { //i.e. if it's the first utterance
             //do nothing
         } else {
-            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
             currentUtterance = currentUtterance - 1
-            speak()
         }
+        
+        speak()
     }
 }
