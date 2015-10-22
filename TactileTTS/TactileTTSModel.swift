@@ -22,7 +22,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     private var rate: Float! = 0.55
     private var pitch: Float! = 0.01
     private var volume: Float! = 1.0
-    private var postUtteranceDelay: Double! = 0.5
+    private var postUtteranceDelay: Double! = 0.0
     
     private let speechSynthesizer = AVSpeechSynthesizer()
     
@@ -46,6 +46,8 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         
         if currentUtterance == totalUtterances {
             //do something when the entire text is done
+        } else {
+            speak()
         }
     }
     
@@ -86,7 +88,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             } else {
                 utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1)]
             }
-            print("\(utteranceArray[i])")
+//            print("\(utteranceArray[i])")
         }
         return (utteranceArray)
     }
@@ -127,17 +129,8 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         }
         
-        for i in currentUtterance..<utteranceArray.count {
-            
-            let speechUtterance = AVSpeechUtterance(string: utteranceArray[i].0)
-            
-            speechUtterance.rate = rate
-            speechUtterance.pitchMultiplier = pitch
-            speechUtterance.volume = volume
-            speechUtterance.postUtteranceDelay = postUtteranceDelay
-            
-            speechSynthesizer.speakUtterance(speechUtterance)
-        }
+        speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[currentUtterance].utterance))
+
     }
 
     //public functions
@@ -169,9 +162,10 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             //do nothing
         } else {
             currentUtterance = currentUtterance + 1
+            speak()
         }
         
-        speak()
+        
     }
     
     func goBack() {
