@@ -109,13 +109,15 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         return utteranceArray
     }
     
-    private func navigate(navigate: NavigationType ) {
+    private func navigate(navigate: NavigationType) {
             
         switch navigate {
             
         case .Next:
-            currentUtterance = currentUtterance + 1
-            speak(currentUtterance)
+            if currentUtterance !=  totalUtterances - 1 {
+                currentUtterance = currentUtterance + 1
+                speak(currentUtterance)
+            }
             
         case .Forward:
             print("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
@@ -133,7 +135,6 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             }
             
         case .PausePlay:
-            print("PausePlay")
             if speechSynthesizer.speaking {
                 if speechSynthesizer.paused {
                     print("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
@@ -158,9 +159,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     //
     
     func speakTheText(theText: NSString) {
-        
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
-
         speak(currentUtterance)
     }
     
