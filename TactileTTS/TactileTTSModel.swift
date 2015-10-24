@@ -37,27 +37,22 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
         
-        print("didStartSpeechUtterance")
-        
         utteranceWasInterruptedByNavigation = false
         
         spokenTextLength = utteranceArray[0..<currentUtterance].reduce(0){$0 + $1.utteranceLength}
         
-        print("currentUtterance: \(currentUtterance)")
-        print("spokenTextLength: \(spokenTextLength)")
+        //print("currentUtterance: \(currentUtterance)")
+        //print("spokenTextLength: \(spokenTextLength)")
         
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         
-        //print("willSpeakRangeOfSpeechString")
         currentCursorPosition = (spokenTextLength + characterRange.location)
     }
     
 
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
-        
-        print("didFinishSpeechUtterance")
         
         navigate(.Next)
     }
