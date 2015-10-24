@@ -11,6 +11,7 @@ import AVFoundation
 
 class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
 {
+    private var utteranceWasInterruptedByNavigation: Bool = false
     private var totalUtterances: Int! = 0
     private var currentUtterance: Int! = 0
     private var totalTextLength: Int! = 0
@@ -18,7 +19,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     private var currentCursorPosition: Int! = 0
     private var utteranceArray:[(utterance: String, utteranceLength: Int)] = []
     private enum ParseType { case ByParagraph, BySentence, ByWord }
-    private enum NavigationType { case Next, Backward, Forward, PausePlay }
+    private enum NavigationType { case Next, Backward, Forward, PauseOrPlay }
     
     private let speechSynthesizer = AVSpeechSynthesizer()
     
@@ -33,11 +34,13 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     //
     //
     
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
-        navigate(.Next)
-    }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
+        
+        print("didStartSpeechUtterance")
+        
+        utteranceWasInterruptedByNavigation = false
+        
         spokenTextLength = utteranceArray[0..<currentUtterance].reduce(0){$0 + $1.utteranceLength}
         
         print("currentUtterance: \(currentUtterance)")
@@ -46,9 +49,19 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     }
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
+        
+        //print("willSpeakRangeOfSpeechString")
         currentCursorPosition = (spokenTextLength + characterRange.location)
     }
     
+
+    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
+        
+        print("didFinishSpeechUtterance")
+        
+        navigate(.Next)
+    }
+
     //private speech synthesizer functions
     //
     //
@@ -114,9 +127,11 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         switch navigate {
             
         case .Next:
-            if currentUtterance !=  totalUtterances - 1 {
-                currentUtterance = currentUtterance + 1
-                speak(currentUtterance)
+            if !utteranceWasInterruptedByNavigation {
+                if currentUtterance !=  totalUtterances - 1 {
+                    currentUtterance = currentUtterance + 1
+                    speak(currentUtterance)
+                }
             }
             
         case .Forward:
@@ -134,7 +149,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
                 speak(currentUtterance)
             }
             
-        case .PausePlay:
+        case .PauseOrPlay:
             if speechSynthesizer.speaking {
                 if speechSynthesizer.paused {
                     print("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
@@ -164,14 +179,16 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     }
     
     func pauseContinue() {
-        navigate(.PausePlay)
+        navigate(.PauseOrPlay)
     }
     
     func goForward() {
+        utteranceWasInterruptedByNavigation = true
         navigate(.Forward)
     }
     
     func goBack() {
+        utteranceWasInterruptedByNavigation = true
         navigate(.Backward)
 
     }
