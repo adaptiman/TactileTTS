@@ -11,6 +11,8 @@ import AVFoundation
 
 class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
 {
+    private var responseArray: [String] = []
+    private var responseString: String = ""
     private var utteranceWasInterruptedByNavigation: Bool = false
     private var totalUtterances: Int! = 0
     private var currentUtterance: Int! = 0
@@ -61,6 +63,18 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     //
     //
     //
+    
+    private func encodeResultsToJSON(theResponseArray: [String]) -> String {
+        
+        var error:NSError? = nil
+        
+        let data = NSJSONSerialization.dataWithJSONObject
+            
+            theResponseArray, options: nil, error: &error)
+        responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+        
+        return responseString
+    }
     
     private func getParagraphs(theText:NSString) -> [(utterance: String, utteranceLength: Int)] {
 //        //load and calculate paragraphs
@@ -118,7 +132,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     }
     
     private func navigate(navigate: NavigationType) {
-            
+
         switch navigate {
             
         case .Next:
