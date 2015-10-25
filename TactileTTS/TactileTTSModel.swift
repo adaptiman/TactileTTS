@@ -11,8 +11,8 @@ import AVFoundation
 
 class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
 {
-    private var responseArray: [String] = []
-    private var responseString: String = ""
+    private var responseArray: [NSString] = []
+    private var responseString: NSString = ""
     private var utteranceWasInterruptedByNavigation: Bool = false
     private var totalUtterances: Int! = 0
     private var currentUtterance: Int! = 0
@@ -56,6 +56,11 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
 
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
         
+        if currentUtterance ==  totalUtterances - 1 { //the last utterance is finished
+            responseString = encodeResultsToJSON(responseArray)
+            print(responseString)
+        }
+        
         navigate(.Next)
     }
 
@@ -64,14 +69,10 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     //
     //
     
-    private func encodeResultsToJSON(theResponseArray: [String]) -> String {
+    private func encodeResultsToJSON(theResponseArray: [NSString]) -> NSString {
         
-        var error:NSError? = nil
-        
-        let data = NSJSONSerialization.dataWithJSONObject
-            
-            theResponseArray, options: nil, error: &error)
-        responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+        let data = try? NSJSONSerialization.dataWithJSONObject(theResponseArray, options: .PrettyPrinted)
+        responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)!
         
         return responseString
     }
@@ -115,6 +116,8 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         case .BySentence:
             _ = getSentences(theText)
             print("Utterance level is: sentence")
+            responseArray.append("Utterance level is: sentence")
+            
         case .ByWord:
 //            _ = getWords(theText)
             print("Utterance level is: word")
@@ -123,10 +126,12 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         //calculate total utterances
         totalUtterances = utteranceArray.count
         print("Total utterances = \(totalUtterances)")
+        responseArray.append("Total utterances = \(totalUtterances)")
 
         //calculate total characters
         totalTextLength = utteranceArray.reduce(0){$0 + $1.utteranceLength}
         print("Total chars: \(totalTextLength)") //# of chars in all utterances
+        responseArray.append("Total chars: \(totalTextLength)")
         
         return utteranceArray
     }
@@ -137,7 +142,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             
         case .Next:
             if !utteranceWasInterruptedByNavigation {
-                if currentUtterance !=  totalUtterances - 1 {
+                if currentUtterance !=  totalUtterances - 1 { //not the last utterance
                     currentUtterance = currentUtterance + 1
                     speak(currentUtterance)
                 }
@@ -145,6 +150,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             
         case .Forward:
             print("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            responseArray.append("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             if currentUtterance !=  totalUtterances - 1 { //i.e. if it's NOT the last utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 currentUtterance = currentUtterance + 1
@@ -152,6 +158,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             }
         case .Backward:
             print("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            responseArray.append("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             if currentUtterance != 0 { //i.e. if it's NOT the first utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 currentUtterance = currentUtterance - 1
@@ -162,10 +169,12 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
             if speechSynthesizer.speaking {
                 if speechSynthesizer.paused {
                     print("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+                    responseArray.append("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
                     speechSynthesizer.continueSpeaking()
                 } else {
                     speechSynthesizer.pauseSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                     print("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+                    responseArray.append("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
                 }
             }
         }
