@@ -11,8 +11,9 @@ import AVFoundation
 
 class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
 {
+    var responseString: NSString = ""
+    
     private var responseArray: [NSString] = []
-    private var responseString: NSString = ""
     private var utteranceWasInterruptedByNavigation: Bool = false
     private var totalUtterances: Int! = 0
     private var currentUtterance: Int! = 0
@@ -57,8 +58,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
         
         if currentUtterance ==  totalUtterances - 1 { //the last utterance is finished
-            responseString = encodeResultsToJSON(responseArray)
-            print(responseString)
+            endTheProtocol()
         }
         
         navigate(.Next)
@@ -71,55 +71,47 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     
     private func encodeResultsToJSON(theResponseArray: [NSString]) -> NSString {
         
-        let data = try? NSJSONSerialization.dataWithJSONObject(theResponseArray, options: .PrettyPrinted)
+        let data = try? NSJSONSerialization.dataWithJSONObject(theResponseArray, options: NSJSONWritingOptions())
+        
         responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)!
         
         return responseString
     }
     
-    private func getParagraphs(theText:NSString) -> [(utterance: String, utteranceLength: Int)] {
-//        //load and calculate paragraphs
-//        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet (charactersInString: "\n\n"))
-        return(utteranceArray)
-    }
     
     private func getSentences(theText:NSString) -> [(utterance: String, utteranceLength: Int)] {
+ 
         //load and calculate sentences
         let tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
+        
         for i in 0..<tempArray.count - 1 {
-//            this fixes the funky componentsSeparatedByCharactersInSet parsing on the first
-//            element, which does NOT have a space attached to the front of the string and
-//            adds a space at the end of the string. In all other cases, the function
-//            adds a space at the beginning of the string (from the space between the
-//            sentences)
+//            this fixes the funky componentsSeparatedByCharactersInSet parsing on the first element
             if i == 0 {
                 utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2)]
             } else {
                 utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1)]
             }
+            
 //            print("\(utteranceArray[i])")
         }
+        
         return (utteranceArray)
     }
-    
-//    private func getWords(theText:NSString) -> (NSArray) {
-//        //load and calculate words
-//        utteranceArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-//        return()
-//    }
+
     
     private func parse(theText: NSString, parseMethod: ParseType) -> [(utterance: String, utteranceLength: Int)] {
+        
         switch parseMethod {
+        
         case .ByParagraph:
-//            _ = getParagraphs(theText)
             print("Utterance level is: paragraph")
+        
         case .BySentence:
             _ = getSentences(theText)
             print("Utterance level is: sentence")
             responseArray.append("Utterance level is: sentence")
             
         case .ByWord:
-//            _ = getWords(theText)
             print("Utterance level is: word")
         }
         
@@ -145,6 +137,9 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
                 if currentUtterance !=  totalUtterances - 1 { //not the last utterance
                     currentUtterance = currentUtterance + 1
                     speak(currentUtterance)
+                } else {
+                    responseString = encodeResultsToJSON(responseArray)
+                    print(responseString)
                 }
             }
             
@@ -156,6 +151,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
                 currentUtterance = currentUtterance + 1
                 speak(currentUtterance)
             }
+            
         case .Backward:
             print("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             responseArray.append("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
@@ -182,6 +178,7 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     
     
     private func speak(utteranceIndex: Int) {
+        
         speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance))
     }
     
@@ -191,22 +188,35 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
     //
     //
     
-    func speakTheText(theText: NSString) {
+    func runTheProtocol(theText: NSString) {
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
         speak(currentUtterance)
     }
     
+    func endTheProtocol() -> NSString {
+        
+        responseString = encodeResultsToJSON(responseArray)
+        print(responseString)
+        
+        return responseString
+    }
+    
     func pauseContinue() {
+        
         navigate(.PauseOrPlay)
     }
     
     func goForward() {
+        
         utteranceWasInterruptedByNavigation = true
+        
         navigate(.Forward)
     }
     
     func goBack() {
+        
         utteranceWasInterruptedByNavigation = true
+        
         navigate(.Backward)
 
     }
