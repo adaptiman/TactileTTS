@@ -8,11 +8,16 @@
 
 import Foundation
 import AVFoundation
+import UIKit
 
-class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
+struct ProtocolCompleted {
+    static let Notification = "TTS Notifier"
+    static let Key = "Response Result"
+}
+
+class TactileTTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
 {
-    var responseString: NSString = ""
-    
+    private var responseString: NSString = ""
     private var responseArray: [NSString] = []
     private var utteranceWasInterruptedByNavigation: Bool = false
     private var totalUtterances: Int! = 0
@@ -59,9 +64,11 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         
         if currentUtterance ==  totalUtterances - 1 { //the last utterance is finished
             endTheProtocol()
-        }
         
+        } else {
         navigate(.Next)
+        
+        }
     }
 
     //private speech synthesizer functions
@@ -128,18 +135,15 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         return utteranceArray
     }
     
-    private func navigate(navigate: NavigationType) {
+    private func navigate(go: NavigationType) {
 
-        switch navigate {
+        switch go {
             
         case .Next:
             if !utteranceWasInterruptedByNavigation {
                 if currentUtterance !=  totalUtterances - 1 { //not the last utterance
                     currentUtterance = currentUtterance + 1
                     speak(currentUtterance)
-                } else {
-                    responseString = encodeResultsToJSON(responseArray)
-                    print(responseString)
                 }
             }
             
@@ -159,6 +163,10 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 currentUtterance = currentUtterance - 1
                 speak(currentUtterance)
+            } else { //it IS the first utterance
+                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+                speak(currentUtterance)
+
             }
             
         case .PauseOrPlay:
@@ -193,14 +201,18 @@ class TactileTTSModel: NSObject, AVSpeechSynthesizerDelegate
         speak(currentUtterance)
     }
     
-    func endTheProtocol() -> NSString {
+    func endTheProtocol() {
         
         responseString = encodeResultsToJSON(responseArray)
         print(responseString)
         
-        return responseString
+        //broadcast notification that all speech is done
+        let center = NSNotificationCenter.defaultCenter()
+        let notification = NSNotification(name: ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: responseString])
+        center.postNotification(notification)
+        print(notification)
     }
-    
+
     func pauseContinue() {
         
         navigate(.PauseOrPlay)

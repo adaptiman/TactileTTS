@@ -37,8 +37,19 @@ class ViewController: UIViewController {
         
         tts.runTheProtocol(tvMaterial.text)
         
-//        let responseURL = tts.endTheProtocol()
-//        UIApplication.sharedApplication().openURL(NSURL(string:"http://www.reddit.com/\(responseURL)")!)
+        let center = NSNotificationCenter.defaultCenter()
+        let queue = NSOperationQueue.mainQueue()
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        center.addObserverForName(ProtocolCompleted.Notification, object: appDelegate, queue: queue) { notification in
+            
+            if let results = notification.userInfo?[ProtocolCompleted.Key] as? String {
+                
+                print("notification received: \(results)")
+                UIApplication.sharedApplication().openURL(NSURL(string:"https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?resultstring=\(results)")!)
+            
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
