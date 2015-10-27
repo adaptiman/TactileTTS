@@ -46,7 +46,7 @@ class ViewController: UIViewController {
     
     func passResults(object: NSNotification) {
         
-        print("Got Notification \(object.userInfo)")
+        print("Got Notification")
         
         let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?resultstring="
         let dataString = object.userInfo!["Response Result"] as! NSString

@@ -10,14 +10,13 @@ import Foundation
 import AVFoundation
 import UIKit
 
-struct ProtocolCompleted {
+struct ProtocolCompleted { //NSNotification object definition
     static let Notification = "TTS Notifier"
     static let Key = "Response Result"
 }
 
 class TactileTTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
 {
-    private var responseString: NSString = ""
     private var responseArray: [NSString] = []
     private var utteranceWasInterruptedByNavigation: Bool = false
     private var totalUtterances: Int! = 0
@@ -54,6 +53,7 @@ class TactileTTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDe
         
     }
     
+    
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         
         currentCursorPosition = (spokenTextLength + characterRange.location)
@@ -80,7 +80,7 @@ class TactileTTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDe
         
         let data = try? NSJSONSerialization.dataWithJSONObject(theResponseArray, options: NSJSONWritingOptions())
         
-        responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)!
+        let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)!
         
         return responseString
     }
@@ -134,6 +134,7 @@ class TactileTTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDe
         
         return utteranceArray
     }
+    
     
     private func navigate(go: NavigationType) {
 
@@ -196,25 +197,29 @@ class TactileTTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDe
     //
     //
     
+    
     func runTheProtocol(theText: NSString) {
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
         speak(currentUtterance)
     }
     
+    
     func endTheProtocol() {
         
-        responseString = encodeResultsToJSON(responseArray)
-        print(responseString)
+        let jsonString = encodeResultsToJSON(responseArray)
+        let urlEncodedJson = jsonString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         
         //broadcast notification that all speech is done
         let center = NSNotificationCenter.defaultCenter()
-        center.postNotificationName(ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: responseString])
+        center.postNotificationName(ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: urlEncodedJson!])
     }
 
+    
     func pauseContinue() {
         
         navigate(.PauseOrPlay)
     }
+    
     
     func goForward() {
         
@@ -222,6 +227,7 @@ class TactileTTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDe
         
         navigate(.Forward)
     }
+    
     
     func goBack() {
         
