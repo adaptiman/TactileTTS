@@ -35,21 +35,26 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        //process the text object through the speech navigation model
         tts.runTheProtocol(tvMaterial.text)
         
+        //setup a notifier to fire when the protcol is done.
         let center = NSNotificationCenter.defaultCenter()
-        let queue = NSOperationQueue.mainQueue()
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        center.addObserver(self, selector: "passResults:", name: ProtocolCompleted.Notification, object: nil)
+
+    }
+    
+    func passResults(object: NSNotification) {
         
-        center.addObserverForName(ProtocolCompleted.Notification, object: appDelegate, queue: queue) { notification in
-            
-            if let results = notification.userInfo?[ProtocolCompleted.Key] as? String {
-                
-                print("notification received: \(results)")
-                UIApplication.sharedApplication().openURL(NSURL(string:"https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?resultstring=\(results)")!)
-            
-            }
-        }
+        print("Got Notification \(object.userInfo)")
+        
+        let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?resultstring="
+        let dataString = object.userInfo!["Response Result"] as! NSString
+        
+        let sendToURL = surveyString + (dataString as String)
+        print(sendToURL)
+        UIApplication.sharedApplication().openURL(NSURL(string:sendToURL)!)
+        
     }
 
     override func didReceiveMemoryWarning() {

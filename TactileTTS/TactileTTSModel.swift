@@ -208,9 +208,7 @@ class TactileTTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDe
         
         //broadcast notification that all speech is done
         let center = NSNotificationCenter.defaultCenter()
-        let notification = NSNotification(name: ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: responseString])
-        center.postNotification(notification)
-        print(notification)
+        center.postNotificationName(ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: responseString])
     }
 
     func pauseContinue() {
