@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TTSProtocolViewController.swift
 //  TactileTTS
 //
 //  Created by David Sweeney on 7/21/15.
@@ -8,35 +8,42 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TTSProtocolViewController: UIViewController {
 
     @IBOutlet weak var tvMaterial: UITextView!
     
 
     @IBAction func tap(sender: UITapGestureRecognizer) {
         
-        tts.pauseContinue()
+        ttsProtocol.pauseContinue()
     }
     
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
         
-        tts.goBack()
+        ttsProtocol.goBack()
     }
     
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
         
-        tts.goForward()
+        ttsProtocol.goForward()
     }
     
-    var tts = TactileTTSModel()
+    var ttsProtocol = TTSProtocolModel()
     
     override func viewDidLoad() {
        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        
+        //generate a participant UUID that will be used to identify the participant
+        let uuid = NSUUID().UUIDString
+        print("userID:\(uuid)")
+        
+        
+        
         //process the text object through the speech navigation model
-        tts.runTheProtocol(tvMaterial.text)
+        ttsProtocol.runTheProtocol(tvMaterial.text)
         
         //setup a notifier to fire when the protcol is done.
         let center = NSNotificationCenter.defaultCenter()

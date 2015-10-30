@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		848AC46F1B5F25B5001195A9 /* TactileTTSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AC46E1B5F25B5001195A9 /* TactileTTSModel.swift */; };
+		848AC46F1B5F25B5001195A9 /* TTSProtocolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */; };
 		84BAF3C71B5F158300B47AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAF3C61B5F158300B47AEB /* AppDelegate.swift */; };
-		84BAF3C91B5F158300B47AEB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAF3C81B5F158300B47AEB /* ViewController.swift */; };
+		84BAF3C91B5F158300B47AEB /* TTSProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */; };
 		84BAF3CC1B5F158300B47AEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BAF3CA1B5F158300B47AEB /* Main.storyboard */; };
 		84BAF3CE1B5F158300B47AEB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84BAF3CD1B5F158300B47AEB /* Images.xcassets */; };
 		84BAF3D11B5F158300B47AEB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BAF3CF1B5F158300B47AEB /* LaunchScreen.xib */; };
@@ -27,11 +27,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		848AC46E1B5F25B5001195A9 /* TactileTTSModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TactileTTSModel.swift; sourceTree = "<group>"; };
+		848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSProtocolModel.swift; sourceTree = "<group>"; };
 		84BAF3C11B5F158300B47AEB /* TactileTTS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TactileTTS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84BAF3C51B5F158300B47AEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84BAF3C61B5F158300B47AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84BAF3C81B5F158300B47AEB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSProtocolViewController.swift; sourceTree = "<group>"; };
 		84BAF3CB1B5F158300B47AEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84BAF3CD1B5F158300B47AEB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		84BAF3D01B5F158300B47AEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -79,8 +79,8 @@
 		84BAF3C31B5F158300B47AEB /* TactileTTS */ = {
 			isa = PBXGroup;
 			children = (
-				84BAF3C81B5F158300B47AEB /* ViewController.swift */,
-				848AC46E1B5F25B5001195A9 /* TactileTTSModel.swift */,
+				84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */,
+				848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */,
 				84BAF3CA1B5F158300B47AEB /* Main.storyboard */,
 				84BAF3C41B5F158300B47AEB /* Supporting Files */,
 			);
@@ -218,9 +218,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84BAF3C91B5F158300B47AEB /* ViewController.swift in Sources */,
+				84BAF3C91B5F158300B47AEB /* TTSProtocolViewController.swift in Sources */,
 				84BAF3C71B5F158300B47AEB /* AppDelegate.swift in Sources */,
-				848AC46F1B5F25B5001195A9 /* TactileTTSModel.swift in Sources */,
+				848AC46F1B5F25B5001195A9 /* TTSProtocolModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

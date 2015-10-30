@@ -1,5 +1,5 @@
 //
-//  TactileTTSModel.swift
+//  TTSProtocolModel.swift
 //  TactileTTS
 //
 //  Created by David Sweeney on 7/21/15.
@@ -15,7 +15,7 @@ struct ProtocolCompleted { //NSNotification object definition
     static let Key = "Response Result"
 }
 
-class TactileTTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
+class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
 {
     private var responseArray: [NSString] = []
     private var utteranceWasInterruptedByNavigation: Bool = false
