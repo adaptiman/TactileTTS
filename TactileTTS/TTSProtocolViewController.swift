@@ -35,13 +35,6 @@ class TTSProtocolViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
-        //generate a participant UUID that will be used to identify the participant
-        let uuid = NSUUID().UUIDString
-        print("userID:\(uuid)")
-        
-        
-        
         //process the text object through the speech navigation model
         ttsProtocol.runTheProtocol(tvMaterial.text)
         
@@ -55,7 +48,8 @@ class TTSProtocolViewController: UIViewController {
         
         print("Got Notification")
         
-        let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?resultstring="
+        //this is the phase two survey address
+        let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?resultString="
         let dataString = object.userInfo!["Response Result"] as! NSString
         
         let sendToURL = surveyString + (dataString as String)
