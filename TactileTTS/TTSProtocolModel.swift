@@ -203,16 +203,10 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance))
     }
     
-    
-
-    
     private func getTheText() {
-        //https://drive.google.com/a/thesweeneys.org/file/d/0BytYm_fvz4PoVUtBS3J6YnpSWGM/view?usp=sharing
-       
-        
-        let url = NSURL(string: "https://drive.google.com/a/thesweeneys.org/file/d/0BytYm_fvz4PoVUtBS3J6YnpSWGM/view?usp=sharing")
+        let url = NSURL(string: "https://raw.githubusercontent.com/adaptiman/TactileTTS/master/TactileTTS/gettysburg.txt")
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
-            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+             print(NSString(data: data!, encoding: NSUTF8StringEncoding))
         }
         task.resume()
     }
@@ -233,7 +227,6 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         responseArray.append("Group=\(String(groupId))")
         responseArray.append("Trial=\(String(trialNum))")
         
-        getTheText()
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
         speak(currentUtterance)
     }
