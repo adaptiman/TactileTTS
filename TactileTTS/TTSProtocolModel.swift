@@ -128,7 +128,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         case .BySentence:
             _ = getSentences(theText)
             print("Utterance level is: sentence")
-            responseArray.append("Utterance level is: sentence")
+            //responseArray.append("Utterance level is: sentence")
             
         case .ByWord:
             print("Utterance level is: word")
@@ -137,12 +137,12 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         //calculate total utterances
         totalUtterances = utteranceArray.count
         print("Total utterances = \(totalUtterances)")
-        responseArray.append("Total utterances = \(totalUtterances)")
+        //responseArray.append("Total utterances = \(totalUtterances)")
 
         //calculate total characters
         totalTextLength = utteranceArray.reduce(0){$0 + $1.utteranceLength}
         print("Total chars: \(totalTextLength)") //# of chars in all utterances
-        responseArray.append("Total chars: \(totalTextLength)")
+        //responseArray.append("Total chars: \(totalTextLength)")
         
         return utteranceArray
     }
@@ -206,33 +206,15 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     
 
     
-    private func getTheText() -> String {
+    private func getTheText() {
         //https://drive.google.com/a/thesweeneys.org/file/d/0BytYm_fvz4PoVUtBS3J6YnpSWGM/view?usp=sharing
+       
         
-//        let url = NSURL(string: "https://drive.google.com/a/thesweeneys.org/file/d/0BytYm_fvz4PoVUtBS3J6YnpSWGM/view?usp=sharing")
-//    
-//        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-//            
-//            if error == nil {
-//                
-//                var urlContent = NSString(data: data!, encoding: NSUTF8StringEncoding) as NSString!
-//                
-//                // Check if you have content
-//                
-//                if urlContent.length > 0 {
-//                    return urlContent
-//
-//                }
-//                
-//            } else {
-//                
-//                println("Error")
-//                
-//            }
-//            
-//        })
-        
-        return "oops"
+        let url = NSURL(string: "https://drive.google.com/a/thesweeneys.org/file/d/0BytYm_fvz4PoVUtBS3J6YnpSWGM/view?usp=sharing")
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+        }
+        task.resume()
     }
     
     //public functions
@@ -243,7 +225,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     
     func runTheProtocol(theText: NSString) {
         
-        //load some parameters into the responseArray
+        //load some stored parameters into the responseArray
         guid = defaults.objectForKey(participantKeys.participantGuidString) as! String
         groupId = defaults.objectForKey(participantKeys.participantGroupInt) as! Int
         trialNum = defaults.objectForKey(participantKeys.participantTrialInt) as! Int
@@ -251,6 +233,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         responseArray.append("Group=\(String(groupId))")
         responseArray.append("Trial=\(String(trialNum))")
         
+        getTheText()
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
         speak(currentUtterance)
     }
