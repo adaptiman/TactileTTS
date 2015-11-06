@@ -30,11 +30,15 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     
     private let speechSynthesizer = AVSpeechSynthesizer()
     
-    private struct participantKeys {
+    private struct participantKeys { //key labels
         static let participantGuidString = "participantGuidKey"
         static let participantGroupInt = "participantGroupKey"
         static let participantTrialInt = "participantTrialKey"
     }
+    
+    private var guid: String! = ""
+    private var groupId: Int! = 0
+    private var trialNum: Int! = 0
     
     private let defaults = NSUserDefaults.standardUserDefaults()
     
@@ -200,6 +204,37 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     }
     
     
+
+    
+    private func getTheText() -> String {
+        //https://drive.google.com/a/thesweeneys.org/file/d/0BytYm_fvz4PoVUtBS3J6YnpSWGM/view?usp=sharing
+        
+//        let url = NSURL(string: "https://drive.google.com/a/thesweeneys.org/file/d/0BytYm_fvz4PoVUtBS3J6YnpSWGM/view?usp=sharing")
+//    
+//        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+//            
+//            if error == nil {
+//                
+//                var urlContent = NSString(data: data!, encoding: NSUTF8StringEncoding) as NSString!
+//                
+//                // Check if you have content
+//                
+//                if urlContent.length > 0 {
+//                    return urlContent
+//
+//                }
+//                
+//            } else {
+//                
+//                println("Error")
+//                
+//            }
+//            
+//        })
+        
+        return "oops"
+    }
+    
     //public functions
     //
     //
@@ -209,9 +244,12 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     func runTheProtocol(theText: NSString) {
         
         //load some parameters into the responseArray
-        responseArray.append("GUID=\(defaults.objectForKey(participantKeys.participantGuidString) as? String ?? "")")
-        responseArray.append("Group=\(String(defaults.objectForKey(participantKeys.participantGroupInt)!) ?? "")")
-        responseArray.append("Trial=\(String(defaults.objectForKey(participantKeys.participantTrialInt)!) ?? "")")
+        guid = defaults.objectForKey(participantKeys.participantGuidString) as! String
+        groupId = defaults.objectForKey(participantKeys.participantGroupInt) as! Int
+        trialNum = defaults.objectForKey(participantKeys.participantTrialInt) as! Int
+        responseArray.append("GUID=\(guid)")
+        responseArray.append("Group=\(String(groupId))")
+        responseArray.append("Trial=\(String(trialNum))")
         
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
         speak(currentUtterance)
@@ -231,7 +269,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     
     func pauseContinue() {
         
-        navigate(.PauseOrPlay)
+        if groupId == 1 {navigate(.PauseOrPlay)}
     }
     
     
@@ -239,7 +277,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         
         utteranceWasInterruptedByNavigation = true
         
-        navigate(.Forward)
+        if groupId == 1 {navigate(.Forward)}
     }
     
     
@@ -247,7 +285,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         
         utteranceWasInterruptedByNavigation = true
         
-        navigate(.Backward)
+        if groupId == 1 {navigate(.Backward)}
 
     }
 }
