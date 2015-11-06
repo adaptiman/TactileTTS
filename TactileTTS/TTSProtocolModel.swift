@@ -30,6 +30,14 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     
     private let speechSynthesizer = AVSpeechSynthesizer()
     
+    private struct participantKeys {
+        static let participantGuidString = "participantGuidKey"
+        static let participantGroupInt = "participantGroupKey"
+        static let participantTrialInt = "participantTrialKey"
+    }
+    
+    private let defaults = NSUserDefaults.standardUserDefaults()
+    
 
     override init() {
         //initializer for the TactileTTS class
@@ -199,6 +207,12 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     
     
     func runTheProtocol(theText: NSString) {
+        
+        //load some parameters into the responseArray
+        responseArray.append("GUID=\(defaults.objectForKey(participantKeys.participantGuidString) as? String ?? "")")
+        responseArray.append("Group=\(defaults.objectForKey(participantKeys.participantGroupInt) as? String ?? "")")
+        responseArray.append("Trial=\(defaults.objectForKey(participantKeys.participantTrialInt) as? String ?? "")")
+        
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
         speak(currentUtterance)
     }

@@ -25,12 +25,15 @@
 			<string>edu.tamu.tactiletts</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>launchTactileTTS</string>
+				<string>tactiletts</string>
+				<string>tactiletts://startprotocol</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

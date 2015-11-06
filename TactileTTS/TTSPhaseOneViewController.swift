@@ -54,8 +54,7 @@ class TTSPhaseOneViewController: UIViewController {
         UIApplication.sharedApplication().openURL(NSURL(string:sendToURL)!)
         
         //terminate app
-         UIApplication.sharedApplication().
-            sharedApplication().terminate(self)
+        
     }
     
     

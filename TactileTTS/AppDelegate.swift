@@ -21,15 +21,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool
     {
-        NSLog("Calling Application Bundle ID: \(sourceApplication)")
-        NSLog("URL scheme: \(annotation)")
-        NSLog("URL query: \(url)")
+        //NSLog("Calling Application Bundle ID: \(sourceApplication)")
+        //NSLog("URL scheme: \(annotation)")
+        //NSLog("URL query: \(url)")
+        
+        let urlString = "\(url)"
+        
+        if urlString == "tactiletts://startprotocol" {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let protocolVC = storyboard.instantiateViewControllerWithIdentifier("protocolViewController")
+            self.window?.rootViewController?.presentViewController(protocolVC, animated: true, completion: nil)
+        }
+        
+        
+        
+        
+        
         return true;
     }
-    
-    
-    
-    
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
