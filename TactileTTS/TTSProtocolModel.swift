@@ -210,8 +210,8 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         
         //load some parameters into the responseArray
         responseArray.append("GUID=\(defaults.objectForKey(participantKeys.participantGuidString) as? String ?? "")")
-        responseArray.append("Group=\(defaults.objectForKey(participantKeys.participantGroupInt) as? String ?? "")")
-        responseArray.append("Trial=\(defaults.objectForKey(participantKeys.participantTrialInt) as? String ?? "")")
+        responseArray.append("Group=\(String(defaults.objectForKey(participantKeys.participantGroupInt)!) ?? "")")
+        responseArray.append("Trial=\(String(defaults.objectForKey(participantKeys.participantTrialInt)!) ?? "")")
         
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
         speak(currentUtterance)
