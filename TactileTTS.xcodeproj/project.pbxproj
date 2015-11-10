@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		845103A11BE46F320027AD53 /* TTSPhaseOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */; };
 		845103A31BE475DB0027AD53 /* TTSPhaseOneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845103A21BE475DB0027AD53 /* TTSPhaseOneModel.swift */; };
+		845159721BF270A900497219 /* swipe-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 845159711BF270A900497219 /* swipe-right.png */; };
+		845159741BF270BB00497219 /* swipe-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 845159731BF270BB00497219 /* swipe-left.png */; };
+		845159761BF270C900497219 /* tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 845159751BF270C900497219 /* tap.png */; };
 		848AC46F1B5F25B5001195A9 /* TTSProtocolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */; };
 		84BAF3C71B5F158300B47AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAF3C61B5F158300B47AEB /* AppDelegate.swift */; };
 		84BAF3C91B5F158300B47AEB /* TTSProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */; };
@@ -32,6 +35,9 @@
 /* Begin PBXFileReference section */
 		845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseOneViewController.swift; sourceTree = "<group>"; };
 		845103A21BE475DB0027AD53 /* TTSPhaseOneModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseOneModel.swift; sourceTree = "<group>"; };
+		845159711BF270A900497219 /* swipe-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "swipe-right.png"; sourceTree = "<group>"; };
+		845159731BF270BB00497219 /* swipe-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "swipe-left.png"; sourceTree = "<group>"; };
+		845159751BF270C900497219 /* tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tap.png; sourceTree = "<group>"; };
 		848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSProtocolModel.swift; sourceTree = "<group>"; };
 		84BAF3C11B5F158300B47AEB /* TactileTTS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TactileTTS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84BAF3C51B5F158300B47AEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -64,6 +70,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		845159701BF2708A00497219 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				845159751BF270C900497219 /* tap.png */,
+				845159731BF270BB00497219 /* swipe-left.png */,
+				845159711BF270A900497219 /* swipe-right.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		84BAF3B81B5F158300B47AEB = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +114,7 @@
 		84BAF3C41B5F158300B47AEB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				845159701BF2708A00497219 /* images */,
 				84BAF3CD1B5F158300B47AEB /* Images.xcassets */,
 				84BAF3CF1B5F158300B47AEB /* LaunchScreen.xib */,
 				84BAF3C61B5F158300B47AEB /* AppDelegate.swift */,
@@ -207,9 +224,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845159741BF270BB00497219 /* swipe-left.png in Resources */,
 				84BB685E1BECA1A1005478BC /* gettysburg.txt in Resources */,
 				84BAF3CC1B5F158300B47AEB /* Main.storyboard in Resources */,
+				845159721BF270A900497219 /* swipe-right.png in Resources */,
 				84BAF3D11B5F158300B47AEB /* LaunchScreen.xib in Resources */,
+				845159761BF270C900497219 /* tap.png in Resources */,
 				84BAF3CE1B5F158300B47AEB /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
