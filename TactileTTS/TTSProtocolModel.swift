@@ -1,5 +1,5 @@
 //
-//  TTSProtocolModel.swift
+//  TTSModel.swift
 //  TactileTTS
 //
 //  Created by David Sweeney on 7/21/15.
@@ -15,7 +15,7 @@ struct ProtocolCompleted { //NSNotification object definition
     static let Key = "Response Result"
 }
 
-class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
+class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
 {
     private var responseArray: [NSString] = []
     private var utteranceWasInterruptedByNavigation: Bool = false
@@ -42,7 +42,6 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     
     private let defaults = NSUserDefaults.standardUserDefaults()
     
-
     override init() {
         //initializer for the TactileTTS class
         super.init()
@@ -217,7 +216,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     //
     
     
-    func runTheProtocol(theText: NSString) {
+    func speakTheText(theText: NSString) {
         
         //load some stored parameters into the responseArray
         guid = defaults.objectForKey(participantKeys.participantGuidString) as! String
@@ -245,7 +244,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
     
     func pauseContinue() {
         
-        if groupId == 1 {navigate(.PauseOrPlay)}
+        if groupId >= 1 {navigate(.PauseOrPlay)}
     }
     
     
@@ -253,7 +252,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         
         utteranceWasInterruptedByNavigation = true
         
-        if groupId == 1 {navigate(.Forward)}
+        if groupId >= 1 {navigate(.Forward)}
     }
     
     
@@ -261,7 +260,7 @@ class TTSProtocolModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationD
         
         utteranceWasInterruptedByNavigation = true
         
-        if groupId == 1 {navigate(.Backward)}
+        if groupId >= 1 {navigate(.Backward)}
 
     }
 }

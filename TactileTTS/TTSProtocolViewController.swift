@@ -28,7 +28,7 @@ class TTSProtocolViewController: UIViewController {
         ttsProtocol.goForward()
     }
     
-    var ttsProtocol = TTSProtocolModel()
+    var ttsProtocol = TTSModel()
     
     override func viewDidLoad() {
        
@@ -36,7 +36,7 @@ class TTSProtocolViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         //process the text object through the speech navigation model
-        ttsProtocol.runTheProtocol(tvMaterial.text)
+        ttsProtocol.speakTheText(tvMaterial.text)
         
         //setup a notifier to fire when the protcol is done.
         let center = NSNotificationCenter.defaultCenter()
