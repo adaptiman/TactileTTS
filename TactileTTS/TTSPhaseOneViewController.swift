@@ -11,8 +11,9 @@ import UIKit
 class TTSPhaseOneViewController: UIViewController {
     
     
-    var phaseOne = TTSPhaseOneModel()
+//    var phaseOne = TTSPhaseOneModel()
     
+    let globals = GlobalStuff.sharedInstance
     
     
     override func viewDidLoad() {
@@ -22,32 +23,32 @@ class TTSPhaseOneViewController: UIViewController {
         
         
         //setup participant stored variables
-        if phaseOne.participantGuidExists() {
+        if globals.participantGuidExists() {
             print("Got the GUID")
         } else {
             print("FirstTimer, setting GUID")
-            phaseOne.generateParticipantGuid()
+            globals.generateParticipantGuid()
         }
         
-        if phaseOne.participantGroupExists() {
+        if globals.participantGroupExists() {
             print("Got the Group")
         } else {
             print("Assigning Group")
-            phaseOne.generateParticipantGroup()
+            globals.generateParticipantGroup()
         }
         
-        if phaseOne.participantTrialExists() {
+        if globals.participantTrialExists() {
             print("Been here before, adding trial")
-            phaseOne.generateParticipantTrial()
+            globals.generateParticipantTrial()
         } else {
             print("Setting Trial to 1")
-            phaseOne.participantTrial = 1
+            globals.participantTrial = 1
         }
         
         //start phase one survey
         //this is the phase one survey address
         let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_a9Le0B1mZmgux5b?"
-        let dataString = "participantGuid=\(phaseOne.participantGuid)&participantGroup=\(phaseOne.participantGroup)&participantTrial=\(phaseOne.participantTrial)"
+        let dataString = "participantGuid=\(globals.participantGuid)&participantGroup=\(globals.participantGroup)&participantTrial=\(globals.participantTrial)"
         
         let sendToURL = surveyString + dataString
         print(sendToURL)
@@ -57,8 +58,6 @@ class TTSPhaseOneViewController: UIViewController {
         
     }
     
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
