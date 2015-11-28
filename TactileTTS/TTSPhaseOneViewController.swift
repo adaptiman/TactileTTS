@@ -7,55 +7,94 @@
 //
 
 import UIKit
+import WebKit
 
-class TTSPhaseOneViewController: UIViewController {
+var trainingToken: dispatch_once_t = 0
+
+class TTSPhaseOneViewController: UIViewController, WKNavigationDelegate {
     
+    @IBOutlet var containerView: UIView!
     
-//    var phaseOne = TTSPhaseOneModel()
+    var webView: WKWebView!
+    var myTimer: NSTimer!
     
-    let globals = GlobalStuff.sharedInstance
+    let userManager = UserManager.sharedInstance
     
+    override func loadView() {
+        super.loadView()
+        self.webView = WKWebView()
+        self.view = self.webView
+        self.webView.navigationDelegate = self
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Part 1"
 
         // Do any additional setup after loading the view.
         
         
         //setup participant stored variables
-        if globals.participantGuidExists() {
+        if userManager.participantGuidExists() {
             print("Got the GUID")
         } else {
             print("FirstTimer, setting GUID")
-            globals.generateParticipantGuid()
+            userManager.generateParticipantGuid()
         }
         
-        if globals.participantGroupExists() {
+        if userManager.participantGroupExists() {
             print("Got the Group")
         } else {
             print("Assigning Group")
-            globals.generateParticipantGroup()
+            userManager.generateParticipantGroup()
         }
         
-        if globals.participantTrialExists() {
+        if userManager.participantTrialExists() {
             print("Been here before, adding trial")
-            globals.generateParticipantTrial()
+            userManager.generateParticipantTrial()
         } else {
             print("Setting Trial to 1")
-            globals.participantTrial = 1
+            userManager.participantTrial = 1
         }
         
         //start phase one survey
         //this is the phase one survey address
-        let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_a9Le0B1mZmgux5b?"
-        let dataString = "participantGuid=\(globals.participantGuid)&participantGroup=\(globals.participantGroup)&participantTrial=\(globals.participantTrial)"
+        let surveyString = "https://tamu.qualtrics.com/jfe/form/SV_a9Le0B1mZmgux5b?"
         
-        let sendToURL = surveyString + dataString
-        print(sendToURL)
-        UIApplication.sharedApplication().openURL(NSURL(string:sendToURL)!)
+        //this is the preview address
+        //let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_a9Le0B1mZmgux5b?"
+        let dataString = "participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)"
+        let url = NSURL(string: (surveyString + dataString))
+        print(url)
+        
+        //load the page in the WKWebView
+        let req = NSURLRequest(URL:url!)
+        self.webView!.loadRequest(req)
+        
+        //this block will open a sendToURL in Safari
+//        UIApplication.sharedApplication().openURL(NSURL(string:sendToURL)!)
+//        let requestObj = NSURLRequest(URL: sendToURL!)
+//        phaseOneWebView.loadRequest(requestObj)
+        
+        
+        //NSTimer
+        myTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "fireTimer", userInfo: nil, repeats: true)
         
         //terminate app
         
+    }
+    
+    func fireTimer() {
+        //print("tick")
+        self.webView.evaluateJavaScript("document.getElementById('EndOfSurvey')") { (response, error) -> Void in
+            print("\(response),\(error)")
+            if error != nil {
+                dispatch_once(&trainingToken, { () -> Void in
+                    self.performSegueWithIdentifier("training", sender: nil)
+                    self.myTimer.invalidate()
+                } )
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

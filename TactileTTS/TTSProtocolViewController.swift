@@ -30,6 +30,8 @@ class TTSProtocolViewController: UIViewController {
     
     var ttsProtocol = TTSModel()
     
+    private let userManager = UserManager.sharedInstance
+    
     override func viewDidLoad() {
        
         super.viewDidLoad()

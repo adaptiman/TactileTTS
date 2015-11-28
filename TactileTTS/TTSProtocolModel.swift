@@ -17,7 +17,7 @@ struct ProtocolCompleted { //NSNotification object definition
 
 class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
 {
-    private var responseArray: [NSString] = []
+//    private var responseArray: [NSString] = []
     private var utteranceWasInterruptedByNavigation: Bool = false
     private var totalUtterances: Int! = 0
     private var currentUtterance: Int! = 0
@@ -28,19 +28,10 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     private enum ParseType { case ByParagraph, BySentence, ByWord }
     private enum NavigationType { case Next, Backward, Forward, PauseOrPlay }
     
+    
     private let speechSynthesizer = AVSpeechSynthesizer()
     
-    private struct participantKeys { //key labels
-        static let participantGuidString = "participantGuidKey"
-        static let participantGroupInt = "participantGroupKey"
-        static let participantTrialInt = "participantTrialKey"
-    }
-    
-    private var guid: String! = ""
-    private var groupId: Int! = 0
-    private var trialNum: Int! = 0
-    
-    private let defaults = NSUserDefaults.standardUserDefaults()
+    private let userManager = UserManager.sharedInstance
     
     override init() {
         //initializer for the TactileTTS class
@@ -51,7 +42,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     //delegate functions
     //
     //
-    
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
         
@@ -161,7 +151,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             
         case .Forward:
             print("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-            responseArray.append("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            userManager.responseArray.append("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             if currentUtterance !=  totalUtterances - 1 { //i.e. if it's NOT the last utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 currentUtterance = currentUtterance + 1
@@ -170,7 +160,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             
         case .Backward:
             print("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-            responseArray.append("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            userManager.responseArray.append("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             if currentUtterance != 0 { //i.e. if it's NOT the first utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 currentUtterance = currentUtterance - 1
@@ -185,12 +175,12 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             if speechSynthesizer.speaking {
                 if speechSynthesizer.paused {
                     print("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-                    responseArray.append("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+                    userManager.responseArray.append("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
                     speechSynthesizer.continueSpeaking()
                 } else {
                     speechSynthesizer.pauseSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                     print("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-                    responseArray.append("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+                    userManager.responseArray.append("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
                 }
             }
         }
@@ -218,22 +208,15 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     func speakTheText(theText: NSString) {
         
-        //load some stored parameters into the responseArray
-        guid = defaults.objectForKey(participantKeys.participantGuidString) as! String
-        groupId = defaults.objectForKey(participantKeys.participantGroupInt) as! Int
-        trialNum = defaults.objectForKey(participantKeys.participantTrialInt) as! Int
-        responseArray.append("GUID=\(guid)")
-        responseArray.append("Group=\(String(groupId))")
-        responseArray.append("Trial=\(String(trialNum))")
-        
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
+        
         speak(currentUtterance)
     }
     
     
     func endTheProtocol() {
         
-        let jsonString = encodeResultsToJSON(responseArray)
+        let jsonString = encodeResultsToJSON(userManager.responseArray)
         let urlEncodedJson = jsonString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         
         //broadcast notification that all speech is done
@@ -244,23 +227,21 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     func pauseContinue() {
         
-        if groupId >= 1 {navigate(.PauseOrPlay)}
+        navigate(.PauseOrPlay)
     }
     
     
     func goForward() {
         
         utteranceWasInterruptedByNavigation = true
-        
-        if groupId >= 1 {navigate(.Forward)}
+        navigate(.Forward)
     }
     
     
     func goBack() {
         
         utteranceWasInterruptedByNavigation = true
-        
-        if groupId >= 1 {navigate(.Backward)}
+        navigate(.Backward)
 
     }
 }

@@ -29,6 +29,7 @@ class TTSTrainingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Navigation Training"
 
         // Do any additional setup after loading the view.
         
@@ -37,6 +38,13 @@ class TTSTrainingViewController: UIViewController {
         
         
         ttsTraining.speakTheText(trainingInstructions)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController!.setViewControllers([self], animated: false)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

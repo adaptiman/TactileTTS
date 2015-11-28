@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		845103A11BE46F320027AD53 /* TTSPhaseOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */; };
-		845103A31BE475DB0027AD53 /* TTSPhaseOneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845103A21BE475DB0027AD53 /* TTSPhaseOneModel.swift */; };
 		848AC46F1B5F25B5001195A9 /* TTSProtocolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */; };
 		84956E691BFE930500D1A0D3 /* TTSTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956E681BFE930500D1A0D3 /* TTSTrainingViewController.swift */; };
-		84B3AA0D1C011BA40057A000 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3AA0C1C011BA40057A000 /* Globals.swift */; };
+		84B3AA0D1C011BA40057A000 /* TTSUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3AA0C1C011BA40057A000 /* TTSUserManager.swift */; };
 		84BAF3C71B5F158300B47AEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAF3C61B5F158300B47AEB /* AppDelegate.swift */; };
 		84BAF3C91B5F158300B47AEB /* TTSProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */; };
 		84BAF3CC1B5F158300B47AEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BAF3CA1B5F158300B47AEB /* Main.storyboard */; };
@@ -33,10 +32,9 @@
 
 /* Begin PBXFileReference section */
 		845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseOneViewController.swift; sourceTree = "<group>"; };
-		845103A21BE475DB0027AD53 /* TTSPhaseOneModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseOneModel.swift; sourceTree = "<group>"; };
 		848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSProtocolModel.swift; sourceTree = "<group>"; };
 		84956E681BFE930500D1A0D3 /* TTSTrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSTrainingViewController.swift; sourceTree = "<group>"; };
-		84B3AA0C1C011BA40057A000 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		84B3AA0C1C011BA40057A000 /* TTSUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSUserManager.swift; sourceTree = "<group>"; };
 		84BAF3C11B5F158300B47AEB /* TactileTTS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TactileTTS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84BAF3C51B5F158300B47AEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84BAF3C61B5F158300B47AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,12 +88,11 @@
 			isa = PBXGroup;
 			children = (
 				84956E681BFE930500D1A0D3 /* TTSTrainingViewController.swift */,
-				84B3AA0C1C011BA40057A000 /* Globals.swift */,
+				84B3AA0C1C011BA40057A000 /* TTSUserManager.swift */,
 				84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */,
 				848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */,
 				84BAF3CA1B5F158300B47AEB /* Main.storyboard */,
 				845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */,
-				845103A21BE475DB0027AD53 /* TTSPhaseOneModel.swift */,
 				84BAF3C41B5F158300B47AEB /* Supporting Files */,
 			);
 			path = TactileTTS;
@@ -237,9 +234,8 @@
 				84BAF3C91B5F158300B47AEB /* TTSProtocolViewController.swift in Sources */,
 				84BAF3C71B5F158300B47AEB /* AppDelegate.swift in Sources */,
 				848AC46F1B5F25B5001195A9 /* TTSProtocolModel.swift in Sources */,
-				845103A31BE475DB0027AD53 /* TTSPhaseOneModel.swift in Sources */,
 				84956E691BFE930500D1A0D3 /* TTSTrainingViewController.swift in Sources */,
-				84B3AA0D1C011BA40057A000 /* Globals.swift in Sources */,
+				84B3AA0D1C011BA40057A000 /* TTSUserManager.swift in Sources */,
 				845103A11BE46F320027AD53 /* TTSPhaseOneViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,10 +390,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -414,10 +407,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = TactileTTSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.tamu.adaptiman.$(PRODUCT_NAME:rfc1034identifier)";

@@ -32,11 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let protocolVC = storyboard.instantiateViewControllerWithIdentifier("protocolViewController")
             self.window?.rootViewController?.presentViewController(protocolVC, animated: true, completion: nil)
         }
-        
-        
-        
-        
-        
+
         return true;
     }
     

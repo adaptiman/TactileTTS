@@ -1,5 +1,5 @@
 //
-//  Globals.swift
+//  userManager.swift
 //  TactileTTS
 //
 //  Created by Administrator on 11/21/15.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-class GlobalStuff { //this is a Singleton pattern
+class UserManager { //this is a Singleton pattern
     
-    static let sharedInstance = GlobalStuff()
+    static let sharedInstance = UserManager()
     
     private init() {} //This prevents others from using the default '()' initializer for this class.
     
@@ -21,6 +21,8 @@ class GlobalStuff { //this is a Singleton pattern
     }
     
     private let defaults = NSUserDefaults.standardUserDefaults()
+    
+    var responseArray: [NSString] = []
     
     var participantGuid: String {
         get { return defaults.objectForKey(participantKeys.participantGuidString) as? String ?? ""}
@@ -44,15 +46,15 @@ class GlobalStuff { //this is a Singleton pattern
         
         //generate a participant UUID that will be used to identify the participant
         participantGuid = NSUUID().UUIDString
-        print("userID:\(participantGuid)")
+        print("participantGuid=\(participantGuid)")
         return participantGuid
     }
     
     
     func generateParticipantGroup() -> Int {
         
-        //generate a participant group between 0 (control) and 1 (experimental)
-        participantGroup = Int(arc4random_uniform(2))
+        //generate a participant group between 0 (control) and 4 (experimentals)
+        participantGroup = Int(arc4random_uniform(5))
         print("generateParticipantGroup=\(participantGroup)")
         return participantGroup
     }
@@ -60,11 +62,9 @@ class GlobalStuff { //this is a Singleton pattern
     func generateParticipantTrial() -> Int {
         
         //generate a participant trial starting with 1 and incrementing
-        
-        
         participantTrial = participantTrial + 1
-        print("generateParticipantGroup=\(participantGroup)")
-        return participantGroup
+        print("generateParticipantTrial=\(participantTrial)")
+        return participantTrial
     }
     
     
@@ -103,4 +103,10 @@ class GlobalStuff { //this is a Singleton pattern
         }
     }
 
+    func appenduserManagerToResponseArray(){ //load some stored parameters into the responseArray
+        responseArray.append("GUID=\(participantGuid)")
+        print("Happy! Happy! Happy! ")
+        responseArray.append("Group=\(String(participantGroup))")
+        responseArray.append("Trial=\(String(participantTrial))")
+    }
 }
