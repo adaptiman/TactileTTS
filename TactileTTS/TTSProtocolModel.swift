@@ -54,7 +54,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
     }
     
-    
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         
         currentCursorPosition = (spokenTextLength + characterRange.location)
@@ -86,7 +85,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         return responseString
     }
     
-    
     private func getSentences(theText:NSString) -> [(utterance: String, utteranceLength: Int)] {
  
         //load and calculate sentences
@@ -106,7 +104,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         return (utteranceArray)
     }
 
-    
     private func parse(theText: NSString, parseMethod: ParseType) -> [(utterance: String, utteranceLength: Int)] {
         
         switch parseMethod {
@@ -135,7 +132,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         return utteranceArray
     }
-    
     
     private func navigate(go: NavigationType) {
 
@@ -186,7 +182,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         }
     }
     
-    
     private func speak(utteranceIndex: Int) {
         
         speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance))
@@ -213,7 +208,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         speak(currentUtterance)
     }
     
-    
     func endTheProtocol() {
         
         let jsonString = encodeResultsToJSON(userManager.responseArray)
@@ -224,19 +218,16 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         center.postNotificationName(ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: urlEncodedJson!])
     }
 
-    
     func pauseContinue() {
         
         navigate(.PauseOrPlay)
     }
-    
     
     func goForward() {
         
         utteranceWasInterruptedByNavigation = true
         navigate(.Forward)
     }
-    
     
     func goBack() {
         

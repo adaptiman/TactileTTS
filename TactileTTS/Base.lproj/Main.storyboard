@@ -44,14 +44,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you can't hear anything, check your mute switch." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nof-O1-EcF">
-                                <rect key="frame" x="20" y="28" width="560" height="24"/>
+                                <rect key="frame" x="20" y="72" width="560" height="24"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swipe-right-1" translatesAutoresizingMaskIntoConstraints="NO" id="lvc-83-kcx">
-                                <rect key="frame" x="20" y="60" width="100" height="100"/>
+                                <rect key="frame" x="20" y="104" width="100" height="100"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="ire-z4-da1"/>
@@ -59,7 +59,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swipe-left-1" translatesAutoresizingMaskIntoConstraints="NO" id="mxE-tG-QY0">
-                                <rect key="frame" x="480" y="60" width="100" height="100"/>
+                                <rect key="frame" x="480" y="104" width="100" height="100"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Oga-jJ-xIy"/>
@@ -75,7 +75,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back by Sentence" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2K-Yc-s2K">
-                                <rect key="frame" x="20" y="168" width="116" height="17"/>
+                                <rect key="frame" x="20" y="212" width="116" height="17"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -89,7 +89,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forward by Sentence" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5R-gb-8hR">
-                                <rect key="frame" x="443" y="168" width="137" height="17"/>
+                                <rect key="frame" x="443" y="212" width="137" height="17"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -191,27 +191,27 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o30-Dp-FR9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="86g-u6-5TJ">
+                <tapGestureRecognizer enabled="NO" id="86g-u6-5TJ">
                     <connections>
                         <action selector="tap:" destination="aRG-aV-EYR" id="kn6-Ao-82W"/>
                     </connections>
                 </tapGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="iiJ-1P-egq">
+                <swipeGestureRecognizer enabled="NO" direction="left" id="iiJ-1P-egq">
                     <connections>
                         <action selector="swipeLeft:" destination="aRG-aV-EYR" id="z66-Np-v8s"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="right" numberOfTouchesRequired="2" id="X1e-ZO-8Ag">
+                <swipeGestureRecognizer enabled="NO" direction="right" numberOfTouchesRequired="2" id="X1e-ZO-8Ag">
                     <connections>
                         <action selector="doubleSwipeRight:" destination="aRG-aV-EYR" id="1ut-zS-bDn"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="t6Z-Ks-R9O">
+                <swipeGestureRecognizer enabled="NO" direction="right" id="t6Z-Ks-R9O">
                     <connections>
                         <action selector="swipeRight:" destination="aRG-aV-EYR" id="nd3-h2-flI"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" numberOfTouchesRequired="2" id="UF1-GK-hQX">
+                <swipeGestureRecognizer enabled="NO" direction="left" numberOfTouchesRequired="2" id="UF1-GK-hQX">
                     <connections>
                         <action selector="doubleSwipeLeft:" destination="aRG-aV-EYR" id="ZVm-qT-Syz"/>
                     </connections>

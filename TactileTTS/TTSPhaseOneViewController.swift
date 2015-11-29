@@ -11,7 +11,7 @@ import WebKit
 
 var trainingToken: dispatch_once_t = 0
 
-class TTSPhaseOneViewController: UIViewController, WKNavigationDelegate {
+class TTSPhaseOneViewController: UIViewController {
     
     @IBOutlet var containerView: UIView!
     
@@ -24,7 +24,7 @@ class TTSPhaseOneViewController: UIViewController, WKNavigationDelegate {
         super.loadView()
         self.webView = WKWebView()
         self.view = self.webView
-        self.webView.navigationDelegate = self
+        //self.webView.navigationDelegate = self
     }
     
     override func viewDidLoad() {
@@ -86,8 +86,8 @@ class TTSPhaseOneViewController: UIViewController, WKNavigationDelegate {
     
     func fireTimer() {
         //print("tick")
-        self.webView.evaluateJavaScript("document.getElementById('EndOfSurvey')") { (response, error) -> Void in
-            print("\(response),\(error)")
+        self.webView.evaluateJavaScript("document.getElementById('EndOfSurvey')") { (result, error) -> Void in
+            print("\(result),\(error)")
             if error != nil {
                 dispatch_once(&trainingToken, { () -> Void in
                     self.performSegueWithIdentifier("training", sender: nil)
