@@ -187,13 +187,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance))
     }
     
-    private func getTheText() {
-        let url = NSURL(string: "https://raw.githubusercontent.com/adaptiman/TactileTTS/master/TactileTTS/gettysburg.txt")
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
-             print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-        }
-        task.resume()
-    }
     
     //public functions
     //
@@ -201,11 +194,19 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     //
     
     
-    func speakTheText(theText: NSString) {
+    func speakTheText(theText: NSString, url: NSURL) {
         
-        utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
-        
-        speak(currentUtterance)
+        if theText == "" {
+            let task = NSURLSession.sharedSession().dataTaskWithURL(url,completionHandler: {(data, response, error) in
+                print("response \(response)")
+                self.utteranceArray = self.parse(NSString(data: data!, encoding: NSUTF8StringEncoding)!, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
+                self.speak(self.currentUtterance)
+            })
+            task.resume()
+        } else {
+            utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
+            speak(currentUtterance)
+        }
     }
     
     func endTheProtocol() {

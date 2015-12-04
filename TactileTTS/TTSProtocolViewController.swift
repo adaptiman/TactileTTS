@@ -38,7 +38,10 @@ class TTSProtocolViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         //process the text object through the speech navigation model
-        ttsProtocol.speakTheText(tvMaterial.text)
+        //ttsProtocol.speakTheText(tvMaterial.text)
+        ttsProtocol.speakTheText("", url: NSURL(scheme: "https", host: "raw.githubusercontent.com", path: "/adaptiman/TactileTTS/master/TactileTTS/gettysburg.txt")!)
+            
+            //"https://raw.githubusercontent.com/adaptiman/TactileTTS/master/TactileTTS/gettysburg.txt")
         
         //setup a notifier to fire when the protcol is done.
         let center = NSNotificationCenter.defaultCenter()

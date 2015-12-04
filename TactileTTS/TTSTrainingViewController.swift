@@ -31,6 +31,8 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         speakTheText("Go back one paragraph.")
     }
     
+    private let speechSynthesizer = AVSpeechSynthesizer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Navigation Training"
@@ -39,9 +41,8 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         speechSynthesizer.delegate = self
         
         
-        var trainingInstructions = "This screen provides an opportunity for you to practice navigating the text. You may be able to access the training easier by turning your device sideways. "
-        trainingInstructions.appendContentsOf("There are five types of navigation. Tapping the screen alternaytes the pausing and starting the speech. Swiping right with a single finger navigates back one sentence. Swiping left navigates forward one sentence. By swiping with two fingers, you will navigate by paragraph. Try these gestures now. When you are finished, tap the continue button at the top of the view.")
-        
+        var trainingInstructions = "This screen provides an opportunity for you to practice navigation gestures. You may be able to tap and swipe easier by turning your device sideways. "
+        trainingInstructions.appendContentsOf("There are five types of navigation. Tapping the screen alternaytes between pausing and starting the speech. Swiping right with a single finger navigates back one sentence. Swiping left navigates forward one sentence. By swiping with two fingers, you will navigate by paragraph. When you are finished, tap the continue button at the top of the view. Try these gestures now.")
         
         speakTheText(trainingInstructions)
 
@@ -66,9 +67,6 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
             gesture.enabled = false
         }
     }
-
-    
-    private let speechSynthesizer = AVSpeechSynthesizer()
     
     private func speakTheText(theText: NSString) {
         speechSynthesizer.speakUtterance(AVSpeechUtterance(string: theText as String))
