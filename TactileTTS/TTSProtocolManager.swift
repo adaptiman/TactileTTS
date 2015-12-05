@@ -8,41 +8,56 @@
 
 import Foundation
 
-class UserManager { //this is a Singleton pattern
+class ProtocolManager { //this is a Singleton pattern
     
-    static let sharedInstance = UserManager()
+    static let sharedInstance = ProtocolManager()
     
     private init() {} //This prevents others from using the default '()' initializer for this class.
     
-    private struct participantKeys {
+    private struct protocolKeys {
         static let participantGuidString = "participantGuidKey"
         static let participantGroupInt = "participantGroupKey"
         static let participantTrialInt = "participantTrialKey"
+        static let trainingTextString = "trainingTextKey"
+        static let protocolTextString = "protocolTextKey"
     }
     
     private let defaults = NSUserDefaults.standardUserDefaults()
     
+    private var trainingTextUrl: NSURL = NSURL(string: "https://raw.githubusercontent.com/adaptiman/TactileTTS/training_protocol/TactileTTS/gettysburg.txt")!
+    private var protocolTextUrl: NSURL = NSURL(string: "https://raw.githubusercontent.com/adaptiman/TactileTTS/training_protocol/TactileTTS/gettysburg.txt")!
+    
+    
     var responseArray: [NSString] = []
     
-    var participantGuid: String {
-        get { return defaults.objectForKey(participantKeys.participantGuidString) as? String ?? ""}
-        set { defaults.setObject(newValue, forKey: participantKeys.participantGuidString)}
+    var participantGuid: NSString {
+        get { return defaults.objectForKey(protocolKeys.participantGuidString) as? String ?? ""}
+        set { defaults.setObject(newValue, forKey: protocolKeys.participantGuidString)}
     }
     
     
     var participantGroup: Int {
-        get { return (defaults.objectForKey(participantKeys.participantGroupInt) as? Int ?? nil)!}
-        set { defaults.setObject(newValue, forKey: participantKeys.participantGroupInt)}
+        get { return (defaults.objectForKey(protocolKeys.participantGroupInt) as? Int ?? nil)!}
+        set { defaults.setObject(newValue, forKey: protocolKeys.participantGroupInt)}
     }
     
     
     var participantTrial: Int {
-        get { return (defaults.objectForKey(participantKeys.participantTrialInt) as? Int ?? nil)!}
-        set { defaults.setObject(newValue, forKey: participantKeys.participantTrialInt)}
+        get { return (defaults.objectForKey(protocolKeys.participantTrialInt) as? Int ?? nil)!}
+        set { defaults.setObject(newValue, forKey: protocolKeys.participantTrialInt)}
     }
     
+    var trainingText: NSString {
+        get { return defaults.objectForKey(protocolKeys.trainingTextString) as? String ?? ""}
+        set { defaults.setObject(newValue, forKey: protocolKeys.trainingTextString)}
+    }
+
+    var protocolText: NSString {
+        get { return defaults.objectForKey(protocolKeys.protocolTextString) as? String ?? ""}
+        set { defaults.setObject(newValue, forKey: protocolKeys.protocolTextString)}
+    }
     
-    func generateParticipantGuid() -> String {
+    func generateParticipantGuid() -> NSString {
         
         //generate a participant UUID that will be used to identify the participant
         participantGuid = NSUUID().UUIDString
@@ -71,7 +86,7 @@ class UserManager { //this is a Singleton pattern
     func participantGroupExists() -> Bool {
         
         //check to see if participant experimental group was previously generated and stored
-        if let participantGroupInt = defaults.stringForKey(participantKeys.participantGroupInt) {
+        if let participantGroupInt = defaults.stringForKey(protocolKeys.participantGroupInt) {
             print("participantGroupExists=\(participantGroupInt)")
             return true
         } else {
@@ -83,7 +98,7 @@ class UserManager { //this is a Singleton pattern
     func participantGuidExists() -> Bool {
         
         //check to see if participant GUID was previously generated and stored
-        if let participantGuidString = defaults.stringForKey(participantKeys.participantGuidString) {
+        if let participantGuidString = defaults.stringForKey(protocolKeys.participantGuidString) {
             print("participantGuidExists=\(participantGuidString)")
             return true
         } else {
@@ -95,7 +110,7 @@ class UserManager { //this is a Singleton pattern
     func participantTrialExists() -> Bool {
         
         //check to see if participant has taken the protocol before
-        if let participantTrialInt = defaults.stringForKey(participantKeys.participantTrialInt) {
+        if let participantTrialInt = defaults.stringForKey(protocolKeys.participantTrialInt) {
             print("participantTrialExists=\(participantTrialInt)")
             return true
         } else {
@@ -108,5 +123,26 @@ class UserManager { //this is a Singleton pattern
         print("Happy! Happy! Happy! ")
         responseArray.append("Group=\(String(participantGroup))")
         responseArray.append("Trial=\(String(participantTrial))")
+    }
+    
+    func getTrainingText() -> NSString {
+        
+        //retrieve the training text from a URL
+    
+        let task = NSURLSession.sharedSession().dataTaskWithURL(trainingTextUrl,completionHandler: {(data, response, error) in
+                self.trainingText =  NSString(data: data!, encoding: NSUTF8StringEncoding)!
+                print("=\(self.trainingText)")
+ 
+            
+
+        })
+        task.resume()
+        
+        
+        
+        
+        participantGuid = NSUUID().UUIDString
+        print("participantGuid=\(participantGuid)")
+        return trainingText
     }
 }

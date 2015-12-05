@@ -31,7 +31,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     private let speechSynthesizer = AVSpeechSynthesizer()
     
-    private let userManager = UserManager.sharedInstance
+    private let userManager = ProtocolManager.sharedInstance
     
     override init() {
         //initializer for the TactileTTS class
@@ -198,7 +198,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         if theText == "" {
             let task = NSURLSession.sharedSession().dataTaskWithURL(url,completionHandler: {(data, response, error) in
-                print("response \(response)")
+                //print("response \(response)")
                 self.utteranceArray = self.parse(NSString(data: data!, encoding: NSUTF8StringEncoding)!, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
                 self.speak(self.currentUtterance)
             })

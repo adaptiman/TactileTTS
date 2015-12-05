@@ -18,7 +18,7 @@ class TTSPhaseOneViewController: UIViewController {
     var webView: WKWebView!
     var myTimer: NSTimer!
     
-    let userManager = UserManager.sharedInstance
+    let userManager = ProtocolManager.sharedInstance
     
     override func loadView() {
         super.loadView()

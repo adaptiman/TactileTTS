@@ -30,7 +30,7 @@ class TTSProtocolViewController: UIViewController {
     
     var ttsProtocol = TTSModel()
     
-    private let userManager = UserManager.sharedInstance
+    private let userManager = ProtocolManager.sharedInstance
     
     override func viewDidLoad() {
        
@@ -39,7 +39,9 @@ class TTSProtocolViewController: UIViewController {
         
         //process the text object through the speech navigation model
         //ttsProtocol.speakTheText(tvMaterial.text)
-        ttsProtocol.speakTheText("", url: NSURL(scheme: "https", host: "raw.githubusercontent.com", path: "/adaptiman/TactileTTS/master/TactileTTS/gettysburg.txt")!)
+//        ttsProtocol.speakTheText("", url: NSURL(scheme: "https", host: "raw.githubusercontent.com", path: "/adaptiman/TactileTTS/master/TactileTTS/gettysburg.txt")!)
+
+        ttsProtocol.speakTheText("", url: NSURL(string: "https://raw.githubusercontent.com/adaptiman/TactileTTS/training_protocol/TactileTTS/gettysburg.txt")!)
             
             //"https://raw.githubusercontent.com/adaptiman/TactileTTS/master/TactileTTS/gettysburg.txt")
         
