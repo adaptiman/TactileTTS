@@ -1,29 +1,36 @@
 //
-//  TTSPhaseOneModel.swift
+//  userManager.swift
 //  TactileTTS
 //
-//  Created by David Sweeney on 10/31/15.
+//  Created by Administrator on 11/21/15.
 //  Copyright © 2015 David Sweeney. All rights reserved.
 //
 
 import Foundation
 
-class TTSPhaseOneModel
-{
+class UserManager { //this is a Singleton pattern
+    
+    static let sharedInstance = UserManager()
+    
+    private init() {} //This prevents others from using the default '()' initializer for this class.
     
     private struct participantKeys {
         static let participantGuidString = "participantGuidKey"
         static let participantGroupInt = "participantGroupKey"
         static let participantTrialInt = "participantTrialKey"
+        static let trainingTextString = "trainingTextKey"
+        static let protocolTextString = "protocolTextKey"
     }
     
     private let defaults = NSUserDefaults.standardUserDefaults()
+    
+    var responseArray: [NSString] = []
     
     var participantGuid: String {
         get { return defaults.objectForKey(participantKeys.participantGuidString) as? String ?? ""}
         set { defaults.setObject(newValue, forKey: participantKeys.participantGuidString)}
     }
-
+    
     
     var participantGroup: Int {
         get { return (defaults.objectForKey(participantKeys.participantGroupInt) as? Int ?? nil)!}
@@ -36,20 +43,29 @@ class TTSPhaseOneModel
         set { defaults.setObject(newValue, forKey: participantKeys.participantTrialInt)}
     }
     
+    var trainingText: NSString {
+        get { return defaults.objectForKey(participantKeys.trainingTextString) as? String ?? ""}
+        set { defaults.setObject(newValue, forKey: participantKeys.trainingTextString)}
+    }
+    
+    var protocolText: NSString {
+        get { return defaults.objectForKey(participantKeys.protocolTextString) as? String ?? ""}
+        set { defaults.setObject(newValue, forKey: participantKeys.protocolTextString)}
+    }
     
     func generateParticipantGuid() -> String {
         
         //generate a participant UUID that will be used to identify the participant
         participantGuid = NSUUID().UUIDString
-         print("userID:\(participantGuid)")
+        print("participantGuid=\(participantGuid)")
         return participantGuid
     }
     
     
     func generateParticipantGroup() -> Int {
         
-        //generate a participant group between 0 (control) and 1 (experimental)
-        participantGroup = Int(arc4random_uniform(2))
+        //generate a participant group between 0 (control) and 4 (experimentals)
+        participantGroup = Int(arc4random_uniform(5))
         print("generateParticipantGroup=\(participantGroup)")
         return participantGroup
     }
@@ -57,11 +73,9 @@ class TTSPhaseOneModel
     func generateParticipantTrial() -> Int {
         
         //generate a participant trial starting with 1 and incrementing
-        
-        
         participantTrial = participantTrial + 1
-        print("generateParticipantGroup=\(participantGroup)")
-        return participantGroup
+        print("generateParticipantTrial=\(participantTrial)")
+        return participantTrial
     }
     
     
@@ -99,5 +113,11 @@ class TTSPhaseOneModel
             return false
         }
     }
-}
 
+    func appenduserManagerToResponseArray(){ //load some stored parameters into the responseArray
+        responseArray.append("GUID=\(participantGuid)")
+        print("Happy! Happy! Happy! ")
+        responseArray.append("Group=\(String(participantGroup))")
+        responseArray.append("Trial=\(String(participantTrial))")
+    }
+}
