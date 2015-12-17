@@ -18,6 +18,8 @@
 		84BAF3D11B5F158300B47AEB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BAF3CF1B5F158300B47AEB /* LaunchScreen.xib */; };
 		84BAF3DD1B5F158300B47AEB /* TactileTTSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAF3DC1B5F158300B47AEB /* TactileTTSTests.swift */; };
 		84BB685E1BECA1A1005478BC /* gettysburg.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BB685D1BECA1A1005478BC /* gettysburg.txt */; };
+		84DDF4B01C14BB7C00F3497D /* protocol.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84DDF4AF1C14BB7C00F3497D /* protocol.txt */; };
+		84DDF4B21C14C02600F3497D /* training.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84DDF4B11C14C02600F3497D /* training.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		84BAF3DB1B5F158300B47AEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84BAF3DC1B5F158300B47AEB /* TactileTTSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TactileTTSTests.swift; sourceTree = "<group>"; };
 		84BB685D1BECA1A1005478BC /* gettysburg.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gettysburg.txt; sourceTree = "<group>"; };
+		84DDF4AF1C14BB7C00F3497D /* protocol.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = protocol.txt; sourceTree = "<group>"; };
+		84DDF4B11C14C02600F3497D /* training.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 			children = (
 				84BAF3CD1B5F158300B47AEB /* Images.xcassets */,
 				84BAF3CF1B5F158300B47AEB /* LaunchScreen.xib */,
+				84DDF4AF1C14BB7C00F3497D /* protocol.txt */,
+				84DDF4B11C14C02600F3497D /* training.txt */,
 				84BAF3C61B5F158300B47AEB /* AppDelegate.swift */,
 				84BAF3C51B5F158300B47AEB /* Info.plist */,
 				84BB685D1BECA1A1005478BC /* gettysburg.txt */,
@@ -210,6 +216,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DDF4B21C14C02600F3497D /* training.txt in Resources */,
+				84DDF4B01C14BB7C00F3497D /* protocol.txt in Resources */,
 				84BB685E1BECA1A1005478BC /* gettysburg.txt in Resources */,
 				84BAF3CC1B5F158300B47AEB /* Main.storyboard in Resources */,
 				84BAF3D11B5F158300B47AEB /* LaunchScreen.xib in Resources */,

@@ -10,9 +10,7 @@ import UIKit
 
 class TTSProtocolViewController: UIViewController {
 
-    @IBOutlet weak var tvMaterial: UITextView!
     
-
     @IBAction func tap(sender: UITapGestureRecognizer) {
         
         ttsProtocol.pauseContinue()
@@ -35,10 +33,12 @@ class TTSProtocolViewController: UIViewController {
     override func viewDidLoad() {
        
         super.viewDidLoad()
+        self.title = "Text-to-Speech"
         // Do any additional setup after loading the view, typically from a nib.
         
         //process the text object through the speech navigation model
-        ttsProtocol.speakTheText(tvMaterial.text)
+        //ttsProtocol.speakTheText(tvMaterial.text)
+        ttsProtocol.speakTheText(userManager.protocolText)
         
         //setup a notifier to fire when the protcol is done.
         let center = NSNotificationCenter.defaultCenter()

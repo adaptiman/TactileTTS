@@ -187,13 +187,13 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance))
     }
     
-    private func getTheText() {
-        let url = NSURL(string: "https://raw.githubusercontent.com/adaptiman/TactileTTS/master/TactileTTS/gettysburg.txt")
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
-             print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-        }
-        task.resume()
-    }
+//    private func getTheText() {  //this function retreives from a URL
+//        let url = NSURL(string: "https://raw.githubusercontent.com/adaptiman/TactileTTS/master/TactileTTS/gettysburg.txt")
+//        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+//             print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+//        }
+//        task.resume()
+//    }
     
     //public functions
     //

@@ -31,20 +31,16 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         speakTheText("Go back one paragraph.")
     }
     
+    private let userManager = UserManager.sharedInstance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Navigation Training"
+        self.title = "Training"
 
         // Do any additional setup after loading the view.
+        
         speechSynthesizer.delegate = self
-        
-        
-        var trainingInstructions = "This screen provides an opportunity for you to practice navigating the text. You may be able to access the training easier by turning your device sideways. "
-        trainingInstructions.appendContentsOf("There are five types of navigation. Tapping the screen alternaytes the pausing and starting the speech. Swiping right with a single finger navigates back one sentence. Swiping left navigates forward one sentence. By swiping with two fingers, you will navigate by paragraph. Try these gestures now. When you are finished, tap the continue button at the top of the view.")
-        
-        
-        speakTheText(trainingInstructions)
-
+        speakTheText(userManager.trainingText)
     }
     
     override func viewWillAppear(animated: Bool) {
