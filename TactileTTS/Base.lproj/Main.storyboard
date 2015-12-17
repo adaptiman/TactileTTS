@@ -226,25 +226,119 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZ3-ZY-oaY">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <string key="text">Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal. Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived and so dedicated, can long endure. We are met on a great battle-field of that war. We have come to dedicate a portion of that field, as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this. But, in a larger sense, we cannot dedicate -- we cannot consecrate -- we cannot hallow -- this ground. The brave men, living and dead, who struggled here, have consecrated it, far above our poor power to add or detract. The world will little note, nor long remember what we say here, but it can never forget what they did here. It is for us the living, rather, to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us -- that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion -- that we here highly resolve that these dead shall not have died in vain -- that this nation, under God, shall have a new birth of freedom -- and that government of the people, by the people, for the people, shall not perish from the earth.</string>
-                                <color key="textColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you can't hear anything, check your mute switch." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lC1-ns-6Jh">
+                                <rect key="frame" x="20" y="72" width="560" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swipe-right-1" translatesAutoresizingMaskIntoConstraints="NO" id="bVe-PE-Lli">
+                                <rect key="frame" x="20" y="104" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="HmQ-Rm-t6c"/>
+                                    <constraint firstAttribute="width" constant="100" id="hfB-ba-twN"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swipe-left-1" translatesAutoresizingMaskIntoConstraints="NO" id="vHG-23-rh4">
+                                <rect key="frame" x="480" y="104" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="3Kh-la-fWb"/>
+                                    <constraint firstAttribute="width" constant="100" id="G84-cW-rvI"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tap-1" translatesAutoresizingMaskIntoConstraints="NO" id="ZZk-ov-dLr">
+                                <rect key="frame" x="250" y="300" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="dIu-VF-TFD"/>
+                                    <constraint firstAttribute="height" constant="100" id="snM-f4-uiY"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back by Sentence" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHf-RL-qjj">
+                                <rect key="frame" x="20" y="212" width="116" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="cjl-Ea-EAc" appends="YES" id="HYp-ie-mvu"/>
-                                    <outletCollection property="gestureRecognizers" destination="Wlt-kw-LAf" appends="YES" id="3YK-dm-p7d"/>
-                                    <outletCollection property="gestureRecognizers" destination="AGs-EZ-Rbq" appends="YES" id="QT1-hN-vYU"/>
-                                </connections>
-                            </textView>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back by Paragraph" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrk-1s-eXM">
+                                <rect key="frame" x="20" y="575" width="122" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forward by Sentence" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PgK-YG-waT">
+                                <rect key="frame" x="443" y="212" width="137" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="two-swipe-right" translatesAutoresizingMaskIntoConstraints="NO" id="FvV-lj-spo">
+                                <rect key="frame" x="20" y="467" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="RCC-Q0-hFp"/>
+                                    <constraint firstAttribute="height" constant="100" id="bmj-tC-UqD"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="two-swipe-left" translatesAutoresizingMaskIntoConstraints="NO" id="imM-ID-GsB">
+                                <rect key="frame" x="480" y="467" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="AKD-R6-z02"/>
+                                    <constraint firstAttribute="width" constant="100" id="Dof-G5-JyO"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forward by Paragraph" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uc2-TW-tut">
+                                <rect key="frame" x="437" y="575" width="143" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pause/Continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PsR-Pb-5zN">
+                                <rect key="frame" x="249" y="408" width="102" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="ZZk-ov-dLr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2lV-hz-TCr"/>
+                            <constraint firstItem="ZZk-ov-dLr" firstAttribute="centerX" secondItem="lC1-ns-6Jh" secondAttribute="centerX" id="3fD-Xu-MJp"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mrk-1s-eXM" secondAttribute="bottom" constant="8" symbolic="YES" id="56D-MU-7Gw"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="trailing" secondItem="vHG-23-rh4" secondAttribute="trailing" id="7Ud-ke-V8G"/>
+                            <constraint firstItem="PsR-Pb-5zN" firstAttribute="top" secondItem="ZZk-ov-dLr" secondAttribute="bottom" constant="8" symbolic="YES" id="94y-d2-mic"/>
+                            <constraint firstItem="PgK-YG-waT" firstAttribute="top" secondItem="vHG-23-rh4" secondAttribute="bottom" constant="8" symbolic="YES" id="Cux-Cu-R1c"/>
+                            <constraint firstItem="PsR-Pb-5zN" firstAttribute="leading" secondItem="FvV-lj-spo" secondAttribute="trailing" constant="36" id="DVY-V3-hp0"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="leading" secondItem="bVe-PE-Lli" secondAttribute="leading" id="EYd-R1-6gQ"/>
+                            <constraint firstItem="bVe-PE-Lli" firstAttribute="top" secondItem="lC1-ns-6Jh" secondAttribute="bottom" constant="8" symbolic="YES" id="FUh-hm-7yN"/>
+                            <constraint firstItem="vHG-23-rh4" firstAttribute="top" secondItem="lC1-ns-6Jh" secondAttribute="bottom" constant="8" symbolic="YES" id="Ndw-iI-Sen"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="trailing" secondItem="uc2-TW-tut" secondAttribute="trailing" id="NkV-e8-94Z"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="leading" secondItem="HHf-RL-qjj" secondAttribute="leading" id="X9e-hd-W1n"/>
+                            <constraint firstItem="uc2-TW-tut" firstAttribute="top" secondItem="imM-ID-GsB" secondAttribute="bottom" constant="8" symbolic="YES" id="XWL-Tl-DVu"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="trailing" secondItem="PgK-YG-waT" secondAttribute="trailing" id="Yss-Qe-pqg"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ZVH-gh-wD3"/>
+                            <constraint firstItem="mrk-1s-eXM" firstAttribute="baseline" secondItem="uc2-TW-tut" secondAttribute="baseline" id="bzI-nk-0f8"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="leading" secondItem="mrk-1s-eXM" secondAttribute="leading" id="dp7-Wk-gYr"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="centerX" secondItem="ZZk-ov-dLr" secondAttribute="centerX" id="pHf-8h-Xdc"/>
+                            <constraint firstItem="PsR-Pb-5zN" firstAttribute="top" secondItem="ZZk-ov-dLr" secondAttribute="bottom" constant="8" symbolic="YES" id="q7O-U5-dBm"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PsR-Pb-5zN" secondAttribute="bottom" constant="86" id="tPr-jL-8Pz"/>
+                            <constraint firstItem="PsR-Pb-5zN" firstAttribute="centerX" secondItem="ZZk-ov-dLr" secondAttribute="centerX" id="tkc-TS-E7Q"/>
+                            <constraint firstItem="HHf-RL-qjj" firstAttribute="top" secondItem="bVe-PE-Lli" secondAttribute="bottom" constant="8" symbolic="YES" id="tog-Mm-Cpl"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="leading" secondItem="FvV-lj-spo" secondAttribute="leading" id="vpR-1b-jtd"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="vqR-AT-ghF"/>
+                            <constraint firstItem="PsR-Pb-5zN" firstAttribute="centerX" secondItem="ZZk-ov-dLr" secondAttribute="centerX" id="wI3-HH-Fcg"/>
+                            <constraint firstItem="mrk-1s-eXM" firstAttribute="top" secondItem="FvV-lj-spo" secondAttribute="bottom" constant="8" symbolic="YES" id="xn7-ze-k65"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="trailing" secondItem="imM-ID-GsB" secondAttribute="trailing" id="yyt-SB-19h"/>
+                            <constraint firstItem="lC1-ns-6Jh" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="zDm-Km-QCe"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="pHf-8h-Xdc"/>
+                                <exclude reference="DVY-V3-hp0"/>
+                                <exclude reference="q7O-U5-dBm"/>
+                                <exclude reference="tkc-TS-E7Q"/>
+                                <exclude reference="tPr-jL-8Pz"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="liT-3R-BWI" appends="YES" id="Y9A-RI-Q3o"/>
                             <outletCollection property="gestureRecognizers" destination="dSM-0S-lmE" appends="YES" id="g5n-ac-cvt"/>
