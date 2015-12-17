@@ -10,19 +10,15 @@ import UIKit
 
 class TTSProtocolViewController: UIViewController {
 
-    
     @IBAction func tap(sender: UITapGestureRecognizer) {
-        
         ttsProtocol.pauseContinue()
     }
     
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
-        
         ttsProtocol.goBack()
     }
     
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
-        
         ttsProtocol.goForward()
     }
     

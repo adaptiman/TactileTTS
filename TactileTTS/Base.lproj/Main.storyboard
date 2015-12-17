@@ -226,22 +226,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="liT-3R-BWI" appends="YES" id="Y9A-RI-Q3o"/>
+                            <outletCollection property="gestureRecognizers" destination="dSM-0S-lmE" appends="YES" id="g5n-ac-cvt"/>
+                            <outletCollection property="gestureRecognizers" destination="Oln-Uq-7fu" appends="YES" id="4a1-Au-Ovx"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="cjl-Ea-EAc">
+                <tapGestureRecognizer id="liT-3R-BWI">
                     <connections>
-                        <action selector="tap:" destination="BYZ-38-t0r" id="4p8-3H-Zec"/>
+                        <action selector="tap:" destination="BYZ-38-t0r" id="igk-a3-h0t"/>
                     </connections>
                 </tapGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="Wlt-kw-LAf">
+                <swipeGestureRecognizer direction="right" id="dSM-0S-lmE">
                     <connections>
-                        <action selector="swipeRight:" destination="BYZ-38-t0r" id="eLc-Vs-0gx"/>
+                        <action selector="swipeRight:" destination="BYZ-38-t0r" id="C6x-Z4-8ze"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="AGs-EZ-Rbq">
+                <swipeGestureRecognizer direction="left" id="Oln-Uq-7fu">
                     <connections>
-                        <action selector="swipeLeft:" destination="BYZ-38-t0r" id="D7a-73-RSO"/>
+                        <action selector="swipeLeft:" destination="BYZ-38-t0r" id="TCe-bM-lg6"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -263,7 +269,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdV-QW-VaP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1277" y="-646"/>
+            <point key="canvasLocation" x="-1199" y="-646"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Txw-hS-drz">
