@@ -11,6 +11,10 @@ import AVFoundation
 
 class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
+    @IBAction func continueToProtocol(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier("showProtocol", sender: nil)
+    }
+    
     @IBAction func tap(sender: UITapGestureRecognizer) {
         speakTheText("Pause continue.")
     }
@@ -54,6 +58,8 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         for gesture in view.gestureRecognizers! {
             gesture.enabled = true
         }
+        
+        self.navigationItem.rightBarButtonItem?.enabled = true
     }
 
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {

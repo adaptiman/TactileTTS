@@ -178,12 +178,15 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="XHA-ro-d9l">
-                        <barButtonItem key="rightBarButtonItem" title="Continue" id="e18-fs-NxM">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Continue" id="e18-fs-NxM">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="HeH-tf-UFs"/>
+                                <action selector="continueToProtocol:" destination="aRG-aV-EYR" id="pFT-db-H9w"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="showProtocol" id="NEE-gM-ntm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o30-Dp-FR9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer enabled="NO" id="86g-u6-5TJ">
@@ -212,7 +215,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="377" y="-646"/>
+            <point key="canvasLocation" x="225" y="-646"/>
         </scene>
         <!--Protocol View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -363,7 +366,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1158" y="-646"/>
+            <point key="canvasLocation" x="916" y="-646"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fLx-Xi-wWB">
@@ -381,7 +384,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdV-QW-VaP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1199" y="-646"/>
+            <point key="canvasLocation" x="-1151" y="-646"/>
         </scene>
     </scenes>
     <resources>
