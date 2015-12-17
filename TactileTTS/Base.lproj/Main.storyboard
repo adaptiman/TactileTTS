@@ -23,12 +23,12 @@
                     <navigationItem key="navigationItem" id="j5c-hM-m8l"/>
                     <connections>
                         <outlet property="containerView" destination="zsp-Jx-cpb" id="6cC-cx-6fq"/>
-                        <segue destination="I1z-z3-P7p" kind="show" identifier="training" id="3EL-pe-c9F"/>
+                        <segue destination="aRG-aV-EYR" kind="show" identifier="training" id="fkm-dm-upo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ito-gZ-C2K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-497" y="-646"/>
+            <point key="canvasLocation" x="-457" y="-646"/>
         </scene>
         <!--Training View Controller-->
         <scene sceneID="Xff-fw-0oh">
@@ -212,7 +212,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1010" y="-646"/>
+            <point key="canvasLocation" x="377" y="-646"/>
         </scene>
         <!--Protocol View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -251,7 +251,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1842" y="-646"/>
+            <point key="canvasLocation" x="1158" y="-646"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fLx-Xi-wWB">
@@ -270,24 +270,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdV-QW-VaP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1199" y="-646"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Txw-hS-drz">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I1z-z3-P7p" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="054-T6-Tr3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="aRG-aV-EYR" kind="relationship" relationship="rootViewController" id="vi7-rC-gbW"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LK7-ru-pI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="198" y="-646"/>
         </scene>
     </scenes>
     <resources>
