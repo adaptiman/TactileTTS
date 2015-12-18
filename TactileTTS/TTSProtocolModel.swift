@@ -211,11 +211,11 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     func endTheProtocol() {
         
         let jsonString = encodeResultsToJSON(userManager.responseArray)
-        let urlEncodedJson = jsonString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        let encodedJsonResponse = jsonString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         
         //broadcast notification that all speech is done
         let center = NSNotificationCenter.defaultCenter()
-        center.postNotificationName(ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: urlEncodedJson!])
+        center.postNotificationName(ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: encodedJsonResponse!])
     }
 
     func pauseContinue() {

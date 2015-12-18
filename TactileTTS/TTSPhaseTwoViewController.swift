@@ -39,8 +39,11 @@ class TTSPhaseTwoViewController: UIViewController {
         
         //this is the preview address
         //let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?"
-        let dataString = "participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)"
-        let url = NSURL(string: (surveyString + dataString))
+        
+        //this is the response string
+        let dataString = "participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)&resultString=\(userManager.participantResponseJson as String)"
+        
+        let url = NSURL(string: (surveyString + (dataString as String)))
         print(url)
         
         //load the page in the WKWebView

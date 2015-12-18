@@ -20,6 +20,7 @@ class UserManager { //this is a Singleton pattern
         static let participantTrialInt = "participantTrialKey"
         static let trainingTextString = "trainingTextKey"
         static let protocolTextString = "protocolTextKey"
+        static let responseJsonString = "participantResponseKey"
     }
     
     private let defaults = NSUserDefaults.standardUserDefaults()
@@ -51,6 +52,11 @@ class UserManager { //this is a Singleton pattern
     var protocolText: NSString {
         get { return defaults.objectForKey(participantKeys.protocolTextString) as? String ?? ""}
         set { defaults.setObject(newValue, forKey: participantKeys.protocolTextString)}
+    }
+
+    var participantResponseJson: NSString {
+        get { return defaults.objectForKey(participantKeys.responseJsonString) as? String ?? ""}
+        set { defaults.setObject(newValue, forKey: participantKeys.responseJsonString)}
     }
     
     func generateParticipantGuid() -> String {

@@ -43,13 +43,17 @@ class TTSProtocolViewController: UIViewController {
         
         //setup a notifier to fire when the protcol is done.
         let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "passResults:", name: ProtocolCompleted.Notification, object: nil)
+        center.addObserver(self, selector: "protocolComplete:", name: ProtocolCompleted.Notification, object: nil)
 
     }
     
-    func passResults(object: NSNotification) {
+    func protocolComplete(object: NSNotification) {
         
         print("Got Notification")
+        
+        //write the response string to the participantKeys struct
+        userManager.participantResponseJson = object.userInfo!["Response Result"] as! NSString
+        
         
         //seque to Phase 2
         self.performSegueWithIdentifier("showPhaseTwo", sender: nil)

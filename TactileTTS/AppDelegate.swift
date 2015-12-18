@@ -17,13 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+
         //load the trainingText
-        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
+//        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
+        let trainingLocation = NSBundle.mainBundle().pathForResource("trainingshort", ofType: "txt")
         userManager.trainingText = try! NSString(contentsOfFile: trainingLocation!, encoding: NSUTF8StringEncoding)
         
         //load the protocolText
-        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
+//        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
+        let protocolLocation = NSBundle.mainBundle().pathForResource("protocolshort", ofType: "txt")
         userManager.protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: NSUTF8StringEncoding)
         
         return true
