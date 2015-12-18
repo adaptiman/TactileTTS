@@ -35,13 +35,13 @@ class TTSPhaseTwoViewController: UIViewController {
         //start phase two survey
         
         //this is the phase two survey address
-        let surveyString = "https://tamu.qualtrics.com/jfe/form/SV_1LLecPJoJzTU0bH?"
+        let surveyString = userManager.phaseTwoUrl as String
         
         //this is the preview address
         //let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?"
         
         //this is the response string
-        let dataString = "participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)&resultString=\(userManager.participantResponseJson as String)"
+        let dataString = "?participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)&resultString=\(userManager.participantResponseJson as String)"
         
         let url = NSURL(string: (surveyString + (dataString as String)))
         print(url)

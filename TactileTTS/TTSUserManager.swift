@@ -20,12 +20,17 @@ class UserManager { //this is a Singleton pattern
         static let participantTrialInt = "participantTrialKey"
         static let trainingTextString = "trainingTextKey"
         static let protocolTextString = "protocolTextKey"
-        static let responseJsonString = "participantResponseKey"
+        static let participantResponseJsonString = "participantResponseJsonKey"
+        static let phaseOneUrlString = "PhaseOneUrlKey"
+        static let phaseTwoUrlString = "PhaseTwoUrlKey"
     }
     
     private let defaults = NSUserDefaults.standardUserDefaults()
     
     var responseArray: [NSString] = []
+    
+    let phaseOneUrl = "https://tamu.qualtrics.com/jfe/form/SV_a9Le0B1mZmgux5b"
+    let phaseTwoUrl = "https://tamu.qualtrics.com/jfe/form/SV_1LLecPJoJzTU0bH"
     
     var participantGuid: String {
         get { return defaults.objectForKey(participantKeys.participantGuidString) as? String ?? ""}
@@ -55,8 +60,13 @@ class UserManager { //this is a Singleton pattern
     }
 
     var participantResponseJson: NSString {
-        get { return defaults.objectForKey(participantKeys.responseJsonString) as? String ?? ""}
-        set { defaults.setObject(newValue, forKey: participantKeys.responseJsonString)}
+        get { return defaults.objectForKey(participantKeys.participantResponseJsonString) as? String ?? ""}
+        set { defaults.setObject(newValue, forKey: participantKeys.participantResponseJsonString)}
+    }
+    
+    var PhaseOneUrl: String {
+        get { return defaults.objectForKey(participantKeys.phaseOneUrlString) as? String ?? ""}
+        set { defaults.setObject(newValue, forKey: participantKeys.phaseOneUrlString)}
     }
     
     func generateParticipantGuid() -> String {
@@ -118,12 +128,5 @@ class UserManager { //this is a Singleton pattern
         } else {
             return false
         }
-    }
-
-    func appenduserManagerToResponseArray(){ //load some stored parameters into the responseArray
-        responseArray.append("GUID=\(participantGuid)")
-        print("Happy! Happy! Happy! ")
-        responseArray.append("Group=\(String(participantGroup))")
-        responseArray.append("Trial=\(String(participantTrial))")
     }
 }

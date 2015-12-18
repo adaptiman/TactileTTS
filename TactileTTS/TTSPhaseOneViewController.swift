@@ -59,11 +59,9 @@ class TTSPhaseOneViewController: UIViewController {
         
         //start phase one survey
         //this is the phase one survey address
-        let surveyString = "https://tamu.qualtrics.com/jfe/form/SV_a9Le0B1mZmgux5b?"
+        let surveyString = userManager.phaseOneUrl as String
         
-        //this is the preview address
-        //let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_a9Le0B1mZmgux5b?"
-        let dataString = "participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)"
+        let dataString = "?participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)"
         let url = NSURL(string: (surveyString + dataString))
         print(url)
         

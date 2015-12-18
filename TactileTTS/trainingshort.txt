@@ -1,1 +1,1 @@
-This is the training text. This is a second sentence so you can navigate and create a result set. Have a nice day.
+This is the training text.
