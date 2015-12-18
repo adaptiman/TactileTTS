@@ -27,14 +27,18 @@ class TTSPhaseTwoViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Part 2"
         
+        //disable the back navigation
+        self.navigationItem.setHidesBackButton(true, animated:true);
+        
         // Do any additional setup after loading the view.
         
         //start phase two survey
-        //this is the phase one survey address
-        let surveyString = "https://tamu.qualtrics.com/jfe/form/SV_a9Le0B1mZmgux5b?"
+        
+        //this is the phase two survey address
+        let surveyString = "https://tamu.qualtrics.com/jfe/form/SV_1LLecPJoJzTU0bH?"
         
         //this is the preview address
-        //let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_a9Le0B1mZmgux5b?"
+        //let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?"
         let dataString = "participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)"
         let url = NSURL(string: (surveyString + dataString))
         print(url)
@@ -42,19 +46,6 @@ class TTSPhaseTwoViewController: UIViewController {
         //load the page in the WKWebView
         let req = NSURLRequest(URL:url!)
         self.webView!.loadRequest(req)
-        
-        
-        
-//        //this is the phase two survey address
-//        let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?resultString="
-//        let dataString = object.userInfo!["Response Result"] as! NSString
-//        
-//        let sendToURL = surveyString + (dataString as String)
-//        print(sendToURL)
-//        UIApplication.sharedApplication().openURL(NSURL(string:sendToURL)!)
-        
-
-        
     }
 
     

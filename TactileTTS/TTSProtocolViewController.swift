@@ -51,14 +51,8 @@ class TTSProtocolViewController: UIViewController {
         
         print("Got Notification")
         
-        //this is the phase two survey address
-        let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?resultString="
-        let dataString = object.userInfo!["Response Result"] as! NSString
-        
-        let sendToURL = surveyString + (dataString as String)
-        print(sendToURL)
-        UIApplication.sharedApplication().openURL(NSURL(string:sendToURL)!)
-        
+        //seque to Phase 2
+        self.performSegueWithIdentifier("showPhaseTwo", sender: nil)
     }
 
     override func didReceiveMemoryWarning() {
