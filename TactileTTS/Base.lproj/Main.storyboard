@@ -348,6 +348,9 @@
                             <outletCollection property="gestureRecognizers" destination="Oln-Uq-7fu" appends="YES" id="4a1-Au-Ovx"/>
                         </connections>
                     </view>
+                    <connections>
+                        <segue destination="lXs-LN-POu" kind="show" identifier="showPhaseTwo" id="1B0-A1-vu5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="liT-3R-BWI">
@@ -367,6 +370,24 @@
                 </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="916" y="-646"/>
+        </scene>
+        <!--Phase Two View Controller-->
+        <scene sceneID="t79-WA-iY8">
+            <objects>
+                <viewController storyboardIdentifier="PhaseTwoViewController" id="lXs-LN-POu" customClass="TTSPhaseTwoViewController" customModule="TactileTTS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OEN-Yw-X71"/>
+                        <viewControllerLayoutGuide type="bottom" id="fQi-q5-bcW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BSf-3h-kti">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WIF-Pf-GJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1605" y="-646"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fLx-Xi-wWB">

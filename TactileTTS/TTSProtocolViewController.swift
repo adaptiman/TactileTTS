@@ -34,6 +34,11 @@ class TTSProtocolViewController: UIViewController {
         
         //process the text object through the speech navigation model
         //ttsProtocol.speakTheText(tvMaterial.text)
+        
+        //disable the back navigation
+        self.navigationItem.setHidesBackButton(true, animated:true);
+        
+        //speak the protocol text
         ttsProtocol.speakTheText(userManager.protocolText)
         
         //setup a notifier to fire when the protcol is done.

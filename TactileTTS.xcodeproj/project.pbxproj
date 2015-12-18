@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		845103A11BE46F320027AD53 /* TTSPhaseOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */; };
+		848727741C2322B7009BAF57 /* TTSPhaseTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */; };
 		848AC46F1B5F25B5001195A9 /* TTSProtocolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */; };
 		84956E691BFE930500D1A0D3 /* TTSTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956E681BFE930500D1A0D3 /* TTSTrainingViewController.swift */; };
 		84B3AA0D1C011BA40057A000 /* TTSUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3AA0C1C011BA40057A000 /* TTSUserManager.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseOneViewController.swift; sourceTree = "<group>"; };
+		848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseTwoViewController.swift; sourceTree = "<group>"; };
 		848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSProtocolModel.swift; sourceTree = "<group>"; };
 		84956E681BFE930500D1A0D3 /* TTSTrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSTrainingViewController.swift; sourceTree = "<group>"; };
 		84B3AA0C1C011BA40057A000 /* TTSUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSUserManager.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */,
 				848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */,
 				84BAF3CA1B5F158300B47AEB /* Main.storyboard */,
+				848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */,
 				845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */,
 				84BAF3C41B5F158300B47AEB /* Supporting Files */,
 			);
@@ -239,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848727741C2322B7009BAF57 /* TTSPhaseTwoViewController.swift in Sources */,
 				84BAF3C91B5F158300B47AEB /* TTSProtocolViewController.swift in Sources */,
 				84BAF3C71B5F158300B47AEB /* AppDelegate.swift in Sources */,
 				848AC46F1B5F25B5001195A9 /* TTSProtocolModel.swift in Sources */,
