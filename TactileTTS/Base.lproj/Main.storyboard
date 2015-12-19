@@ -23,7 +23,7 @@
                     <navigationItem key="navigationItem" id="j5c-hM-m8l"/>
                     <connections>
                         <outlet property="containerView" destination="zsp-Jx-cpb" id="6cC-cx-6fq"/>
-                        <segue destination="aRG-aV-EYR" kind="show" identifier="training" id="fkm-dm-upo"/>
+                        <segue destination="aRG-aV-EYR" kind="show" identifier="showTraining" id="fkm-dm-upo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ito-gZ-C2K" userLabel="First Responder" sceneMemberID="firstResponder"/>
