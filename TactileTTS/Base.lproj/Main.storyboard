@@ -24,6 +24,7 @@
                     <connections>
                         <outlet property="containerView" destination="zsp-Jx-cpb" id="6cC-cx-6fq"/>
                         <segue destination="aRG-aV-EYR" kind="show" identifier="showTraining" id="fkm-dm-upo"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="showTtsProtocol" id="2pz-Bf-tIq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ito-gZ-C2K" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -185,7 +186,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="showProtocol" id="NEE-gM-ntm"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="showExperimentalProtocol" id="NEE-gM-ntm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o30-Dp-FR9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -215,7 +216,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="225" y="-646"/>
+            <point key="canvasLocation" x="-457" y="99"/>
         </scene>
         <!--Protocol View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -369,7 +370,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="916" y="-646"/>
+            <point key="canvasLocation" x="696" y="-267"/>
         </scene>
         <!--Phase Two View Controller-->
         <scene sceneID="t79-WA-iY8">
@@ -387,7 +388,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WIF-Pf-GJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1605" y="-646"/>
+            <point key="canvasLocation" x="1423" y="-267"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fLx-Xi-wWB">
@@ -415,4 +416,7 @@
         <image name="two-swipe-left" width="512" height="512"/>
         <image name="two-swipe-right" width="512" height="512"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="2pz-Bf-tIq"/>
+    </inferredMetricsTieBreakers>
 </document>

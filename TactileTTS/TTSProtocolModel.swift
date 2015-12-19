@@ -225,14 +225,17 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     func goForward() {
         
-        utteranceWasInterruptedByNavigation = true
-        navigate(.Forward)
+        if userManager.participantGroup != 0 {
+            utteranceWasInterruptedByNavigation = true
+            navigate(.Forward)
+        }
     }
     
     func goBack() {
         
-        utteranceWasInterruptedByNavigation = true
-        navigate(.Backward)
-
+        if userManager.participantGroup != 0 {
+            utteranceWasInterruptedByNavigation = true
+            navigate(.Backward)
+        }
     }
 }
