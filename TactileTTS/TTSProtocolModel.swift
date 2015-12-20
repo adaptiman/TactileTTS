@@ -26,7 +26,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     private var currentCursorPosition: Int! = 0
     private var utteranceArray:[(utterance: String, utteranceLength: Int)] = []
     private enum ParseType { case ByParagraph, BySentence, ByWord }
-    private enum NavigationType { case Next, Backward, Forward, PauseOrPlay }
+    private enum NavigationType { case Next, Backward, Forward, PauseOrPlay, Stop }
     
     
     private let speechSynthesizer = AVSpeechSynthesizer()
@@ -179,9 +179,13 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                     userManager.responseArray.append("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
                 }
             }
+        
+        case .Stop:
+            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         }
+        
     }
-    
+
     private func speak(utteranceIndex: Int) {
         
         speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance))
@@ -206,6 +210,10 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
         
         speak(currentUtterance)
+    }
+    
+    func stopSpeakingTheText() {
+        navigate(.Stop)
     }
     
     func endTheProtocol() {

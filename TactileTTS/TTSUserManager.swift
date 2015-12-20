@@ -20,6 +20,7 @@ class UserManager { //this is a Singleton pattern
         static let participantTrialInt = "participantTrialKey"
         static let trainingTextString = "trainingTextKey"
         static let protocolTextString = "protocolTextKey"
+        static let orientationTextString = "orientationTextKey"
         static let participantResponseJsonString = "participantResponseJsonKey"
         static let phaseOneUrlString = "PhaseOneUrlKey"
         static let phaseTwoUrlString = "PhaseTwoUrlKey"
@@ -59,6 +60,11 @@ class UserManager { //this is a Singleton pattern
         set { defaults.setObject(newValue, forKey: participantKeys.protocolTextString)}
     }
 
+    var orientationText: NSString {
+        get { return defaults.objectForKey(participantKeys.orientationTextString) as? String ?? ""}
+        set { defaults.setObject(newValue, forKey: participantKeys.orientationTextString)}
+    }
+    
     var participantResponseJson: NSString {
         get { return defaults.objectForKey(participantKeys.participantResponseJsonString) as? String ?? ""}
         set { defaults.setObject(newValue, forKey: participantKeys.participantResponseJsonString)}

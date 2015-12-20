@@ -27,6 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
         let protocolLocation = NSBundle.mainBundle().pathForResource("protocolshort", ofType: "txt")
         userManager.protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: NSUTF8StringEncoding)
+
+        //load the orientationText
+        let orientationLocation = NSBundle.mainBundle().pathForResource("orientation", ofType: "txt")
+        userManager.orientationText = try! NSString(contentsOfFile: orientationLocation!, encoding: NSUTF8StringEncoding)
         
         return true
     }

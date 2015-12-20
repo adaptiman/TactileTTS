@@ -88,12 +88,7 @@ class TTSPhaseOneViewController: UIViewController {
             print("\(result),\(error)")
             if error != nil {
                 dispatch_once(&trainingToken, { () -> Void in
-                    if self.userManager.participantGroup == 0 {
-                        print("Control Group")
-                        self.performSegueWithIdentifier("showTtsProtocol", sender: nil)
-                    } else {
-                        self.performSegueWithIdentifier("showTraining", sender: nil)
-                    }
+                    self.performSegueWithIdentifier("showOrientation", sender: nil)
                     self.myTimer.invalidate()
                 } )
             }
