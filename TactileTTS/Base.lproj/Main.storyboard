@@ -446,7 +446,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Qmu-RJ-Fup">
-                        <barButtonItem key="rightBarButtonItem" title="Continue" id="BdB-uM-nlO">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Continue" id="BdB-uM-nlO">
                             <connections>
                                 <action selector="continueToTrainingOrProtocol:" destination="5IZ-ro-faN" id="29m-fe-KXb"/>
                             </connections>

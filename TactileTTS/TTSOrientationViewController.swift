@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import AVFoundation
 
-class TTSOrientationViewController: UIViewController {
+class TTSOrientationViewController: UIViewController, AVSpeechSynthesizerDelegate {
 
    
     @IBOutlet weak var tvOrientation: UITextView!
     
     @IBAction func continueToTrainingOrProtocol(sender: AnyObject) {
         
-        ttsProtocol.stopSpeakingTheText()
+        if speechSynthesizer.speaking {
+            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+        }
         
         if self.userManager.participantGroup == 0 {
             print("Control Group")
@@ -26,7 +29,11 @@ class TTSOrientationViewController: UIViewController {
         }
     }
     
-    var ttsProtocol = TTSModel()
+    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
+
+        self.navigationItem.rightBarButtonItem?.enabled = true
+    }
+
     
     private let userManager = UserManager.sharedInstance
     
@@ -48,8 +55,17 @@ class TTSOrientationViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated:true);
         
         //speak the protocol text
-        ttsProtocol.speakTheText(userManager.orientationText)
+        //ttsProtocol.speakTheText(userManager.orientationText)
+        
+        speechSynthesizer.delegate = self
+        speakTheText(userManager.orientationText)
     }
 
+    private let speechSynthesizer = AVSpeechSynthesizer()
+    
+    private func speakTheText(theText: NSString) {
+        speechSynthesizer.speakUtterance(AVSpeechUtterance(string: theText as String))
+        
+    }
 
 }

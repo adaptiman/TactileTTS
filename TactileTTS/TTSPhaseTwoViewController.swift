@@ -37,7 +37,7 @@ class TTSPhaseTwoViewController: UIViewController {
         //this is the phase two survey address
         let surveyString = userManager.phaseTwoUrl as String
         
-        //this is the preview address
+        //this is the preview	 address
         //let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?"
         
         //this is the response string
