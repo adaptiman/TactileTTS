@@ -16,7 +16,7 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
     
     @IBAction func tap(sender: UITapGestureRecognizer) {
-        speakTheText("Pause continue.")
+        speakTheText("Pause or continue.")
     }
     
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
@@ -73,8 +73,13 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     private let speechSynthesizer = AVSpeechSynthesizer()
     
     private func speakTheText(theText: NSString) {
-        speechSynthesizer.speakUtterance(AVSpeechUtterance(string: theText as String))
         
+        let theUtterance = AVSpeechUtterance(string: theText as String)
+        
+        theUtterance.rate = userManager.rate
+        theUtterance.pitchMultiplier = userManager.pitch
+        
+        speechSynthesizer.speakUtterance(theUtterance)
     }
 
     override func didReceiveMemoryWarning() {

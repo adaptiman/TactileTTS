@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		845103A11BE46F320027AD53 /* TTSPhaseOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */; };
+		845446771C31AE6F0046C6BA /* TTSSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845446761C31AE6F0046C6BA /* TTSSettingsViewController.swift */; };
 		848727741C2322B7009BAF57 /* TTSPhaseTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */; };
 		848727761C23A846009BAF57 /* protocolshort.txt in Resources */ = {isa = PBXBuildFile; fileRef = 848727751C23A846009BAF57 /* protocolshort.txt */; };
 		848727781C23A854009BAF57 /* trainingshort.txt in Resources */ = {isa = PBXBuildFile; fileRef = 848727771C23A854009BAF57 /* trainingshort.txt */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseOneViewController.swift; sourceTree = "<group>"; };
+		845446761C31AE6F0046C6BA /* TTSSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSSettingsViewController.swift; sourceTree = "<group>"; };
 		848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseTwoViewController.swift; sourceTree = "<group>"; };
 		848727751C23A846009BAF57 /* protocolshort.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = protocolshort.txt; sourceTree = "<group>"; };
 		848727771C23A854009BAF57 /* trainingshort.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingshort.txt; sourceTree = "<group>"; };
@@ -101,14 +103,15 @@
 		84BAF3C31B5F158300B47AEB /* TactileTTS */ = {
 			isa = PBXGroup;
 			children = (
+				845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */,
+				845446761C31AE6F0046C6BA /* TTSSettingsViewController.swift */,
+				8487277D1C25DD7D009BAF57 /* TTSOrientationViewController.swift */,
 				84956E681BFE930500D1A0D3 /* TTSTrainingViewController.swift */,
-				84B3AA0C1C011BA40057A000 /* TTSUserManager.swift */,
 				84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */,
+				84B3AA0C1C011BA40057A000 /* TTSUserManager.swift */,
 				848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */,
 				84BAF3CA1B5F158300B47AEB /* Main.storyboard */,
-				8487277D1C25DD7D009BAF57 /* TTSOrientationViewController.swift */,
 				848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */,
-				845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */,
 				84BAF3C41B5F158300B47AEB /* Supporting Files */,
 			);
 			path = TactileTTS;
@@ -259,6 +262,7 @@
 			files = (
 				848727741C2322B7009BAF57 /* TTSPhaseTwoViewController.swift in Sources */,
 				84BAF3C91B5F158300B47AEB /* TTSProtocolViewController.swift in Sources */,
+				845446771C31AE6F0046C6BA /* TTSSettingsViewController.swift in Sources */,
 				84BAF3C71B5F158300B47AEB /* AppDelegate.swift in Sources */,
 				848AC46F1B5F25B5001195A9 /* TTSProtocolModel.swift in Sources */,
 				84956E691BFE930500D1A0D3 /* TTSTrainingViewController.swift in Sources */,

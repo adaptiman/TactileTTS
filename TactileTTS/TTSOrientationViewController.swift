@@ -64,8 +64,13 @@ class TTSOrientationViewController: UIViewController, AVSpeechSynthesizerDelegat
     private let speechSynthesizer = AVSpeechSynthesizer()
     
     private func speakTheText(theText: NSString) {
-        speechSynthesizer.speakUtterance(AVSpeechUtterance(string: theText as String))
         
+        let theUtterance = AVSpeechUtterance(string: theText as String)
+        
+        theUtterance.rate = userManager.rate
+        theUtterance.pitchMultiplier = userManager.pitch
+        
+        speechSynthesizer.speakUtterance(theUtterance)
     }
 
 }

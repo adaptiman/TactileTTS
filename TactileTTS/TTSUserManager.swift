@@ -22,8 +22,11 @@ class UserManager { //this is a Singleton pattern
         static let protocolTextString = "protocolTextKey"
         static let orientationTextString = "orientationTextKey"
         static let participantResponseJsonString = "participantResponseJsonKey"
-        static let phaseOneUrlString = "PhaseOneUrlKey"
-        static let phaseTwoUrlString = "PhaseTwoUrlKey"
+        static let phaseOneUrlString = "phaseOneUrlKey"
+        static let phaseTwoUrlString = "phaseTwoUrlKey"
+        static let pitchFloat = "pitchKey"
+//        static let volumeFloat = "volumeKey"
+        static let rateFloat = "rateKey"
     }
     
     private let defaults = NSUserDefaults.standardUserDefaults()
@@ -59,7 +62,7 @@ class UserManager { //this is a Singleton pattern
         get { return defaults.objectForKey(participantKeys.protocolTextString) as? String ?? ""}
         set { defaults.setObject(newValue, forKey: participantKeys.protocolTextString)}
     }
-
+    
     var orientationText: NSString {
         get { return defaults.objectForKey(participantKeys.orientationTextString) as? String ?? ""}
         set { defaults.setObject(newValue, forKey: participantKeys.orientationTextString)}
@@ -73,6 +76,22 @@ class UserManager { //this is a Singleton pattern
     var PhaseOneUrl: String {
         get { return defaults.objectForKey(participantKeys.phaseOneUrlString) as? String ?? ""}
         set { defaults.setObject(newValue, forKey: participantKeys.phaseOneUrlString)}
+    }
+    
+    var pitch: Float {
+        get { return (defaults.objectForKey(participantKeys.pitchFloat) as? Float ?? nil)!}
+        set { defaults.setObject(newValue, forKey: participantKeys.pitchFloat)}
+    }
+    
+    
+//    var volume: Float {
+//        get { return (defaults.objectForKey(participantKeys.volumeFloat) as? Float ?? nil)!}
+//        set { defaults.setObject(newValue, forKey: participantKeys.volumeFloat)}
+//    }
+    
+    var rate: Float {
+        get { return (defaults.objectForKey(participantKeys.rateFloat) as? Float ?? nil)!}
+        set { defaults.setObject(newValue, forKey: participantKeys.rateFloat)}
     }
     
     func generateParticipantGuid() -> String {

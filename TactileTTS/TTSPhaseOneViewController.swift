@@ -88,7 +88,7 @@ class TTSPhaseOneViewController: UIViewController {
             print("\(result),\(error)")
             if error != nil {
                 dispatch_once(&trainingToken, { () -> Void in
-                    self.performSegueWithIdentifier("showOrientation", sender: nil)
+                    self.performSegueWithIdentifier("showSettings", sender: nil)
                     self.myTimer.invalidate()
                 } )
             }
