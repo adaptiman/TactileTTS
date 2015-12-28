@@ -28,7 +28,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     private enum ParseType { case ByParagraph, BySentence, ByWord }
     private enum NavigationType { case Next, Backward, Forward, PauseOrPlay, Stop }
     
-    
     private let speechSynthesizer = AVSpeechSynthesizer()
     
     private let userManager = UserManager.sharedInstance
@@ -183,7 +182,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         case .Stop:
             speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         }
-        
     }
 
     private func speak(utteranceIndex: Int) {

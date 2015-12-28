@@ -25,7 +25,6 @@ class UserManager { //this is a Singleton pattern
         static let phaseOneUrlString = "phaseOneUrlKey"
         static let phaseTwoUrlString = "phaseTwoUrlKey"
         static let pitchFloat = "pitchKey"
-//        static let volumeFloat = "volumeKey"
         static let rateFloat = "rateKey"
     }
     
@@ -82,12 +81,6 @@ class UserManager { //this is a Singleton pattern
         get { return (defaults.objectForKey(participantKeys.pitchFloat) as? Float ?? nil)!}
         set { defaults.setObject(newValue, forKey: participantKeys.pitchFloat)}
     }
-    
-    
-//    var volume: Float {
-//        get { return (defaults.objectForKey(participantKeys.volumeFloat) as? Float ?? nil)!}
-//        set { defaults.setObject(newValue, forKey: participantKeys.volumeFloat)}
-//    }
     
     var rate: Float {
         get { return (defaults.objectForKey(participantKeys.rateFloat) as? Float ?? nil)!}
