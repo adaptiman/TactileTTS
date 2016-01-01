@@ -17,7 +17,6 @@ struct ProtocolCompleted { //NSNotification object definition
 
 class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
 {
-//    private var responseArray: [NSString] = []
     private var utteranceWasInterruptedByNavigation: Bool = false
     private var totalUtterances: Int! = 0
     private var currentUtterance: Int! = 0
@@ -25,7 +24,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     private var spokenTextLength: Int! = 1
     private var currentCursorPosition: Int! = 0
     private var utteranceArray:[(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] = []
-    private enum ParseType { case ByParagraph, BySentence, ByWord }
     private enum NavigationType { case Next, Backward, Forward, PauseOrPlay, Stop }
     
     private let speechSynthesizer = AVSpeechSynthesizer()
@@ -84,13 +82,15 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         return responseString
     }
     
-    private func getSentences(theText:NSString) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] {
- 
+    
+    private func parse(theText: NSString) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] {
+        
+
         //load and calculate sentences
         var tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
         
         for i in 0..<tempArray.count - 1 {
-//            this fixes the funky componentsSeparatedByCharactersInSet parsing on the first element
+            //            this fixes the funky componentsSeparatedByCharactersInSet parsing on the first element
             if i == 0 {
                 utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2, utteranceStartsParagraph: true)]
             } else {
@@ -103,31 +103,12 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                     utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: true)]
                     
                 } else { //this sentence does not start a paragraph
-                        utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: false)]
+                    utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: false)]
                 }
-            
+                
             }
             
             print("\(utteranceArray[i])")
-        }
-        
-        return (utteranceArray)
-    }
-
-    private func parse(theText: NSString, parseMethod: ParseType) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] {
-        
-        switch parseMethod {
-        
-        case .ByParagraph:
-            print("Utterance level is: paragraph")
-        
-        case .BySentence:
-            _ = getSentences(theText)
-            print("Utterance level is: sentence")
-            //responseArray.append("Utterance level is: sentence")
-            
-        case .ByWord:
-            print("Utterance level is: word")
         }
         
         //calculate total utterances
@@ -216,7 +197,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     func speakTheText(theText: NSString) {
         
-        utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)]
+        utteranceArray = parse(theText) as [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)]
         
         speak(currentUtterance)
     }
