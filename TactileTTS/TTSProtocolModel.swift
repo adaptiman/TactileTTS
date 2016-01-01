@@ -24,7 +24,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     private var totalTextLength: Int! = 0
     private var spokenTextLength: Int! = 1
     private var currentCursorPosition: Int! = 0
-    private var utteranceArray:[(utterance: String, utteranceLength: Int)] = []
+    private var utteranceArray:[(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] = []
     private enum ParseType { case ByParagraph, BySentence, ByWord }
     private enum NavigationType { case Next, Backward, Forward, PauseOrPlay, Stop }
     
@@ -84,26 +84,37 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         return responseString
     }
     
-    private func getSentences(theText:NSString) -> [(utterance: String, utteranceLength: Int)] {
+    private func getSentences(theText:NSString) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] {
  
         //load and calculate sentences
-        let tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
+        var tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
         
         for i in 0..<tempArray.count - 1 {
 //            this fixes the funky componentsSeparatedByCharactersInSet parsing on the first element
             if i == 0 {
-                utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2)]
+                utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2, utteranceStartsParagraph: true)]
             } else {
-                utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1)]
+                if tempArray[i].characters.contains("\n" as Character) { //this sentence starts a paragraph
+                    
+                    //replace the paragraph chars with a space
+                    tempArray[i] = tempArray[i].stringByReplacingOccurrencesOfString("\n\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                    
+                    //add the modified string to the utterance array and indicate a paragraph
+                    utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: true)]
+                    
+                } else { //this sentence does not start a paragraph
+                        utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: false)]
+                }
+            
             }
             
-//            print("\(utteranceArray[i])")
+            print("\(utteranceArray[i])")
         }
         
         return (utteranceArray)
     }
 
-    private func parse(theText: NSString, parseMethod: ParseType) -> [(utterance: String, utteranceLength: Int)] {
+    private func parse(theText: NSString, parseMethod: ParseType) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] {
         
         switch parseMethod {
         
@@ -205,7 +216,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     func speakTheText(theText: NSString) {
         
-        utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int)]
+        utteranceArray = parse(theText, parseMethod: .BySentence) as [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)]
         
         speak(currentUtterance)
     }

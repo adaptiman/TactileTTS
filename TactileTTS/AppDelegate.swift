@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //load the protocolText
 //        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
-        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
+        let protocolLocation = NSBundle.mainBundle().pathForResource("paragraphtest", ofType: "txt")
         userManager.protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: NSUTF8StringEncoding)
 
         //load the orientationText
