@@ -25,7 +25,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     private var totalTextLength: Int = 0
     private var spokenTextLength: Int = 1
     private var currentCursorPosition: Int = 0
-    private var utteranceArray:[(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] = []
+    private var utteranceArray:[(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)] = []
     private enum NavigationType { case Next, Backward, BackwardByParagraph, Forward, ForwardByParagraph, PauseOrPlay, Stop }
     
     private let speechSynthesizer = AVSpeechSynthesizer()
@@ -48,8 +48,11 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         spokenTextLength = utteranceArray[0..<currentUtterance].reduce(0){$0 + $1.utteranceLength}
         
-        //print("currentUtterance: \(currentUtterance)")
-        //print("spokenTextLength: \(spokenTextLength)")
+        //update the current paragraph
+        currentParagraph = utteranceArray[currentUtterance].paragraphNumber
+        
+        print("speaking location=\(currentParagraph),\(currentUtterance)")
+
         
     }
     
@@ -85,7 +88,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     }
     
     
-    private func parse(theText: NSString) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] {
+    private func parse(theText: NSString) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)] {
         
         //load and calculate sentences
         var tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
@@ -94,26 +97,26 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             
             //this fixes the componentsSeparatedByCharactersInSet parsing on the first element, which doesn't have a space like the others
             if i == 0 {
-                
-                utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2, utteranceStartsParagraph: true)]
-                totalUtterances++
                 totalParagraphs++
+                utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2, utteranceStartsParagraph: true, paragraphNumber: totalParagraphs)]
+                totalUtterances++
                 
             } else {
                 
                 if tempArray[i].characters.contains("\n" as Character) { //this sentence starts a paragraph
                     
+                    totalParagraphs++
+                    
                     //replace the paragraph chars with a space
                     tempArray[i] = tempArray[i].stringByReplacingOccurrencesOfString("\n\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
                     
                     //add the modified string to the utterance array and indicate a paragraph
-                    utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: true)]
+                    utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: true, paragraphNumber: totalParagraphs)]
                     totalUtterances++
-                    totalParagraphs++
                     
                 } else { //this sentence does not start a paragraph
                     
-                    utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: false)]
+                    utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: false, totalParagraphs)]
                     totalUtterances++
                 }
             }
@@ -139,7 +142,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         case .Next:
             if !utteranceWasInterruptedByNavigation {
                 if currentUtterance !=  totalUtterances - 1 { //not the last utterance
-                    currentUtterance = currentUtterance + 1
+                    currentUtterance++
                     speak(currentUtterance)
                 }
             }
@@ -149,7 +152,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             userManager.responseArray.append("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             if currentUtterance !=  totalUtterances - 1 { //i.e. if it's NOT the last utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-                currentUtterance = currentUtterance + 1
+                currentUtterance++
                 speak(currentUtterance)
             }
             
@@ -164,7 +167,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             userManager.responseArray.append("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             if currentUtterance != 0 { //i.e. if it's NOT the first utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-                currentUtterance = currentUtterance - 1
+                currentUtterance--
                 speak(currentUtterance)
             } else { //it IS the first utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
@@ -206,11 +209,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         theUtterance.rate = userManager.rate
         theUtterance.pitchMultiplier = userManager.pitch
         
-        print("speaking location=\(currentParagraph),\(currentUtterance)")
-
-        
         speechSynthesizer.speakUtterance(theUtterance)
-        
     }
     
     private func endTheProtocol() {
@@ -232,7 +231,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     func speakTheText(theText: NSString) {
         
-        utteranceArray = parse(theText) as [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)]
+        utteranceArray = parse(theText) as [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)]
         
         speak(currentUtterance)
     }

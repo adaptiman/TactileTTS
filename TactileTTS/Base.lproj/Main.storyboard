@@ -465,8 +465,6 @@
                             <outletCollection property="gestureRecognizers" destination="liT-3R-BWI" appends="YES" id="Y9A-RI-Q3o"/>
                             <outletCollection property="gestureRecognizers" destination="dSM-0S-lmE" appends="YES" id="g5n-ac-cvt"/>
                             <outletCollection property="gestureRecognizers" destination="Oln-Uq-7fu" appends="YES" id="4a1-Au-Ovx"/>
-                            <outletCollection property="gestureRecognizers" destination="Cn4-Ke-uaH" appends="YES" id="Myu-w9-VsC"/>
-                            <outletCollection property="gestureRecognizers" destination="QZO-Wc-1T2" appends="YES" id="K7q-kG-AKo"/>
                         </connections>
                     </view>
                     <connections>
@@ -487,16 +485,6 @@
                 <swipeGestureRecognizer direction="left" id="Oln-Uq-7fu">
                     <connections>
                         <action selector="swipeLeft:" destination="BYZ-38-t0r" id="TCe-bM-lg6"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="right" numberOfTouchesRequired="2" id="Cn4-Ke-uaH">
-                    <connections>
-                        <action selector="swipeRightTwoFinger:" destination="BYZ-38-t0r" id="4Vr-ei-VOm"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" numberOfTouchesRequired="2" id="QZO-Wc-1T2">
-                    <connections>
-                        <action selector="swipeLeftTwoFinger:" destination="BYZ-38-t0r" id="d27-Bz-5Rg"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
