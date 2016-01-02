@@ -23,11 +23,6 @@ class TTSProtocolViewController: UIViewController {
     }
     
     
-    @IBAction func swipeRightTwoFinger(sender: UISwipeGestureRecognizer) {
-        ttsProtocol.goBackByParagraph()
-    }
-    
-    
     @IBAction func swipeLeftTwoFinger(sender: UISwipeGestureRecognizer) {
         ttsProtocol.goForwardByParagraph()
     }
@@ -59,7 +54,7 @@ class TTSProtocolViewController: UIViewController {
     
     func protocolComplete(object: NSNotification) {
         
-        print("Got Notification")
+        print("protocolComplete")
         
         //write the response string to the participantKeys struct
         userManager.participantResponseJson = object.userInfo!["Response Result"] as! NSString

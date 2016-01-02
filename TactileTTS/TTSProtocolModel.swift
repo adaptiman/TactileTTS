@@ -160,6 +160,15 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             //write the data point
             print("FP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             userManager.responseArray.append("FP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            if currentParagraph < totalParagraphs { //i.e. if it's NOT the last paragraph
+                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+                currentUtterance++
+                while !utteranceArray[currentUtterance].utteranceStartsParagraph {
+                    currentUtterance++
+                }
+                speak(currentUtterance)
+            }
+
 
             
         case .Backward:
