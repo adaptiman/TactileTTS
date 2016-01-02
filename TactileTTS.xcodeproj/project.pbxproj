@@ -110,10 +110,10 @@
 				8487277D1C25DD7D009BAF57 /* TTSOrientationViewController.swift */,
 				84956E681BFE930500D1A0D3 /* TTSTrainingViewController.swift */,
 				84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */,
-				84B3AA0C1C011BA40057A000 /* TTSUserManager.swift */,
-				84BAF3CA1B5F158300B47AEB /* Main.storyboard */,
-				848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */,
 				848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */,
+				84B3AA0C1C011BA40057A000 /* TTSUserManager.swift */,
+				848AC46E1B5F25B5001195A9 /* TTSProtocolModel.swift */,
+				84BAF3CA1B5F158300B47AEB /* Main.storyboard */,
 				84BAF3C61B5F158300B47AEB /* AppDelegate.swift */,
 				84BAF3C41B5F158300B47AEB /* Supporting Files */,
 			);

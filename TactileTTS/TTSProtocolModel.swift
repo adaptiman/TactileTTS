@@ -169,8 +169,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                 speak(currentUtterance)
             }
 
-
-            
         case .Backward:
             print("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             userManager.responseArray.append("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
