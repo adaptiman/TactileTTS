@@ -52,9 +52,8 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         currentParagraph = utteranceArray[currentUtterance].paragraphNumber
         
         print("speaking location=\(currentParagraph),\(currentUtterance)")
-
-        
     }
+    
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         
@@ -73,10 +72,12 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         }
     }
 
+    
     //private speech synthesizer functions
     //
     //
     //
+    
     
     private func encodeResultsToJSON(theResponseArray: [NSString]) -> NSString {
         
@@ -135,6 +136,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         return utteranceArray
     }
     
+    
     private func navigate(go: NavigationType) {
         
         switch go {
@@ -181,12 +183,12 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                 speak(currentUtterance)
                 
             }
+            
         case .BackwardByParagraph:
             //write the data point
             print("BP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             userManager.responseArray.append("BP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
 
-            
         case .PauseOrPlay:
             if speechSynthesizer.speaking {
                 if speechSynthesizer.paused {
@@ -206,7 +208,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     }
     
     
-
     private func speak(utteranceIndex: Int) {
         
         //speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance))
@@ -218,6 +219,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         speechSynthesizer.speakUtterance(theUtterance)
     }
+    
     
     private func endTheProtocol() {
         
@@ -243,14 +245,17 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         speak(currentUtterance)
     }
     
+    
     func stopSpeakingTheText() {
         navigate(.Stop)
     }
 
+    
     func pauseContinue() {
         
         navigate(.PauseOrPlay)
     }
+    
     
     func goForward() {
         
@@ -260,6 +265,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         }
     }
     
+    
     func goBack() {
         
         if userManager.participantGroup != 0 {
@@ -268,6 +274,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         }
     }
     
+    
     func goForwardByParagraph() {
         
         if userManager.participantGroup != 0 {
@@ -275,6 +282,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             navigate(.ForwardByParagraph)
         }
     }
+    
     
     func goBackByParagraph() {
         
