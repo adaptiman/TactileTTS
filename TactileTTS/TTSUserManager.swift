@@ -147,4 +147,50 @@ class UserManager { //this is a Singleton pattern
             return false
         }
     }
+    
+    func setupTheExperiment() {
+        //setup participant stored variables
+        if participantGuidExists() {
+            print("Got the GUID")
+        } else {
+            print("FirstTimer, setting GUID")
+            generateParticipantGuid()
+        }
+        
+        if participantGroupExists() {
+            print("Got the Group")
+        } else {
+            print("Assigning Group")
+            generateParticipantGroup()
+        }
+        
+        if participantTrialExists() {
+            print("Been here before, adding trial")
+            generateParticipantTrial()
+        } else {
+            print("Setting Trial to 1")
+            participantTrial = 1
+        }
+        
+        //load the trainingText
+        //        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
+        let trainingLocation = NSBundle.mainBundle().pathForResource("trainingshort", ofType: "txt")
+        trainingText = try! NSString(contentsOfFile: trainingLocation!, encoding: NSUTF8StringEncoding)
+        
+        //load the protocolText
+        //        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
+        let protocolLocation = NSBundle.mainBundle().pathForResource("paragraphtest", ofType: "txt")
+        protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: NSUTF8StringEncoding)
+        
+        //load the orientationText
+        var orientationFileName: String = ""
+        if participantGroup == 0 {
+            orientationFileName = "orientationControl" as String
+        } else {
+            orientationFileName = "orientationExperimental" as String
+        }
+        
+        let orientationLocation = NSBundle.mainBundle().pathForResource(orientationFileName, ofType: "txt")
+        orientationText = try! NSString(contentsOfFile: orientationLocation!, encoding: NSUTF8StringEncoding)
+    }
 }

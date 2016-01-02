@@ -33,30 +33,6 @@ class TTSPhaseOneViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        
-        //setup participant stored variables
-        if userManager.participantGuidExists() {
-            print("Got the GUID")
-        } else {
-            print("FirstTimer, setting GUID")
-            userManager.generateParticipantGuid()
-        }
-        
-        if userManager.participantGroupExists() {
-            print("Got the Group")
-        } else {
-            print("Assigning Group")
-            userManager.generateParticipantGroup()
-        }
-        
-        if userManager.participantTrialExists() {
-            print("Been here before, adding trial")
-            userManager.generateParticipantTrial()
-        } else {
-            print("Setting Trial to 1")
-            userManager.participantTrial = 1
-        }
-        
         //start phase one survey
         //this is the phase one survey address
         let surveyString = userManager.phaseOneUrl as String

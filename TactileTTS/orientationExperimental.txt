@@ -1,0 +1,9 @@
+This application will present a selection from the textbook, Comparing the States and Communities, by Harvey Tucker and Norman Luttbeg. The material will be presented as audio text and should take about twenty minutes to listen to. You will be able to navigate the audio text using swipe and tap gestures detailed in the next screen, including navigating the audio text by sentence and paragraph.
+
+During the audio text portion of the study, a progress bar will be visible that will indicate how far in the text you have gone.
+
+At the end of the audio, you will be directed to a survey that will ask you a brief set of multiple choice questions about the text you just heard. Please answer all of the questions.
+
+At the end of the survey, you will be prompted to enter your email address if you want to enter the prize drawing. No other identifying information will be collected. Winners will be contacted by the end of the semester.
+
+When you are ready to proceed, tap the Continue button in the upper right corner of this screen.

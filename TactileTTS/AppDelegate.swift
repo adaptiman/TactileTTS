@@ -12,44 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
     private let userManager = UserManager.sharedInstance
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-
-        //load the trainingText
-//        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
-        let trainingLocation = NSBundle.mainBundle().pathForResource("trainingshort", ofType: "txt")
-        userManager.trainingText = try! NSString(contentsOfFile: trainingLocation!, encoding: NSUTF8StringEncoding)
         
-        //load the protocolText
-//        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
-        let protocolLocation = NSBundle.mainBundle().pathForResource("paragraphtest", ofType: "txt")
-        userManager.protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: NSUTF8StringEncoding)
-
-        //load the orientationText
-        let orientationLocation = NSBundle.mainBundle().pathForResource("orientation", ofType: "txt")
-        userManager.orientationText = try! NSString(contentsOfFile: orientationLocation!, encoding: NSUTF8StringEncoding)
+        //setup all of the vars and paths
+        userManager.setupTheExperiment()
         
         return true
-    }
-
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool
-    {
-        //NSLog("Calling Application Bundle ID: \(sourceApplication)")
-        //NSLog("URL scheme: \(annotation)")
-        //NSLog("URL query: \(url)")
-        
-        let urlString = "\(url)"
-        
-        if urlString == "tactiletts://startprotocol" {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let protocolVC = storyboard.instantiateViewControllerWithIdentifier("protocolViewController")
-            self.window?.rootViewController?.presentViewController(protocolVC, animated: true, completion: nil)
-        }
-        
-        return true;
     }
     
     func applicationWillResignActive(application: UIApplication) {
