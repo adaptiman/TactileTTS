@@ -18,13 +18,15 @@ struct ProtocolCompleted { //NSNotification object definition
 class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
 {
     private var utteranceWasInterruptedByNavigation: Bool = false
-    private var totalUtterances: Int! = 0
-    private var currentUtterance: Int! = 0
-    private var totalTextLength: Int! = 0
-    private var spokenTextLength: Int! = 1
-    private var currentCursorPosition: Int! = 0
+    private var totalUtterances: Int = 0
+    private var totalParagraphs: Int = 0
+    private var currentUtterance: Int = 0
+    private var currentParagraph: Int = 1
+    private var totalTextLength: Int = 0
+    private var spokenTextLength: Int = 1
+    private var currentCursorPosition: Int = 0
     private var utteranceArray:[(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] = []
-    private enum NavigationType { case Next, Backward, Forward, PauseOrPlay, Stop }
+    private enum NavigationType { case Next, Backward, BackwardByParagraph, Forward, ForwardByParagraph, PauseOrPlay, Stop }
     
     private let speechSynthesizer = AVSpeechSynthesizer()
     
@@ -85,15 +87,20 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     private func parse(theText: NSString) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool)] {
         
-
         //load and calculate sentences
         var tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
         
         for i in 0..<tempArray.count - 1 {
-            //            this fixes the funky componentsSeparatedByCharactersInSet parsing on the first element
+            
+            //this fixes the componentsSeparatedByCharactersInSet parsing on the first element, which doesn't have a space like the others
             if i == 0 {
+                
                 utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2, utteranceStartsParagraph: true)]
+                totalUtterances++
+                totalParagraphs++
+                
             } else {
+                
                 if tempArray[i].characters.contains("\n" as Character) { //this sentence starts a paragraph
                     
                     //replace the paragraph chars with a space
@@ -101,31 +108,32 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                     
                     //add the modified string to the utterance array and indicate a paragraph
                     utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: true)]
+                    totalUtterances++
+                    //totalParagraphs++
                     
                 } else { //this sentence does not start a paragraph
+                    
                     utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: false)]
+                    totalUtterances++
                 }
-                
             }
             
             print("\(utteranceArray[i])")
         }
         
-        //calculate total utterances
-        totalUtterances = utteranceArray.count
-        print("Total utterances = \(totalUtterances)")
-        //responseArray.append("Total utterances = \(totalUtterances)")
-
+        //display some metrics
+        
         //calculate total characters
         totalTextLength = utteranceArray.reduce(0){$0 + $1.utteranceLength}
         print("Total chars: \(totalTextLength)") //# of chars in all utterances
-        //responseArray.append("Total chars: \(totalTextLength)")
+        print("Total utterances= \(totalUtterances)")
+        print("Total paragraphs = \(totalParagraphs)")
         
         return utteranceArray
     }
     
     private func navigate(go: NavigationType) {
-
+        
         switch go {
             
         case .Next:
@@ -145,6 +153,12 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                 speak(currentUtterance)
             }
             
+        case .ForwardByParagraph:
+            //write the data point
+            print("FP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            userManager.responseArray.append("FP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+
+            
         case .Backward:
             print("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             userManager.responseArray.append("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
@@ -155,8 +169,13 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             } else { //it IS the first utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 speak(currentUtterance)
-
+                
             }
+        case .BackwardByParagraph:
+            //write the data point
+            print("BP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            userManager.responseArray.append("BP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+
             
         case .PauseOrPlay:
             if speechSynthesizer.speaking {
@@ -170,11 +189,13 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                     userManager.responseArray.append("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
                 }
             }
-        
+            
         case .Stop:
             speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         }
     }
+    
+    
 
     private func speak(utteranceIndex: Int) {
         
@@ -185,9 +206,23 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         theUtterance.rate = userManager.rate
         theUtterance.pitchMultiplier = userManager.pitch
         
+        print("speaking location=\(currentParagraph),\(currentUtterance)")
+
+        
         speechSynthesizer.speakUtterance(theUtterance)
         
     }
+    
+    private func endTheProtocol() {
+        
+        let jsonString = encodeResultsToJSON(userManager.responseArray)
+        let encodedJsonResponse = jsonString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        
+        //broadcast notification that all speech is done
+        let center = NSNotificationCenter.defaultCenter()
+        center.postNotificationName(ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: encodedJsonResponse!])
+    }
+    
     
     //public functions
     //
@@ -204,16 +239,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     func stopSpeakingTheText() {
         navigate(.Stop)
-    }
-    
-    func endTheProtocol() {
-        
-        let jsonString = encodeResultsToJSON(userManager.responseArray)
-        let encodedJsonResponse = jsonString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
-        
-        //broadcast notification that all speech is done
-        let center = NSNotificationCenter.defaultCenter()
-        center.postNotificationName(ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: encodedJsonResponse!])
     }
 
     func pauseContinue() {
@@ -234,6 +259,22 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         if userManager.participantGroup != 0 {
             utteranceWasInterruptedByNavigation = true
             navigate(.Backward)
+        }
+    }
+    
+    func goForwardByParagraph() {
+        
+        if userManager.participantGroup != 0 {
+            utteranceWasInterruptedByNavigation = true
+            navigate(.ForwardByParagraph)
+        }
+    }
+    
+    func goBackByParagraph() {
+        
+        if userManager.participantGroup != 0 {
+            utteranceWasInterruptedByNavigation = true
+            navigate(.BackwardByParagraph)
         }
     }
 }

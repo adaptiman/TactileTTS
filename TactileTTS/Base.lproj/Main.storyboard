@@ -48,7 +48,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2LV-ST-gm8">
                                 <rect key="frame" x="283" y="104" width="35" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cK8-Wd-so2">
@@ -64,7 +64,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pitch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihP-8Y-k6J">
                                 <rect key="frame" x="281" y="189" width="39" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUC-ud-d39">
@@ -465,6 +465,8 @@
                             <outletCollection property="gestureRecognizers" destination="liT-3R-BWI" appends="YES" id="Y9A-RI-Q3o"/>
                             <outletCollection property="gestureRecognizers" destination="dSM-0S-lmE" appends="YES" id="g5n-ac-cvt"/>
                             <outletCollection property="gestureRecognizers" destination="Oln-Uq-7fu" appends="YES" id="4a1-Au-Ovx"/>
+                            <outletCollection property="gestureRecognizers" destination="Cn4-Ke-uaH" appends="YES" id="Myu-w9-VsC"/>
+                            <outletCollection property="gestureRecognizers" destination="QZO-Wc-1T2" appends="YES" id="K7q-kG-AKo"/>
                         </connections>
                     </view>
                     <connections>
@@ -485,6 +487,16 @@
                 <swipeGestureRecognizer direction="left" id="Oln-Uq-7fu">
                     <connections>
                         <action selector="swipeLeft:" destination="BYZ-38-t0r" id="TCe-bM-lg6"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" numberOfTouchesRequired="2" id="Cn4-Ke-uaH">
+                    <connections>
+                        <action selector="swipeRightTwoFinger:" destination="BYZ-38-t0r" id="4Vr-ei-VOm"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" numberOfTouchesRequired="2" id="QZO-Wc-1T2">
+                    <connections>
+                        <action selector="swipeLeftTwoFinger:" destination="BYZ-38-t0r" id="d27-Bz-5Rg"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -583,6 +595,6 @@
         <image name="two-swipe-right" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sIa-MG-7Uc"/>
+        <segue reference="vEd-AV-WLo"/>
     </inferredMetricsTieBreakers>
 </document>
