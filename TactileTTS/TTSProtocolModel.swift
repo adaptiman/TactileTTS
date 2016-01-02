@@ -162,12 +162,17 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             //write the data point
             print("FP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             userManager.responseArray.append("FP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-            if currentParagraph < totalParagraphs { //i.e. if it's NOT the last paragraph
+
+            if utteranceArray[currentUtterance].paragraphNumber != totalParagraphs { //i.e. if it's NOT the last paragraph
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 currentUtterance++
                 while !utteranceArray[currentUtterance].utteranceStartsParagraph {
                     currentUtterance++
                 }
+                speak(currentUtterance)
+            }
+            else { //it IS the last paragraph
+                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 speak(currentUtterance)
             }
 
@@ -188,6 +193,20 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             //write the data point
             print("BP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
             userManager.responseArray.append("BP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            
+            if utteranceArray[currentUtterance].paragraphNumber != 1 { //i.e. if it's NOT the first paragraph
+                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+                currentUtterance--
+                while !utteranceArray[currentUtterance].utteranceStartsParagraph {
+                    currentUtterance--
+                }
+                speak(currentUtterance)
+            } else { //it IS the first paragraph
+                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+                currentUtterance = 0
+                speak(currentUtterance)
+            }
+
 
         case .PauseOrPlay:
             if speechSynthesizer.speaking {

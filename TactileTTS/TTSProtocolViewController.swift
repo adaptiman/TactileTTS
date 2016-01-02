@@ -27,6 +27,12 @@ class TTSProtocolViewController: UIViewController {
         ttsProtocol.goForwardByParagraph()
     }
     
+    
+    @IBAction func swipeRightTwoFinger(sender: UISwipeGestureRecognizer) {
+        ttsProtocol.goBackByParagraph()
+    }
+    
+    
     var ttsProtocol = TTSModel()
     
     private let userManager = UserManager.sharedInstance
