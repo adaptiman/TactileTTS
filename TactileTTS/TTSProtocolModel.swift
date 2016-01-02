@@ -109,7 +109,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                     //add the modified string to the utterance array and indicate a paragraph
                     utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: true)]
                     totalUtterances++
-                    //totalParagraphs++
+                    totalParagraphs++
                     
                 } else { //this sentence does not start a paragraph
                     
