@@ -174,12 +174,12 @@ class UserManager { //this is a Singleton pattern
         
         //load the trainingText
         //        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
-        let trainingLocation = NSBundle.mainBundle().pathForResource("trainingshort", ofType: "txt")
+        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
         trainingText = try! NSString(contentsOfFile: trainingLocation!, encoding: NSUTF8StringEncoding)
         
         //load the protocolText
         //        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
-        let protocolLocation = NSBundle.mainBundle().pathForResource("paragraphtest", ofType: "txt")
+        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
         protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: NSUTF8StringEncoding)
         
         //load the orientationText
