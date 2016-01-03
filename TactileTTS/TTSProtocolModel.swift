@@ -11,8 +11,13 @@ import AVFoundation
 import UIKit
 
 struct ProtocolCompleted { //NSNotification object definition
-    static let Notification = "TTS Notifier"
+    static let Notification = "TTS Response Result"
     static let Key = "Response Result"
+}
+
+struct PercentCompleted {
+    static let Notification = "TTS Percent Completed"
+    static let Key = "Percent Completed"
 }
 
 class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
@@ -47,6 +52,10 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         utteranceWasInterruptedByNavigation = false
         
         spokenTextLength = utteranceArray[0..<currentUtterance].reduce(0){$0 + $1.utteranceLength}
+        
+        //broadcast notification that all speech is done
+        let center = NSNotificationCenter.defaultCenter()
+        center.postNotificationName(PercentCompleted.Notification, object: self, userInfo: [PercentCompleted.Key: (Double(spokenTextLength)/Double(totalTextLength))])
         
         //update the current paragraph
         currentParagraph = utteranceArray[currentUtterance].paragraphNumber

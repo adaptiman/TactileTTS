@@ -32,6 +32,7 @@ class TTSProtocolViewController: UIViewController {
         ttsProtocol.goBackByParagraph()
     }
     
+    @IBOutlet weak var progressBar: UIProgressView!
     
     var ttsProtocol = TTSModel()
     
@@ -55,6 +56,8 @@ class TTSProtocolViewController: UIViewController {
         //setup a notifier to fire when the protcol is done.
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "protocolComplete:", name: ProtocolCompleted.Notification, object: nil)
+        
+        center.addObserver(self, selector: "updateProgress:", name: PercentCompleted.Notification, object: nil)
 
     }
     
@@ -70,6 +73,16 @@ class TTSProtocolViewController: UIViewController {
         self.performSegueWithIdentifier("showPhaseTwo", sender: nil)
     }
 
+    
+    func updateProgress(object: NSNotification) {
+        
+        print("updating progress")
+        
+        //update the progress bar
+        progressBar.progress = object.userInfo!["Percent Completed"] as! Float
+
+    }
+    
     override func didReceiveMemoryWarning() {
         
         super.didReceiveMemoryWarning()
