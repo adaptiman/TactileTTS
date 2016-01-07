@@ -57,8 +57,8 @@ class TTSSettingsViewController: UIViewController, AVSpeechSynthesizerDelegate  
         speechUtterance.rate = rateSlider.value
         speechUtterance.pitchMultiplier = pitchSlider.value
         
-        print("rate=\(rateSlider.value)")
-        print("pitch=\(pitchSlider.value)")
+        //print("rate=\(rateSlider.value)")
+        //print("pitch=\(pitchSlider.value)")
         
         speechSynthesizer.speakUtterance(speechUtterance)
     }

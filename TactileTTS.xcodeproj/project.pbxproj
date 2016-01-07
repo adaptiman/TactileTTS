@@ -10,6 +10,7 @@
 		845103A11BE46F320027AD53 /* TTSPhaseOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */; };
 		845446771C31AE6F0046C6BA /* TTSSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845446761C31AE6F0046C6BA /* TTSSettingsViewController.swift */; };
 		846E15AE1C3887DD005D2385 /* orientationControl.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846E15AD1C3887DD005D2385 /* orientationControl.txt */; };
+		846E15B11C39C255005D2385 /* Chapter07.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846E15B01C39C255005D2385 /* Chapter07.txt */; };
 		848727741C2322B7009BAF57 /* TTSPhaseTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */; };
 		848727761C23A846009BAF57 /* protocolshort.txt in Resources */ = {isa = PBXBuildFile; fileRef = 848727751C23A846009BAF57 /* protocolshort.txt */; };
 		848727781C23A854009BAF57 /* trainingshort.txt in Resources */ = {isa = PBXBuildFile; fileRef = 848727771C23A854009BAF57 /* trainingshort.txt */; };
@@ -28,6 +29,7 @@
 		84CDE8A81C31F7A000B489DF /* paragraphtest.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84CDE8A71C31F7A000B489DF /* paragraphtest.txt */; };
 		84DDF4B01C14BB7C00F3497D /* protocol.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84DDF4AF1C14BB7C00F3497D /* protocol.txt */; };
 		84DDF4B21C14C02600F3497D /* orientationExperimental.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84DDF4B11C14C02600F3497D /* orientationExperimental.txt */; };
+		84E420CD1C3F0D66001CB4A7 /* protocolch10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E420CC1C3F0D66001CB4A7 /* protocolch10.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,7 @@
 		845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseOneViewController.swift; sourceTree = "<group>"; };
 		845446761C31AE6F0046C6BA /* TTSSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSSettingsViewController.swift; sourceTree = "<group>"; };
 		846E15AD1C3887DD005D2385 /* orientationControl.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = orientationControl.txt; sourceTree = "<group>"; };
+		846E15B01C39C255005D2385 /* Chapter07.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Chapter07.txt; sourceTree = "<group>"; };
 		848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseTwoViewController.swift; sourceTree = "<group>"; };
 		848727751C23A846009BAF57 /* protocolshort.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = protocolshort.txt; sourceTree = "<group>"; };
 		848727771C23A854009BAF57 /* trainingshort.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingshort.txt; sourceTree = "<group>"; };
@@ -66,6 +69,7 @@
 		84CDE8A71C31F7A000B489DF /* paragraphtest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = paragraphtest.txt; sourceTree = "<group>"; };
 		84DDF4AF1C14BB7C00F3497D /* protocol.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = protocol.txt; sourceTree = "<group>"; };
 		84DDF4B11C14C02600F3497D /* orientationExperimental.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = orientationExperimental.txt; sourceTree = "<group>"; };
+		84E420CC1C3F0D66001CB4A7 /* protocolch10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = protocolch10.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +132,9 @@
 				84BAF3CD1B5F158300B47AEB /* Images.xcassets */,
 				84BAF3CF1B5F158300B47AEB /* LaunchScreen.xib */,
 				84DDF4AF1C14BB7C00F3497D /* protocol.txt */,
+				84E420CC1C3F0D66001CB4A7 /* protocolch10.txt */,
 				848727751C23A846009BAF57 /* protocolshort.txt */,
+				846E15B01C39C255005D2385 /* Chapter07.txt */,
 				84CDE8A71C31F7A000B489DF /* paragraphtest.txt */,
 				84DDF4B11C14C02600F3497D /* orientationExperimental.txt */,
 				846E15AD1C3887DD005D2385 /* orientationControl.txt */,
@@ -248,7 +254,9 @@
 				848727781C23A854009BAF57 /* trainingshort.txt in Resources */,
 				84BAF3CC1B5F158300B47AEB /* Main.storyboard in Resources */,
 				8487277A1C25AEC8009BAF57 /* training.txt in Resources */,
+				84E420CD1C3F0D66001CB4A7 /* protocolch10.txt in Resources */,
 				848727761C23A846009BAF57 /* protocolshort.txt in Resources */,
+				846E15B11C39C255005D2385 /* Chapter07.txt in Resources */,
 				84BAF3D11B5F158300B47AEB /* LaunchScreen.xib in Resources */,
 				84BAF3CE1B5F158300B47AEB /* Images.xcassets in Resources */,
 			);

@@ -21,10 +21,8 @@ class TTSOrientationViewController: UIViewController, AVSpeechSynthesizerDelegat
         }
         
         if self.userManager.participantGroup == 0 {
-            print("Control Group")
             self.performSegueWithIdentifier("showControlProtocol", sender: nil)
         } else {
-            print("Experimental Group")
             self.performSegueWithIdentifier("showTraining", sender: nil)
         }
     }

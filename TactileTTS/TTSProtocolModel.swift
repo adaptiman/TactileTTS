@@ -60,7 +60,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         //update the current paragraph
         currentParagraph = utteranceArray[currentUtterance].paragraphNumber
         
-        print("speaking location=\(currentParagraph),\(currentUtterance)")
+        //print("speaking location=\(currentParagraph),\(currentUtterance)")
     }
     
     
@@ -113,12 +113,14 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                 
             } else {
                 
-                if tempArray[i].characters.contains("\n" as Character) { //this sentence starts a paragraph
+                if tempArray[i].containsString("\r") {
+                    
+//                    characters.hasPrefix("\r" as Character) { //this sentence starts a paragraph
                     
                     totalParagraphs++
                     
                     //replace the paragraph chars with a space
-                    tempArray[i] = tempArray[i].stringByReplacingOccurrencesOfString("\n\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                    tempArray[i] = tempArray[i].stringByReplacingOccurrencesOfString("\r\n\r\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
                     
                     //add the modified string to the utterance array and indicate a paragraph
                     utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: true, paragraphNumber: totalParagraphs)]

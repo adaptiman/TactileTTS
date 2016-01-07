@@ -89,7 +89,7 @@ class TTSProtocolViewController: UIViewController {
     
     func protocolComplete(object: NSNotification) {
         
-        print("protocolComplete")
+        //print("protocolComplete")
         
         //write the response string to the participantKeys struct
         userManager.participantResponseJson = object.userInfo!["Response Result"] as! NSString
@@ -102,7 +102,7 @@ class TTSProtocolViewController: UIViewController {
     
     func updateProgress(object: NSNotification) {
         
-        print("updating progress")
+        //print("updating progress")
         
         let progressFloat = object.userInfo!["Percent Completed"] as! Float
         

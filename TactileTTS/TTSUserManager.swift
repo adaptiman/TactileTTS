@@ -179,7 +179,7 @@ class UserManager { //this is a Singleton pattern
         
         //load the protocolText
         //        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
-        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
+        let protocolLocation = NSBundle.mainBundle().pathForResource("protocolch10", ofType: "txt")
         protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: NSUTF8StringEncoding)
         
         //load the orientationText

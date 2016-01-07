@@ -39,7 +39,7 @@ class TTSPhaseOneViewController: UIViewController {
         
         let dataString = "?participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)"
         let url = NSURL(string: (surveyString + dataString))
-        print(url)
+        //print(url)
         
         //load the page in the WKWebView
         let req = NSURLRequest(URL:url!)
@@ -59,9 +59,8 @@ class TTSPhaseOneViewController: UIViewController {
     }
     
     func fireTimer() {
-        //print("tick")
         self.webView.evaluateJavaScript("document.getElementById('EndOfSurvey')") { (result, error) -> Void in
-            print("\(result),\(error)")
+            //print("\(result),\(error)")
             if error != nil {
                 dispatch_once(&trainingToken, { () -> Void in
                     self.performSegueWithIdentifier("showSettings", sender: nil)

@@ -41,7 +41,7 @@ class TTSPhaseTwoViewController: UIViewController {
         //let surveyString = "https://tamu.qualtrics.com/jfe/preview/SV_1LLecPJoJzTU0bH?"
         
         //this is the response string
-        let dataString = "?participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)&resultString=\(userManager.participantResponseJson as String)"
+        let dataString = "?participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)&rate=\(userManager.rate)&pitch=\(userManager.pitch)&resultString=\(userManager.participantResponseJson as String)"
         
         let url = NSURL(string: (surveyString + (dataString as String)))
         print(url)
