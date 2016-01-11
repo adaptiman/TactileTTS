@@ -16,22 +16,27 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
     
     @IBAction func tap(sender: UITapGestureRecognizer) {
+        userManager.writeGestureData("TPC",currentCursorPosition: 0)
         speakTheText("Pause or continue.")
     }
     
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
+        userManager.writeGestureData("TF",currentCursorPosition: 0)
         speakTheText("Go forward one sentence.")
     }
     
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
+        userManager.writeGestureData("TB",currentCursorPosition: 0)
         speakTheText("Go back one sentence.")
     }
 
     @IBAction func doubleSwipeLeft(sender: UISwipeGestureRecognizer) {
+        userManager.writeGestureData("TFP",currentCursorPosition: 0)
         speakTheText("Go forward one paragraph.")
     }
     
     @IBAction func doubleSwipeRight(sender: UISwipeGestureRecognizer) {
+        userManager.writeGestureData("TBP",currentCursorPosition: 0)
         speakTheText("Go back one paragraph.")
     }
     

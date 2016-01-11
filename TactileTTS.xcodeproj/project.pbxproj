@@ -131,17 +131,8 @@
 			children = (
 				84BAF3CD1B5F158300B47AEB /* Images.xcassets */,
 				84BAF3CF1B5F158300B47AEB /* LaunchScreen.xib */,
-				84DDF4AF1C14BB7C00F3497D /* protocol.txt */,
-				84E420CC1C3F0D66001CB4A7 /* protocolch10.txt */,
-				848727751C23A846009BAF57 /* protocolshort.txt */,
-				846E15B01C39C255005D2385 /* Chapter07.txt */,
-				84CDE8A71C31F7A000B489DF /* paragraphtest.txt */,
-				84DDF4B11C14C02600F3497D /* orientationExperimental.txt */,
-				846E15AD1C3887DD005D2385 /* orientationControl.txt */,
-				848727791C25AEC8009BAF57 /* training.txt */,
-				848727771C23A854009BAF57 /* trainingshort.txt */,
+				84E420CE1C3F4371001CB4A7 /* Protocol Files */,
 				84BAF3C51B5F158300B47AEB /* Info.plist */,
-				84BB685D1BECA1A1005478BC /* gettysburg.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -161,6 +152,23 @@
 				84BAF3DB1B5F158300B47AEB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		84E420CE1C3F4371001CB4A7 /* Protocol Files */ = {
+			isa = PBXGroup;
+			children = (
+				84DDF4AF1C14BB7C00F3497D /* protocol.txt */,
+				84E420CC1C3F0D66001CB4A7 /* protocolch10.txt */,
+				848727751C23A846009BAF57 /* protocolshort.txt */,
+				846E15B01C39C255005D2385 /* Chapter07.txt */,
+				84CDE8A71C31F7A000B489DF /* paragraphtest.txt */,
+				84DDF4B11C14C02600F3497D /* orientationExperimental.txt */,
+				846E15AD1C3887DD005D2385 /* orientationControl.txt */,
+				848727791C25AEC8009BAF57 /* training.txt */,
+				848727771C23A854009BAF57 /* trainingshort.txt */,
+				84BB685D1BECA1A1005478BC /* gettysburg.txt */,
+			);
+			name = "Protocol Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

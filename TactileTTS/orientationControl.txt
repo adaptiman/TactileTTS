@@ -1,4 +1,6 @@
-This application will present a selection from the textbook, Comparing the States and Communities, by Harvey Tucker and Norman Luttbeg. The material will be presented as audio text and should take about twenty minutes to listen to. You will be able to pause and start the audio text by tapping the screen.
+This application will present a selection from the textbook, Comparing the States and Communities, by Harvey Tucker and Norman Luttbeg. The material will be presented as audio text and should take about twenty minutes to listen to. Be sure you have a quiet place that is free from distractions to take the study.
+
+You will be able to pause and start the audio text by tapping the screen.
 
 During the audio text portion of the study, a progress bar will be visible that will indicate how far in the text you have gone.
 

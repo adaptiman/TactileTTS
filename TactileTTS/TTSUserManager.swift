@@ -148,6 +148,11 @@ class UserManager { //this is a Singleton pattern
         }
     }
     
+    func writeGestureData(code: String, currentCursorPosition: Int) {
+        print(code + ",\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+        responseArray.append(code + ",\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+    }
+    
     func setupTheExperiment() {
         //setup participant stored variables
         if participantGuidExists() {

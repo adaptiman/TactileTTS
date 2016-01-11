@@ -90,6 +90,6 @@ class TTSSettingsViewController: UIViewController, AVSpeechSynthesizerDelegate  
         pitchSlider.value = userManager.pitch
         
         //give some instructions
-        speakTheText("On this screen, you can adjust the speech settings. Currently the settings are at the recommended level. The rate slider adjusts the speed at which the voice speaks. The pitch slider makes the voice sound higher or lower. To test your settings, touch test settings. When you are done, touch the continue button.")
+        speakTheText("On this screen, you can adjust the speech settings. Currently the settings are at the recommended level. Be careful when changing settings as the selections you make cannot be changed once the audio portion of the study begins. The rate slider adjusts the speed at which the voice speaks. The pitch slider makes the voice sound higher or lower. To test your settings, touch test settings. When you are done, touch the continue button.")
     }
 }

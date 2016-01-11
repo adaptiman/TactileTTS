@@ -161,8 +161,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             }
             
         case .Forward:
-            print("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-            userManager.responseArray.append("F,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            userManager.writeGestureData("F",currentCursorPosition: currentCursorPosition)
             if currentUtterance !=  totalUtterances - 1 { //i.e. if it's NOT the last utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 currentUtterance++
@@ -171,8 +170,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             
         case .ForwardByParagraph:
             //write the data point
-            print("FP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-            userManager.responseArray.append("FP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            userManager.writeGestureData("FP",currentCursorPosition: currentCursorPosition)
 
             if utteranceArray[currentUtterance].paragraphNumber != totalParagraphs { //i.e. if it's NOT the last paragraph
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
@@ -188,8 +186,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             }
 
         case .Backward:
-            print("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-            userManager.responseArray.append("B,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            userManager.writeGestureData("B",currentCursorPosition: currentCursorPosition)
             if currentUtterance != 0 { //i.e. if it's NOT the first utterance
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
                 currentUtterance--
@@ -202,8 +199,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             
         case .BackwardByParagraph:
             //write the data point
-            print("BP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-            userManager.responseArray.append("BP,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+            userManager.writeGestureData("BP",currentCursorPosition: currentCursorPosition)
             
             if utteranceArray[currentUtterance].paragraphNumber != 1 { //i.e. if it's NOT the first paragraph
                 speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
@@ -222,13 +218,11 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         case .PauseOrPlay:
             if speechSynthesizer.speaking {
                 if speechSynthesizer.paused {
-                    print("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-                    userManager.responseArray.append("C,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+                    userManager.writeGestureData("C",currentCursorPosition: currentCursorPosition)
                     speechSynthesizer.continueSpeaking()
                 } else {
                     speechSynthesizer.pauseSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-                    print("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-                    userManager.responseArray.append("P,\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+                    userManager.writeGestureData("P",currentCursorPosition: currentCursorPosition)
                 }
             }
             
