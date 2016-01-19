@@ -35,6 +35,10 @@ class TTSOrientationViewController: UIViewController, AVSpeechSynthesizerDelegat
     
     private let userManager = UserManager.sharedInstance
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.tvOrientation.setContentOffset(CGPoint.zero, animated: false)
+    }
 
     override func viewDidLoad() {
         
