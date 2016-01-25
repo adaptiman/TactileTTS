@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		845103A11BE46F320027AD53 /* TTSPhaseOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */; };
-		845446771C31AE6F0046C6BA /* TTSSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845446761C31AE6F0046C6BA /* TTSSettingsViewController.swift */; };
 		846E15AE1C3887DD005D2385 /* orientationControl.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846E15AD1C3887DD005D2385 /* orientationControl.txt */; };
 		846E15B11C39C255005D2385 /* Chapter07.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846E15B01C39C255005D2385 /* Chapter07.txt */; };
 		848727741C2322B7009BAF57 /* TTSPhaseTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */; };
@@ -44,7 +43,6 @@
 
 /* Begin PBXFileReference section */
 		845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseOneViewController.swift; sourceTree = "<group>"; };
-		845446761C31AE6F0046C6BA /* TTSSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSSettingsViewController.swift; sourceTree = "<group>"; };
 		846E15AD1C3887DD005D2385 /* orientationControl.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = orientationControl.txt; sourceTree = "<group>"; };
 		846E15B01C39C255005D2385 /* Chapter07.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Chapter07.txt; sourceTree = "<group>"; };
 		848727731C2322B7009BAF57 /* TTSPhaseTwoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSPhaseTwoViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				845103A01BE46F320027AD53 /* TTSPhaseOneViewController.swift */,
-				845446761C31AE6F0046C6BA /* TTSSettingsViewController.swift */,
 				8487277D1C25DD7D009BAF57 /* TTSOrientationViewController.swift */,
 				84956E681BFE930500D1A0D3 /* TTSTrainingViewController.swift */,
 				84BAF3C81B5F158300B47AEB /* TTSProtocolViewController.swift */,
@@ -286,7 +283,6 @@
 			files = (
 				848727741C2322B7009BAF57 /* TTSPhaseTwoViewController.swift in Sources */,
 				84BAF3C91B5F158300B47AEB /* TTSProtocolViewController.swift in Sources */,
-				845446771C31AE6F0046C6BA /* TTSSettingsViewController.swift in Sources */,
 				84BAF3C71B5F158300B47AEB /* AppDelegate.swift in Sources */,
 				848AC46F1B5F25B5001195A9 /* TTSProtocolModel.swift in Sources */,
 				84956E691BFE930500D1A0D3 /* TTSTrainingViewController.swift in Sources */,
