@@ -238,8 +238,8 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         let theUtterance = AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance)
         
-        theUtterance.rate = userManager.rate
-        theUtterance.pitchMultiplier = userManager.pitch
+//        theUtterance.rate = userManager.rate
+//        theUtterance.pitchMultiplier = userManager.pitch
         
         speechSynthesizer.speakUtterance(theUtterance)
     }

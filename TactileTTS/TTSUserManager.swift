@@ -24,8 +24,8 @@ class UserManager { //this is a Singleton pattern
         static let participantResponseJsonString = "participantResponseJsonKey"
         static let phaseOneUrlString = "phaseOneUrlKey"
         static let phaseTwoUrlString = "phaseTwoUrlKey"
-        static let pitchFloat = "pitchKey"
-        static let rateFloat = "rateKey"
+//        static let pitchFloat = "pitchKey"
+//        static let rateFloat = "rateKey"
     }
     
     private let defaults = NSUserDefaults.standardUserDefaults()
@@ -77,15 +77,15 @@ class UserManager { //this is a Singleton pattern
         set { defaults.setObject(newValue, forKey: participantKeys.phaseOneUrlString)}
     }
     
-    var pitch: Float {
-        get { return (defaults.objectForKey(participantKeys.pitchFloat) as? Float ?? nil)!}
-        set { defaults.setObject(newValue, forKey: participantKeys.pitchFloat)}
-    }
-    
-    var rate: Float {
-        get { return (defaults.objectForKey(participantKeys.rateFloat) as? Float ?? nil)!}
-        set { defaults.setObject(newValue, forKey: participantKeys.rateFloat)}
-    }
+//    var pitch: Float {
+//        get { return (defaults.objectForKey(participantKeys.pitchFloat) as? Float ?? 1.0)!}
+//        set { defaults.setObject(newValue, forKey: participantKeys.pitchFloat)}
+//    }
+//    
+//    var rate: Float {
+//        get { return (defaults.objectForKey(participantKeys.rateFloat) as? Float ?? 0.5)!}
+//        set { defaults.setObject(newValue, forKey: participantKeys.rateFloat)}
+//    }
     
     func generateParticipantGuid() -> String {
         

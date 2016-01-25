@@ -81,8 +81,8 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         
         let theUtterance = AVSpeechUtterance(string: theText as String)
         
-        theUtterance.rate = userManager.rate
-        theUtterance.pitchMultiplier = userManager.pitch
+//        theUtterance.rate = userManager.rate
+//        theUtterance.pitchMultiplier = userManager.pitch
         
         speechSynthesizer.speakUtterance(theUtterance)
     }
