@@ -11,18 +11,14 @@
         <scene sceneID="uYI-jV-I8a">
             <objects>
                 <viewController id="baX-vw-eph" customClass="TTSPhaseOneViewController" customModule="TactileTTS" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="S6m-E8-rqO"/>
-                        <viewControllerLayoutGuide type="bottom" id="9aN-e8-Utr"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zsp-Jx-cpb">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="j5c-hM-m8l"/>
+                    <navigationItem key="navigationItem" id="j5c-hM-m8l">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Continue" id="f9c-c4-IAR">
+                            <connections>
+                                <action selector="continueToOrientation:" destination="baX-vw-eph" id="RWb-yy-Vph"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="containerView" destination="zsp-Jx-cpb" id="6cC-cx-6fq"/>
                         <segue destination="5IZ-ro-faN" kind="show" identifier="showOrientation" id="VAh-4Y-6fg"/>
                     </connections>
                 </viewController>

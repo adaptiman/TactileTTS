@@ -15,6 +15,10 @@ class TTSPhaseOneViewController: UIViewController {
     
     @IBOutlet var containerView: UIView!
     
+    @IBAction func continueToOrientation(sender: AnyObject) {
+        self.performSegueWithIdentifier("showOrientation", sender: nil)
+        
+    }
     var webView: WKWebView!
     var myTimer: NSTimer!
     
@@ -52,7 +56,7 @@ class TTSPhaseOneViewController: UIViewController {
         
         
         //NSTimer
-        myTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "fireTimer", userInfo: nil, repeats: true)
+        myTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "fireTimer", userInfo: nil, repeats: true)
         
         //terminate app
         
@@ -64,8 +68,8 @@ class TTSPhaseOneViewController: UIViewController {
             //print("\(result),\(error)")
             if error != nil {
                 dispatch_once(&trainingToken, { () -> Void in
-                    self.performSegueWithIdentifier("showOrientation", sender: nil)
                     self.myTimer.invalidate()
+                    self.navigationItem.rightBarButtonItem?.enabled = true
                 } )
             }
         }
