@@ -133,7 +133,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                 }
             }
             
-            print("\(utteranceArray[i])")
+            //print("\(utteranceArray[i])")
         }
         
         //display some metrics
