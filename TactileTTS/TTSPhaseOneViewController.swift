@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import Crashlytics
 
 var trainingToken: dispatch_once_t = 0
 
@@ -16,6 +17,7 @@ class TTSPhaseOneViewController: UIViewController {
     @IBOutlet var containerView: UIView!
     
     @IBAction func continueToOrientation(sender: AnyObject) {
+    //    Crashlytics.sharedInstance().crash()
         self.performSegueWithIdentifier("showOrientation", sender: nil)
         
     }
