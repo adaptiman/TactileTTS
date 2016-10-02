@@ -22,20 +22,20 @@ struct PercentCompleted {
 
 class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
 {
-    private var utteranceWasInterruptedByNavigation: Bool = false
-    private var totalUtterances: Int = 0
-    private var totalParagraphs: Int = 0
-    private var currentUtterance: Int = 0
-    private var currentParagraph: Int = 1
-    private var totalTextLength: Int = 0
-    private var spokenTextLength: Int = 1
-    private var currentCursorPosition: Int = 0
-    private var utteranceArray:[(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)] = []
-    private enum NavigationType { case Next, Backward, BackwardByParagraph, Forward, ForwardByParagraph, PauseOrPlay, Stop }
+    fileprivate var utteranceWasInterruptedByNavigation: Bool = false
+    fileprivate var totalUtterances: Int = 0
+    fileprivate var totalParagraphs: Int = 0
+    fileprivate var currentUtterance: Int = 0
+    fileprivate var currentParagraph: Int = 1
+    fileprivate var totalTextLength: Int = 0
+    fileprivate var spokenTextLength: Int = 1
+    fileprivate var currentCursorPosition: Int = 0
+    fileprivate var utteranceArray:[(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)] = []
+    fileprivate enum NavigationType { case next, backward, backwardByParagraph, forward, forwardByParagraph, pauseOrPlay, stop }
     
-    private let speechSynthesizer = AVSpeechSynthesizer()
+    fileprivate let speechSynthesizer = AVSpeechSynthesizer()
     
-    private let userManager = UserManager.sharedInstance
+    fileprivate let userManager = UserManager.sharedInstance
     
     override init() {
         //initializer for the TactileTTS class
@@ -47,15 +47,15 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     //
     //
     
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         
         utteranceWasInterruptedByNavigation = false
         
         spokenTextLength = utteranceArray[0..<currentUtterance].reduce(0){$0 + $1.utteranceLength}
         
         //broadcast notification that all speech is done
-        let center = NSNotificationCenter.defaultCenter()
-        center.postNotificationName(PercentCompleted.Notification, object: self, userInfo: [PercentCompleted.Key: (Double(spokenTextLength)/Double(totalTextLength))])
+        let center = NotificationCenter.default
+        center.post(name: Notification.Name(rawValue: PercentCompleted.Notification), object: self, userInfo: [PercentCompleted.Key: (Double(spokenTextLength)/Double(totalTextLength))])
         
         //update the current paragraph
         currentParagraph = utteranceArray[currentUtterance].paragraphNumber
@@ -64,19 +64,19 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     }
     
     
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         
         currentCursorPosition = (spokenTextLength + characterRange.location)
     }
     
 
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         
         if currentUtterance ==  totalUtterances - 1 { //the last utterance is finished
             endTheProtocol()
         
         } else {
-        navigate(.Next)
+        navigate(.next)
         
         }
     }
@@ -88,48 +88,48 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     //
     
     
-    private func encodeResultsToJSON(theResponseArray: [NSString]) -> NSString {
+    fileprivate func encodeResultsToJSON(_ theResponseArray: [NSString]) -> NSString {
         
-        let data = try? NSJSONSerialization.dataWithJSONObject(theResponseArray, options: NSJSONWritingOptions())
+        let data = try? JSONSerialization.data(withJSONObject: theResponseArray, options: JSONSerialization.WritingOptions())
         
-        let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)!
+        let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
         
         return responseString
     }
     
     
-    private func parse(theText: NSString) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)] {
+    fileprivate func parse(_ theText: NSString) -> [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)] {
         
         //load and calculate sentences
-        var tempArray = theText.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ".?!"))
+        var tempArray = theText.components(separatedBy: CharacterSet(charactersIn: ".?!"))
         
         for i in 0..<tempArray.count - 1 {
             
             //this fixes the componentsSeparatedByCharactersInSet parsing on the first element, which doesn't have a space like the others
             if i == 0 {
-                totalParagraphs++
+                totalParagraphs += 1
                 utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 2, utteranceStartsParagraph: true, paragraphNumber: totalParagraphs)]
-                totalUtterances++
+                totalUtterances += 1
                 
             } else {
                 
-                if tempArray[i].containsString("\r") {
+                if tempArray[i].contains("\r") {
                     
 //                    characters.hasPrefix("\r" as Character) { //this sentence starts a paragraph
                     
-                    totalParagraphs++
+                    totalParagraphs += 1
                     
                     //replace the paragraph chars with a space
-                    tempArray[i] = tempArray[i].stringByReplacingOccurrencesOfString("\r\n\r\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                    tempArray[i] = tempArray[i].replacingOccurrences(of: "\r\n\r\n", with: " ", options: NSString.CompareOptions.literal, range: nil)
                     
                     //add the modified string to the utterance array and indicate a paragraph
                     utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: true, paragraphNumber: totalParagraphs)]
-                    totalUtterances++
+                    totalUtterances += 1
                     
                 } else { //this sentence does not start a paragraph
                     
-                    utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: false, totalParagraphs)]
-                    totalUtterances++
+                    utteranceArray += [(utterance: tempArray[i], utteranceLength: tempArray[i].utf16.count + 1, utteranceStartsParagraph: false, paragraphNumber: totalParagraphs)]
+                    totalUtterances += 1
                 }
             }
             
@@ -148,91 +148,91 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     }
     
     
-    private func navigate(go: NavigationType) {
+    fileprivate func navigate(_ go: NavigationType) {
         
         switch go {
             
-        case .Next:
+        case .next:
             if !utteranceWasInterruptedByNavigation {
                 if currentUtterance !=  totalUtterances - 1 { //not the last utterance
-                    currentUtterance++
+                    currentUtterance += 1
                     speak(currentUtterance)
                 }
             }
             
-        case .Forward:
+        case .forward:
             userManager.writeGestureData("F",currentCursorPosition: currentCursorPosition)
             if currentUtterance !=  totalUtterances - 1 { //i.e. if it's NOT the last utterance
-                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-                currentUtterance++
+                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+                currentUtterance += 1
                 speak(currentUtterance)
             }
             
-        case .ForwardByParagraph:
+        case .forwardByParagraph:
             //write the data point
             userManager.writeGestureData("FP",currentCursorPosition: currentCursorPosition)
 
             if utteranceArray[currentUtterance].paragraphNumber != totalParagraphs { //i.e. if it's NOT the last paragraph
-                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-                currentUtterance++
+                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+                currentUtterance += 1
                 while !utteranceArray[currentUtterance].utteranceStartsParagraph {
-                    currentUtterance++
+                    currentUtterance += 1
                 }
                 speak(currentUtterance)
             }
             else { //it IS the last paragraph
-                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 speak(currentUtterance)
             }
 
-        case .Backward:
+        case .backward:
             userManager.writeGestureData("B",currentCursorPosition: currentCursorPosition)
             if currentUtterance != 0 { //i.e. if it's NOT the first utterance
-                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-                currentUtterance--
+                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+                currentUtterance -= 1
                 speak(currentUtterance)
             } else { //it IS the first utterance
-                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 speak(currentUtterance)
                 
             }
             
-        case .BackwardByParagraph:
+        case .backwardByParagraph:
             //write the data point
             userManager.writeGestureData("BP",currentCursorPosition: currentCursorPosition)
             
             if utteranceArray[currentUtterance].paragraphNumber != 1 { //i.e. if it's NOT the first paragraph
-                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-                currentUtterance--
+                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+                currentUtterance -= 1
                 while !utteranceArray[currentUtterance].utteranceStartsParagraph {
-                    currentUtterance--
+                    currentUtterance -= 1
                 }
                 speak(currentUtterance)
             } else { //it IS the first paragraph
-                speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 currentUtterance = 0
                 speak(currentUtterance)
             }
 
 
-        case .PauseOrPlay:
-            if speechSynthesizer.speaking {
-                if speechSynthesizer.paused {
+        case .pauseOrPlay:
+            if speechSynthesizer.isSpeaking {
+                if speechSynthesizer.isPaused {
                     userManager.writeGestureData("C",currentCursorPosition: currentCursorPosition)
                     speechSynthesizer.continueSpeaking()
                 } else {
-                    speechSynthesizer.pauseSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+                    speechSynthesizer.pauseSpeaking(at: AVSpeechBoundary.immediate)
                     userManager.writeGestureData("P",currentCursorPosition: currentCursorPosition)
                 }
             }
             
-        case .Stop:
-            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+        case .stop:
+            speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         }
     }
     
     
-    private func speak(utteranceIndex: Int) {
+    fileprivate func speak(_ utteranceIndex: Int) {
         
         //speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance))
         
@@ -241,18 +241,18 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
 //        theUtterance.rate = userManager.rate
 //        theUtterance.pitchMultiplier = userManager.pitch
         
-        speechSynthesizer.speakUtterance(theUtterance)
+        speechSynthesizer.speak(theUtterance)
     }
     
     
-    private func endTheProtocol() {
+    fileprivate func endTheProtocol() {
         
         let jsonString = encodeResultsToJSON(userManager.responseArray)
-        let encodedJsonResponse = jsonString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        let encodedJsonResponse = jsonString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         
         //broadcast notification that all speech is done
-        let center = NSNotificationCenter.defaultCenter()
-        center.postNotificationName(ProtocolCompleted.Notification, object: self, userInfo: [ProtocolCompleted.Key: encodedJsonResponse!])
+        let center = NotificationCenter.default
+        center.post(name: Notification.Name(rawValue: ProtocolCompleted.Notification), object: self, userInfo: [ProtocolCompleted.Key: encodedJsonResponse!])
     }
     
     
@@ -262,7 +262,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     //
     
     
-    func speakTheText(theText: NSString) {
+    func speakTheText(_ theText: NSString) {
         
         utteranceArray = parse(theText) as [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)]
         
@@ -271,13 +271,13 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     
     func stopSpeakingTheText() {
-        navigate(.Stop)
+        navigate(.stop)
     }
 
     
     func pauseContinue() {
         
-        navigate(.PauseOrPlay)
+        navigate(.pauseOrPlay)
     }
     
     
@@ -285,7 +285,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         if userManager.participantGroup != 0 {
             utteranceWasInterruptedByNavigation = true
-            navigate(.Forward)
+            navigate(.forward)
         }
     }
     
@@ -294,7 +294,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         if userManager.participantGroup != 0 {
             utteranceWasInterruptedByNavigation = true
-            navigate(.Backward)
+            navigate(.backward)
         }
     }
     
@@ -303,7 +303,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         if userManager.participantGroup != 0 {
             utteranceWasInterruptedByNavigation = true
-            navigate(.ForwardByParagraph)
+            navigate(.forwardByParagraph)
         }
     }
     
@@ -312,7 +312,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         if userManager.participantGroup != 0 {
             utteranceWasInterruptedByNavigation = true
-            navigate(.BackwardByParagraph)
+            navigate(.backwardByParagraph)
         }
     }
 }

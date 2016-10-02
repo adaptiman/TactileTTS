@@ -3,7 +3,7 @@
 //  TactileTTS
 //
 //  Created by Administrator on 12/19/15.
-//  Copyright © 2015 David Sweeney. All rights reserved.
+//  Copyright © 2016 David Sweeney. All rights reserved.
 //
 
 import UIKit
@@ -14,26 +14,26 @@ class TTSOrientationViewController: UIViewController, AVSpeechSynthesizerDelegat
    
     @IBOutlet weak var tvOrientation: UITextView!
     
-    @IBAction func continueToTrainingOrProtocol(sender: AnyObject) {
+    @IBAction func continueToTrainingOrProtocol(_ sender: AnyObject) {
         
-        if speechSynthesizer.speaking {
-            speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+        if speechSynthesizer.isSpeaking {
+            speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         }
         
         if self.userManager.participantGroup == 0 {
-            self.performSegueWithIdentifier("showControlProtocol", sender: nil)
+            self.performSegue(withIdentifier: "showControlProtocol", sender: nil)
         } else {
-            self.performSegueWithIdentifier("showTraining", sender: nil)
+            self.performSegue(withIdentifier: "showTraining", sender: nil)
         }
     }
     
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
 
-        self.navigationItem.rightBarButtonItem?.enabled = true
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
 
     
-    private let userManager = UserManager.sharedInstance
+    fileprivate let userManager = UserManager.sharedInstance
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -63,16 +63,16 @@ class TTSOrientationViewController: UIViewController, AVSpeechSynthesizerDelegat
         speakTheText(userManager.orientationText)
     }
 
-    private let speechSynthesizer = AVSpeechSynthesizer()
+    fileprivate let speechSynthesizer = AVSpeechSynthesizer()
     
-    private func speakTheText(theText: NSString) {
+    fileprivate func speakTheText(_ theText: NSString) {
         
         let theUtterance = AVSpeechUtterance(string: theText as String)
         
         //theUtterance.rate = userManager.rate
         //theUtterance.pitchMultiplier = userManager.pitch
         
-        speechSynthesizer.speakUtterance(theUtterance)
+        speechSynthesizer.speak(theUtterance)
     }
 
 }

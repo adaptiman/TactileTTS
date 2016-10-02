@@ -3,7 +3,7 @@
 //  TactileTTS
 //
 //  Created by Administrator on 12/17/15.
-//  Copyright © 2015 David Sweeney. All rights reserved.
+//  Copyright © 2016 David Sweeney. All rights reserved.
 //
 
 import UIKit
@@ -44,12 +44,12 @@ class TTSPhaseTwoViewController: UIViewController {
 //        let dataString = "?participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)&rate=\(userManager.rate)&pitch=\(userManager.pitch)&resultString=\(userManager.participantResponseJson as String)"
         let dataString = "?participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)&resultString=\(userManager.participantResponseJson as String)"
         
-        let url = NSURL(string: (surveyString + (dataString as String)))
+        let url = URL(string: (surveyString + (dataString as String)))
         print(url)
         
         //load the page in the WKWebView
-        let req = NSURLRequest(URL:url!)
-        self.webView!.loadRequest(req)
+        let req = URLRequest(url:url!)
+        self.webView!.load(req)
     }
 
     

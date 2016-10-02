@@ -3,32 +3,32 @@
 //  TactileTTS
 //
 //  Created by David Sweeney on 7/21/15.
-//  Copyright (c) 2015 David Sweeney. All rights reserved.
+//  Copyright (c) 2016 David Sweeney. All rights reserved.
 //
 
 import UIKit
 
 class TTSProtocolViewController: UIViewController {
 
-    @IBAction func tap(sender: UITapGestureRecognizer) {
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
         ttsProtocol.pauseContinue()
     }
     
-    @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
+    @IBAction func swipeRight(_ sender: UISwipeGestureRecognizer) {
         ttsProtocol.goBack()
     }
     
-    @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
+    @IBAction func swipeLeft(_ sender: UISwipeGestureRecognizer) {
         ttsProtocol.goForward()
     }
     
     
-    @IBAction func swipeLeftTwoFinger(sender: UISwipeGestureRecognizer) {
+    @IBAction func swipeLeftTwoFinger(_ sender: UISwipeGestureRecognizer) {
         ttsProtocol.goForwardByParagraph()
     }
     
     
-    @IBAction func swipeRightTwoFinger(sender: UISwipeGestureRecognizer) {
+    @IBAction func swipeRightTwoFinger(_ sender: UISwipeGestureRecognizer) {
         ttsProtocol.goBackByParagraph()
     }
     
@@ -49,7 +49,7 @@ class TTSProtocolViewController: UIViewController {
     
     var ttsProtocol = TTSModel()
     
-    private let userManager = UserManager.sharedInstance
+    fileprivate let userManager = UserManager.sharedInstance
     
     override func viewDidLoad() {
        
@@ -67,48 +67,48 @@ class TTSProtocolViewController: UIViewController {
         ttsProtocol.speakTheText(userManager.protocolText)
         
         //setup a notifier to fire when the protcol is done
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "protocolComplete:", name: ProtocolCompleted.Notification, object: nil)
+        let center = NotificationCenter.default
+        center.addObserver(self, selector: #selector(TTSProtocolViewController.protocolComplete(_:)), name: NSNotification.Name(rawValue: ProtocolCompleted.Notification), object: nil)
         
         //setup a notifier to update the progress of the text
-        center.addObserver(self, selector: "updateProgress:", name: PercentCompleted.Notification, object: nil)
+        center.addObserver(self, selector: #selector(TTSProtocolViewController.updateProgress(_:)), name: NSNotification.Name(rawValue: PercentCompleted.Notification), object: nil)
         
         //hide the extraneous navigation icons for the control group
         if userManager.participantGroup == 0 {
-            backBySentenceImage.hidden = true
-            backBySentenceLabel.hidden = true
-            backByParagraphImage.hidden = true
-            backByParagraphLabel.hidden = true
-            forwardBySentenceImage.hidden = true
-            forwardBySentenceLabel.hidden = true
-            forwardByParagraphImage.hidden = true
-            forwardByParagraphLabel.hidden = true
+            backBySentenceImage.isHidden = true
+            backBySentenceLabel.isHidden = true
+            backByParagraphImage.isHidden = true
+            backByParagraphLabel.isHidden = true
+            forwardBySentenceImage.isHidden = true
+            forwardBySentenceLabel.isHidden = true
+            forwardByParagraphImage.isHidden = true
+            forwardByParagraphLabel.isHidden = true
         }
 
     }
     
-    func protocolComplete(object: NSNotification) {
+    func protocolComplete(_ object: Notification) {
         
         //print("protocolComplete")
         
         //write the response string to the participantKeys struct
-        userManager.participantResponseJson = object.userInfo!["Response Result"] as! NSString
+        userManager.participantResponseJson = (object as NSNotification).userInfo!["Response Result"] as! NSString
         
         
         //seque to Phase 2
-        self.performSegueWithIdentifier("showPhaseTwo", sender: nil)
+        self.performSegue(withIdentifier: "showPhaseTwo", sender: nil)
     }
 
     
-    func updateProgress(object: NSNotification) {
+    func updateProgress(_ object: Notification) {
         
         //print("updating progress")
         
-        let progressFloat = object.userInfo!["Percent Completed"] as! Float
+        let progressDouble = (object as NSNotification).userInfo!["Percent Completed"] as! Double
         
         //update the progress bar and label
-        progressBar.progress = progressFloat
-        let progressPercent = progressFloat * 100
+        progressBar.progress = Float(progressDouble)
+        let progressPercent = (progressDouble) * 100
         progressLabel.text = (NSString(format: "%.0f", progressPercent) as String) + "%"
     }
     

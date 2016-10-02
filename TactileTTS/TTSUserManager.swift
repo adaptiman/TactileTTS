@@ -3,7 +3,7 @@
 //  TactileTTS
 //
 //  Created by Administrator on 11/21/15.
-//  Copyright © 2015 David Sweeney. All rights reserved.
+//  Copyright © 2016 David Sweeney. All rights reserved.
 //
 
 import Foundation
@@ -12,9 +12,9 @@ class UserManager { //this is a Singleton pattern
     
     static let sharedInstance = UserManager()
     
-    private init() {} //This prevents others from using the default '()' initializer for this class.
+    fileprivate init() {} //This prevents others from using the default '()' initializer for this class.
     
-    private struct participantKeys {
+    fileprivate struct participantKeys {
         static let participantGuidString = "participantGuidKey"
         static let participantGroupInt = "participantGroupKey"
         static let participantTrialInt = "participantTrialKey"
@@ -28,7 +28,7 @@ class UserManager { //this is a Singleton pattern
 //        static let rateFloat = "rateKey"
     }
     
-    private let defaults = NSUserDefaults.standardUserDefaults()
+    fileprivate let defaults = UserDefaults.standard
     
     var responseArray: [NSString] = []
     
@@ -36,45 +36,45 @@ class UserManager { //this is a Singleton pattern
     let phaseTwoUrl = "https://tamu.qualtrics.com/jfe/form/SV_1LLecPJoJzTU0bH"
     
     var participantGuid: String {
-        get { return defaults.objectForKey(participantKeys.participantGuidString) as? String ?? ""}
-        set { defaults.setObject(newValue, forKey: participantKeys.participantGuidString)}
+        get { return defaults.object(forKey: participantKeys.participantGuidString) as? String ?? ""}
+        set { defaults.set(newValue, forKey: participantKeys.participantGuidString)}
     }
     
     
     var participantGroup: Int {
-        get { return (defaults.objectForKey(participantKeys.participantGroupInt) as? Int ?? nil)!}
-        set { defaults.setObject(newValue, forKey: participantKeys.participantGroupInt)}
+        get { return (defaults.object(forKey: participantKeys.participantGroupInt) as? Int ?? nil)!}
+        set { defaults.set(newValue, forKey: participantKeys.participantGroupInt)}
     }
     
     
     var participantTrial: Int {
-        get { return (defaults.objectForKey(participantKeys.participantTrialInt) as? Int ?? nil)!}
-        set { defaults.setObject(newValue, forKey: participantKeys.participantTrialInt)}
+        get { return (defaults.object(forKey: participantKeys.participantTrialInt) as? Int ?? nil)!}
+        set { defaults.set(newValue, forKey: participantKeys.participantTrialInt)}
     }
     
     var trainingText: NSString {
-        get { return defaults.objectForKey(participantKeys.trainingTextString) as? String ?? ""}
-        set { defaults.setObject(newValue, forKey: participantKeys.trainingTextString)}
+        get { return defaults.object(forKey: participantKeys.trainingTextString) as? String as NSString? ?? ""}
+        set { defaults.set(newValue, forKey: participantKeys.trainingTextString)}
     }
     
     var protocolText: NSString {
-        get { return defaults.objectForKey(participantKeys.protocolTextString) as? String ?? ""}
-        set { defaults.setObject(newValue, forKey: participantKeys.protocolTextString)}
+        get { return defaults.object(forKey: participantKeys.protocolTextString) as? String as NSString? ?? ""}
+        set { defaults.set(newValue, forKey: participantKeys.protocolTextString)}
     }
     
     var orientationText: NSString {
-        get { return defaults.objectForKey(participantKeys.orientationTextString) as? String ?? ""}
-        set { defaults.setObject(newValue, forKey: participantKeys.orientationTextString)}
+        get { return defaults.object(forKey: participantKeys.orientationTextString) as? String as NSString? ?? ""}
+        set { defaults.set(newValue, forKey: participantKeys.orientationTextString)}
     }
     
     var participantResponseJson: NSString {
-        get { return defaults.objectForKey(participantKeys.participantResponseJsonString) as? String ?? ""}
-        set { defaults.setObject(newValue, forKey: participantKeys.participantResponseJsonString)}
+        get { return defaults.object(forKey: participantKeys.participantResponseJsonString) as? String as NSString? ?? ""}
+        set { defaults.set(newValue, forKey: participantKeys.participantResponseJsonString)}
     }
     
     var PhaseOneUrl: String {
-        get { return defaults.objectForKey(participantKeys.phaseOneUrlString) as? String ?? ""}
-        set { defaults.setObject(newValue, forKey: participantKeys.phaseOneUrlString)}
+        get { return defaults.object(forKey: participantKeys.phaseOneUrlString) as? String ?? ""}
+        set { defaults.set(newValue, forKey: participantKeys.phaseOneUrlString)}
     }
     
 //    var pitch: Float {
@@ -90,7 +90,7 @@ class UserManager { //this is a Singleton pattern
     func generateParticipantGuid() -> String {
         
         //generate a participant UUID that will be used to identify the participant
-        participantGuid = NSUUID().UUIDString
+        participantGuid = UUID().uuidString
         print("participantGuid=\(participantGuid)")
         return participantGuid
     }
@@ -116,7 +116,7 @@ class UserManager { //this is a Singleton pattern
     func participantGroupExists() -> Bool {
         
         //check to see if participant experimental group was previously generated and stored
-        if let participantGroupInt = defaults.stringForKey(participantKeys.participantGroupInt) {
+        if let participantGroupInt = defaults.string(forKey: participantKeys.participantGroupInt) {
             print("participantGroupExists=\(participantGroupInt)")
             return true
         } else {
@@ -128,7 +128,7 @@ class UserManager { //this is a Singleton pattern
     func participantGuidExists() -> Bool {
         
         //check to see if participant GUID was previously generated and stored
-        if let participantGuidString = defaults.stringForKey(participantKeys.participantGuidString) {
+        if let participantGuidString = defaults.string(forKey: participantKeys.participantGuidString) {
             print("participantGuidExists=\(participantGuidString)")
             return true
         } else {
@@ -140,7 +140,7 @@ class UserManager { //this is a Singleton pattern
     func participantTrialExists() -> Bool {
         
         //check to see if participant has taken the protocol before
-        if let participantTrialInt = defaults.stringForKey(participantKeys.participantTrialInt) {
+        if let participantTrialInt = defaults.string(forKey: participantKeys.participantTrialInt) {
             print("participantTrialExists=\(participantTrialInt)")
             return true
         } else {
@@ -148,9 +148,9 @@ class UserManager { //this is a Singleton pattern
         }
     }
     
-    func writeGestureData(code: String, currentCursorPosition: Int) {
-        print(code + ",\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
-        responseArray.append(code + ",\(currentCursorPosition),\(NSDate().timeIntervalSince1970)")
+    func writeGestureData(_ code: String, currentCursorPosition: Int) {
+        print(code + ",\(currentCursorPosition),\(Date().timeIntervalSince1970)")
+        responseArray.append("\(code),\(currentCursorPosition),\(Date().timeIntervalSince1970)" as NSString)
     }
     
     func setupTheExperiment() {
@@ -159,19 +159,19 @@ class UserManager { //this is a Singleton pattern
             print("Got the GUID")
         } else {
             print("FirstTimer, setting GUID")
-            generateParticipantGuid()
+            _ = generateParticipantGuid()
         }
         
         if participantGroupExists() {
             print("Got the Group")
         } else {
             print("Assigning Group")
-            generateParticipantGroup()
+            _ = generateParticipantGroup()
         }
         
         if participantTrialExists() {
             print("Been here before, adding trial")
-            generateParticipantTrial()
+            _ = generateParticipantTrial()
         } else {
             print("Setting Trial to 1")
             participantTrial = 1
@@ -179,13 +179,13 @@ class UserManager { //this is a Singleton pattern
         
         //load the trainingText
         //        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
-        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
-        trainingText = try! NSString(contentsOfFile: trainingLocation!, encoding: NSUTF8StringEncoding)
+        let trainingLocation = Bundle.main.path(forResource: "training", ofType: "txt")
+        trainingText = try! NSString(contentsOfFile: trainingLocation!, encoding: String.Encoding.utf8.rawValue)
         
         //load the protocolText
         //        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
-        let protocolLocation = NSBundle.mainBundle().pathForResource("protocolch10", ofType: "txt")
-        protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: NSUTF8StringEncoding)
+        let protocolLocation = Bundle.main.path(forResource: "protocolch10", ofType: "txt")
+        protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: String.Encoding.utf8.rawValue)
         
         //load the orientationText
         var orientationFileName: String = ""
@@ -195,7 +195,7 @@ class UserManager { //this is a Singleton pattern
             orientationFileName = "orientationExperimental" as String
         }
         
-        let orientationLocation = NSBundle.mainBundle().pathForResource(orientationFileName, ofType: "txt")
-        orientationText = try! NSString(contentsOfFile: orientationLocation!, encoding: NSUTF8StringEncoding)
+        let orientationLocation = Bundle.main.path(forResource: orientationFileName, ofType: "txt")
+        orientationText = try! NSString(contentsOfFile: orientationLocation!, encoding: String.Encoding.utf8.rawValue)
     }
 }

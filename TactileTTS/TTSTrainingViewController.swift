@@ -3,7 +3,7 @@
 //  TactileTTS
 //
 //  Created by Administrator on 11/19/15.
-//  Copyright © 2015 David Sweeney. All rights reserved.
+//  Copyright © 2016 David Sweeney. All rights reserved.
 //
 
 import UIKit
@@ -11,36 +11,36 @@ import AVFoundation
 
 class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
-    @IBAction func continueToProtocol(sender: UIBarButtonItem) {
-        self.performSegueWithIdentifier("showExperimentalProtocol", sender: nil)
+    @IBAction func continueToProtocol(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: "showExperimentalProtocol", sender: nil)
     }
     
-    @IBAction func tap(sender: UITapGestureRecognizer) {
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
         userManager.writeGestureData("TPC",currentCursorPosition: 0)
         speakTheText("Pause or continue.")
     }
     
-    @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
+    @IBAction func swipeLeft(_ sender: UISwipeGestureRecognizer) {
         userManager.writeGestureData("TF",currentCursorPosition: 0)
         speakTheText("Go forward one sentence.")
     }
     
-    @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
+    @IBAction func swipeRight(_ sender: UISwipeGestureRecognizer) {
         userManager.writeGestureData("TB",currentCursorPosition: 0)
         speakTheText("Go back one sentence.")
     }
 
-    @IBAction func doubleSwipeLeft(sender: UISwipeGestureRecognizer) {
+    @IBAction func doubleSwipeLeft(_ sender: UISwipeGestureRecognizer) {
         userManager.writeGestureData("TFP",currentCursorPosition: 0)
         speakTheText("Go forward one paragraph.")
     }
     
-    @IBAction func doubleSwipeRight(sender: UISwipeGestureRecognizer) {
+    @IBAction func doubleSwipeRight(_ sender: UISwipeGestureRecognizer) {
         userManager.writeGestureData("TBP",currentCursorPosition: 0)
         speakTheText("Go back one paragraph.")
     }
     
-    private let userManager = UserManager.sharedInstance
+    fileprivate let userManager = UserManager.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,39 +52,39 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         speakTheText(userManager.trainingText)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController!.setViewControllers([self], animated: false)
     }
     
     
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didFinishSpeechUtterance utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         
         for gesture in view.gestureRecognizers! {
-            gesture.enabled = true
+            gesture.isEnabled = true
         }
         
-        self.navigationItem.rightBarButtonItem?.enabled = true
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
 
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer, didStartSpeechUtterance utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         
         for gesture in view.gestureRecognizers! {
-            gesture.enabled = false
+            gesture.isEnabled = false
         }
     }
 
     
-    private let speechSynthesizer = AVSpeechSynthesizer()
+    fileprivate let speechSynthesizer = AVSpeechSynthesizer()
     
-    private func speakTheText(theText: NSString) {
+    fileprivate func speakTheText(_ theText: NSString) {
         
         let theUtterance = AVSpeechUtterance(string: theText as String)
         
 //        theUtterance.rate = userManager.rate
 //        theUtterance.pitchMultiplier = userManager.pitch
         
-        speechSynthesizer.speakUtterance(theUtterance)
+        speechSynthesizer.speak(theUtterance)
     }
 
     override func didReceiveMemoryWarning() {

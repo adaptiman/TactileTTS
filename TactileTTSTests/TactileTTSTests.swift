@@ -3,7 +3,7 @@
 //  TactileTTSTests
 //
 //  Created by Administrator on 7/21/15.
-//  Copyright (c) 2015 David Sweeney. All rights reserved.
+//  Copyright (c) 2016 David Sweeney. All rights reserved.
 //
 
 import UIKit
@@ -28,7 +28,7 @@ class TactileTTSTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }

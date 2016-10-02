@@ -3,26 +3,29 @@
 //  TactileTTS
 //
 //  Created by David Sweeney on 10/30/15.
-//  Copyright © 2015 David Sweeney. All rights reserved.
+//  Copyright © 2016 David Sweeney. All rights reserved.
 //
 
 import UIKit
 import WebKit
-import Crashlytics
 
-var trainingToken: dispatch_once_t = 0
+var trainingToken: Int = 0
 
 class TTSPhaseOneViewController: UIViewController {
     
+    private static var __once: ((_ obj: TTSPhaseOneViewController) -> Void) = { (obj: TTSPhaseOneViewController) -> Void in
+        obj.myTimer.invalidate()
+        obj.navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
     @IBOutlet var containerView: UIView!
     
-    @IBAction func continueToOrientation(sender: AnyObject) {
-    //    Crashlytics.sharedInstance().crash()
-        self.performSegueWithIdentifier("showOrientation", sender: nil)
+    @IBAction func continueToOrientation(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "showOrientation", sender: nil)
         
     }
     var webView: WKWebView!
-    var myTimer: NSTimer!
+    var myTimer: Timer!
     
     let userManager = UserManager.sharedInstance
     
@@ -36,7 +39,7 @@ class TTSPhaseOneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Part 1"
-
+        
         // Do any additional setup after loading the view.
         
         //start phase one survey
@@ -44,21 +47,21 @@ class TTSPhaseOneViewController: UIViewController {
         let surveyString = userManager.phaseOneUrl as String
         
         let dataString = "?participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)"
-        let url = NSURL(string: (surveyString + dataString))
+        let url = URL(string: (surveyString + dataString))
         //print(url)
         
         //load the page in the WKWebView
-        let req = NSURLRequest(URL:url!)
-        self.webView!.loadRequest(req)
+        let req = URLRequest(url:url!)
+        self.webView!.load(req)
         
         //this block will open a sendToURL in Safari
-//        UIApplication.sharedApplication().openURL(NSURL(string:sendToURL)!)
-//        let requestObj = NSURLRequest(URL: sendToURL!)
-//        phaseOneWebView.loadRequest(requestObj)
+        //        UIApplication.sharedApplication().openURL(NSURL(string:sendToURL)!)
+        //        let requestObj = NSURLRequest(URL: sendToURL!)
+        //        phaseOneWebView.loadRequest(requestObj)
         
         
         //NSTimer
-        myTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "fireTimer", userInfo: nil, repeats: true)
+        myTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(TTSPhaseOneViewController.fireTimer), userInfo: nil, repeats: true)
         
         //terminate app
         
@@ -69,10 +72,7 @@ class TTSPhaseOneViewController: UIViewController {
         self.webView.evaluateJavaScript("document.getElementById('EndOfSurvey')") { (result, error) -> Void in
             //print("\(result),\(error)")
             if error != nil {
-                dispatch_once(&trainingToken, { () -> Void in
-                    self.myTimer.invalidate()
-                    self.navigationItem.rightBarButtonItem?.enabled = true
-                } )
+                _ = TTSPhaseOneViewController.__once(self)
             }
         }
     }
@@ -82,15 +82,15 @@ class TTSPhaseOneViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
