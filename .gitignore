@@ -8,5 +8,3 @@ build
 *~.xib 
 .DS_Store 
 xcuserdata/
-Crashlytics.framework/
-Fabric.framework/
