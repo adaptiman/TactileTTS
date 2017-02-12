@@ -83,8 +83,8 @@ class UserManager { //this is a Singleton pattern
 //    }
 //    
 //    var rate: Float {
-//        get { return (defaults.objectForKey(participantKeys.rateFloat) as? Float ?? 0.5)!}
-//        set { defaults.setObject(newValue, forKey: participantKeys.rateFloat)}
+//        get { return (defaults.object(forKey: participantKeys.rateFloat) as? Float ?? 0.5)!}
+//        set { defaults.set(newValue, forKey: participantKeys.rateFloat)}
 //    }
     
     func generateParticipantGuid() -> String {
@@ -184,7 +184,7 @@ class UserManager { //this is a Singleton pattern
         
         //load the protocolText
         //        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
-        let protocolLocation = Bundle.main.path(forResource: "protocolch10", ofType: "txt")
+        let protocolLocation = Bundle.main.path(forResource: "protocolch11", ofType: "txt")
         protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: String.Encoding.utf8.rawValue)
         
         //load the orientationText

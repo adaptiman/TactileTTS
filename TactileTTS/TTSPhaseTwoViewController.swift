@@ -45,7 +45,7 @@ class TTSPhaseTwoViewController: UIViewController {
         let dataString = "?participantGuid=\(userManager.participantGuid)&participantGroup=\(userManager.participantGroup)&participantTrial=\(userManager.participantTrial)&resultString=\(userManager.participantResponseJson as String)"
         
         let url = URL(string: (surveyString + (dataString as String)))
-        print(url)
+        print(url ?? surveyString)
         
         //load the page in the WKWebView
         let req = URLRequest(url:url!)
