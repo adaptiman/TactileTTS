@@ -3,7 +3,7 @@
 //  TactileTTS
 //
 //  Created by Administrator on 12/19/15.
-//  Copyright © 2016 David Sweeney. All rights reserved.
+//  Copyright © 2017 David Sweeney. All rights reserved.
 //
 
 import UIKit

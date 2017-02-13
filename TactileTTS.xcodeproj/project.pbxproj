@@ -30,6 +30,7 @@
 		84BB685E1BECA1A1005478BC /* gettysburg.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BB685D1BECA1A1005478BC /* gettysburg.txt */; };
 		84CDE8A81C31F7A000B489DF /* paragraphtest.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84CDE8A71C31F7A000B489DF /* paragraphtest.txt */; };
 		84DDB5551E501A9900825A88 /* protocolch11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84DDB5541E501A9900825A88 /* protocolch11.txt */; };
+		84DDB5571E51339A00825A88 /* filler.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84DDB5561E51339A00825A88 /* filler.txt */; };
 		84DDF4B21C14C02600F3497D /* orientationExperimental.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84DDF4B11C14C02600F3497D /* orientationExperimental.txt */; };
 		84E420CD1C3F0D66001CB4A7 /* protocolch10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E420CC1C3F0D66001CB4A7 /* protocolch10.txt */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		84BB685D1BECA1A1005478BC /* gettysburg.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gettysburg.txt; sourceTree = "<group>"; };
 		84CDE8A71C31F7A000B489DF /* paragraphtest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = paragraphtest.txt; sourceTree = "<group>"; };
 		84DDB5541E501A9900825A88 /* protocolch11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = protocolch11.txt; sourceTree = "<group>"; };
+		84DDB5561E51339A00825A88 /* filler.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filler.txt; sourceTree = "<group>"; };
 		84DDF4B11C14C02600F3497D /* orientationExperimental.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = orientationExperimental.txt; sourceTree = "<group>"; };
 		84E420CC1C3F0D66001CB4A7 /* protocolch10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = protocolch10.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +168,7 @@
 			children = (
 				84E420CC1C3F0D66001CB4A7 /* protocolch10.txt */,
 				84DDB5541E501A9900825A88 /* protocolch11.txt */,
+				84DDB5561E51339A00825A88 /* filler.txt */,
 				848727751C23A846009BAF57 /* protocolshort.txt */,
 				846E15B01C39C255005D2385 /* Chapter07.txt */,
 				84CDE8A71C31F7A000B489DF /* paragraphtest.txt */,
@@ -277,6 +280,7 @@
 				848727761C23A846009BAF57 /* protocolshort.txt in Resources */,
 				846E15B11C39C255005D2385 /* Chapter07.txt in Resources */,
 				84BAF3D11B5F158300B47AEB /* LaunchScreen.xib in Resources */,
+				84DDB5571E51339A00825A88 /* filler.txt in Resources */,
 				84BAF3CE1B5F158300B47AEB /* Images.xcassets in Resources */,
 				84DDB5551E501A9900825A88 /* protocolch11.txt in Resources */,
 			);
