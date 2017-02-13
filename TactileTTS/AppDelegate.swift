@@ -48,6 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //print("About to terminate app")
         //exit(0)
+        userManager.writeGestureData("BG", currentCursorPosition: 0)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -56,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        userManager.writeGestureData("FG", currentCursorPosition: 0)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
