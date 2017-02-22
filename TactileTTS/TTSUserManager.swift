@@ -180,12 +180,12 @@ class UserManager { //this is a Singleton pattern
         //load the trainingText
         //        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
 //        let trainingLocation = Bundle.main.path(forResource: "training", ofType: "txt")
-        let trainingLocation = Bundle.main.path(forResource: "filler", ofType: "txt")
+        let trainingLocation = Bundle.main.path(forResource: "training", ofType: "txt")
         trainingText = try! NSString(contentsOfFile: trainingLocation!, encoding: String.Encoding.utf8.rawValue)
         
         //load the protocolText
         //        let protocolLocation = NSBundle.mainBundle().pathForResource("protocol", ofType: "txt")
-        let protocolLocation = Bundle.main.path(forResource: "protocolch11", ofType: "txt")
+        let protocolLocation = Bundle.main.path(forResource: "protocol", ofType: "txt")
         protocolText = try! NSString(contentsOfFile: protocolLocation!, encoding: String.Encoding.utf8.rawValue)
         
         //load the orientationText
@@ -194,7 +194,7 @@ class UserManager { //this is a Singleton pattern
             orientationFileName = "orientationControl" as String
         } else {
 //            orientationFileName = "orientationExperimental" as String
-            orientationFileName = "filler" as String
+            orientationFileName = "orientationExperimental" as String
         }
         
         let orientationLocation = Bundle.main.path(forResource: orientationFileName, ofType: "txt")
