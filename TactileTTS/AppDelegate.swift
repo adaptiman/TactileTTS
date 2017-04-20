@@ -25,6 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //setup all of the vars and paths
         userManager.setupTheExperiment()
         
+        if userManager.participantTrial > 1 {
+            //if this is not the initial run, skip to the Phase 2 survey
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "PhaseTwoViewController")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+            
+            return true
+        }
+        
         // TODO: Move this to where you establish a user session
         self.logUser()
         
@@ -53,11 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        userManager.writeGestureData("FG", currentCursorPosition: 0)
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        userManager.writeGestureData("FG", currentCursorPosition: 0)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
