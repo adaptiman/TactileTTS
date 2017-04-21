@@ -54,7 +54,7 @@ class TTSProtocolViewController: UIViewController {
     override func viewDidLoad() {
        
         super.viewDidLoad()
-        self.title = "Comparing the States and Communities"
+        self.title = "Part 2 - Audio Text"
         // Do any additional setup after loading the view, typically from a nib.
         
         //process the text object through the speech navigation model

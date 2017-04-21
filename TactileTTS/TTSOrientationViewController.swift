@@ -43,7 +43,7 @@ class TTSOrientationViewController: UIViewController, AVSpeechSynthesizerDelegat
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.title = "Instructions"
+        self.title = "Part 2 - Instructions"
         // Do any additional setup after loading the view, typically from a nib.
         
         //set the tvOrientation text

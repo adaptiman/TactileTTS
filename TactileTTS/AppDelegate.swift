@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Fabric.with([Crashlytics.self])
 
+        //stop sleep mode
+        UIApplication.shared.isIdleTimerDisabled = true
+        
         //setup all of the vars and paths
         userManager.setupTheExperiment()
         
@@ -59,6 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //print("About to terminate app")
         //exit(0)
         userManager.writeGestureData("BG", currentCursorPosition: 0)
+        //stop sleep mode
+        UIApplication.shared.isIdleTimerDisabled = false
+
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

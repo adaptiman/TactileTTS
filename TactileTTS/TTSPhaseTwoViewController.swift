@@ -25,7 +25,7 @@ class TTSPhaseTwoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Part 2"
+        self.title = "Part 3"
         
         //disable the back navigation
         self.navigationItem.setHidesBackButton(true, animated:true);

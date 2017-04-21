@@ -44,7 +44,7 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Training"
+        self.title = "Part 2 - Training"
 
         // Do any additional setup after loading the view.
         
