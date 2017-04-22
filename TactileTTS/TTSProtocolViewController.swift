@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TTSProtocolViewController: UIViewController {
+class TTSProtocolViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         ttsProtocol.pauseContinue()
