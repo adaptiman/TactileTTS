@@ -37,6 +37,8 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     
     fileprivate let userManager = UserManager.sharedInstance
     
+//    fileprivate let queue = DispatchQueue(label: "speechSynthesizerQueue")
+    
     override init() {
         //initializer for the TactileTTS class
         super.init()
@@ -216,11 +218,11 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         if utteranceIndex == -1 {
             if speechSynthesizer.isSpeaking {
                 if speechSynthesizer.isPaused {
-                    userManager.writeGestureData("C",currentCursorPosition: currentCursorPosition)
+                    userManager.writeGestureData("C",currentCursorPosition: self.currentCursorPosition)
                     speechSynthesizer.continueSpeaking()
                 } else {
                     speechSynthesizer.pauseSpeaking(at: AVSpeechBoundary.immediate)
-                    userManager.writeGestureData("P",currentCursorPosition: currentCursorPosition)
+                    userManager.writeGestureData("P",currentCursorPosition: self.currentCursorPosition)
                 }
             }
             
@@ -253,6 +255,9 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     //
     
     func speakTheText(_ theText: NSString) {
+        
+        //this is the start of the audio
+        userManager.writeGestureData("S",currentCursorPosition: currentCursorPosition)
         
         utteranceArray = parse(theText) as [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)]
         
