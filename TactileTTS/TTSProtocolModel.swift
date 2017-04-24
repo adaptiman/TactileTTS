@@ -31,7 +31,7 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     fileprivate var spokenTextLength: Int = 1
     fileprivate var currentCursorPosition: Int = 0
     fileprivate var utteranceArray:[(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)] = []
-    fileprivate enum NavigationType { case next, backward, backwardByParagraph, forward, forwardByParagraph, pauseOrPlay, stop }
+    fileprivate enum NavigationType { case next, backward, backwardByParagraph, forward, forwardByParagraph, pauseOrPlay }
     
     fileprivate let speechSynthesizer = AVSpeechSynthesizer()
     
@@ -80,13 +80,11 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         
         }
     }
-
     
     //private speech synthesizer functions
     //
     //
     //
-    
     
     fileprivate func encodeResultsToJSON(_ theResponseArray: [NSString]) -> NSString {
         
@@ -114,8 +112,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             } else {
                 
                 if tempArray[i].contains("\r") {
-                    
-//                    characters.hasPrefix("\r" as Character) { //this sentence starts a paragraph
                     
                     totalParagraphs += 1
                     
@@ -163,7 +159,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         case .forward:
             userManager.writeGestureData("F",currentCursorPosition: currentCursorPosition)
             if currentUtterance !=  totalUtterances - 1 { //i.e. if it's NOT the last utterance
-                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 currentUtterance += 1
                 speak(currentUtterance)
             }
@@ -173,7 +168,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             userManager.writeGestureData("FP",currentCursorPosition: currentCursorPosition)
 
             if utteranceArray[currentUtterance].paragraphNumber != totalParagraphs { //i.e. if it's NOT the last paragraph
-                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 currentUtterance += 1
                 while !utteranceArray[currentUtterance].utteranceStartsParagraph {
                     currentUtterance += 1
@@ -181,18 +175,15 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                 speak(currentUtterance)
             }
             else { //it IS the last paragraph
-                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 speak(currentUtterance)
             }
 
         case .backward:
             userManager.writeGestureData("B",currentCursorPosition: currentCursorPosition)
             if currentUtterance != 0 { //i.e. if it's NOT the first utterance
-                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 currentUtterance -= 1
                 speak(currentUtterance)
             } else { //it IS the first utterance
-                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 speak(currentUtterance)
                 
             }
@@ -200,22 +191,29 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         case .backwardByParagraph:
             //write the data point
             userManager.writeGestureData("BP",currentCursorPosition: currentCursorPosition)
-            
             if utteranceArray[currentUtterance].paragraphNumber != 1 { //i.e. if it's NOT the first paragraph
-                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 currentUtterance -= 1
                 while !utteranceArray[currentUtterance].utteranceStartsParagraph {
                     currentUtterance -= 1
                 }
                 speak(currentUtterance)
             } else { //it IS the first paragraph
-                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
                 currentUtterance = 0
                 speak(currentUtterance)
             }
 
-
         case .pauseOrPlay:
+            speak(-1)
+        }
+    }
+    
+    
+    fileprivate func speak(_ utteranceIndex: Int) {
+        
+        //all speechSynthesizer functions should be run from this function
+        // utteranceIndex = -1 means pauseOrPlay
+        
+        if utteranceIndex == -1 {
             if speechSynthesizer.isSpeaking {
                 if speechSynthesizer.isPaused {
                     userManager.writeGestureData("C",currentCursorPosition: currentCursorPosition)
@@ -226,23 +224,15 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
                 }
             }
             
-        case .stop:
-            speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        } else {
+
+            let theUtterance = AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance)
+        
+            if speechSynthesizer.isSpeaking {
+                speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+            }
+            speechSynthesizer.speak(theUtterance)
         }
-    }
-    
-    
-    fileprivate func speak(_ utteranceIndex: Int) {
-        
-        //speechSynthesizer.speakUtterance(AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance))
-        
-        let theUtterance = AVSpeechUtterance(string: utteranceArray[utteranceIndex].utterance)
-        
-//        theUtterance.rate = userManager.rate
-//        theUtterance.rate = 0.7 //fast speech rate
-//        theUtterance.pitchMultiplier = userManager.pitch
-        
-        speechSynthesizer.speak(theUtterance)
     }
     
     
@@ -262,7 +252,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
     //
     //
     
-    
     func speakTheText(_ theText: NSString) {
         
         utteranceArray = parse(theText) as [(utterance: String, utteranceLength: Int, utteranceStartsParagraph: Bool, paragraphNumber: Int)]
@@ -270,17 +259,10 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         speak(currentUtterance)
     }
     
-    
-    func stopSpeakingTheText() {
-        navigate(.stop)
-    }
-
-    
     func pauseContinue() {
         
         navigate(.pauseOrPlay)
     }
-    
     
     func goForward() {
         
@@ -290,7 +272,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         }
     }
     
-    
     func goBack() {
         
         if userManager.participantGroup != 0 {
@@ -299,7 +280,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
         }
     }
     
-    
     func goForwardByParagraph() {
         
         if userManager.participantGroup != 0 {
@@ -307,7 +287,6 @@ class TTSModel: UIResponder, AVSpeechSynthesizerDelegate, UIApplicationDelegate
             navigate(.forwardByParagraph)
         }
     }
-    
     
     func goBackByParagraph() {
         
