@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
+class TTSTrainingViewController: UIViewController, UIGestureRecognizerDelegate, AVSpeechSynthesizerDelegate {
     
     @IBAction func continueToProtocol(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "showExperimentalProtocol", sender: nil)

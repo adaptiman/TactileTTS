@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pbU-Mp-7pD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pbU-Mp-7pD">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -156,17 +156,17 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="A4j-xv-u2u"/>
-                                <exclude reference="cKq-oQ-lUC"/>
-                                <exclude reference="EZQ-fk-Mhq"/>
-                                <exclude reference="Ld4-VM-bD7"/>
-                                <exclude reference="QWf-sj-aQE"/>
-                                <exclude reference="qwg-7s-hJB"/>
                                 <exclude reference="cme-yD-2BB"/>
+                                <exclude reference="qwg-7s-hJB"/>
                                 <exclude reference="pGb-rM-YUh"/>
                                 <exclude reference="owx-Xg-TeB"/>
                                 <exclude reference="rbS-mo-Xz4"/>
+                                <exclude reference="EZQ-fk-Mhq"/>
+                                <exclude reference="Ld4-VM-bD7"/>
+                                <exclude reference="QWf-sj-aQE"/>
                                 <exclude reference="Fb6-Zo-8me"/>
+                                <exclude reference="A4j-xv-u2u"/>
+                                <exclude reference="cKq-oQ-lUC"/>
                             </mask>
                         </variation>
                         <connections>
@@ -193,26 +193,31 @@
                 <tapGestureRecognizer enabled="NO" id="86g-u6-5TJ">
                     <connections>
                         <action selector="tap:" destination="aRG-aV-EYR" id="kn6-Ao-82W"/>
+                        <outlet property="delegate" destination="aRG-aV-EYR" id="l3o-7b-ZhE"/>
                     </connections>
                 </tapGestureRecognizer>
                 <swipeGestureRecognizer enabled="NO" direction="left" id="iiJ-1P-egq">
                     <connections>
                         <action selector="swipeLeft:" destination="aRG-aV-EYR" id="z66-Np-v8s"/>
+                        <outlet property="delegate" destination="aRG-aV-EYR" id="uvH-sc-96I"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer enabled="NO" direction="right" numberOfTouchesRequired="2" id="X1e-ZO-8Ag">
                     <connections>
                         <action selector="doubleSwipeRight:" destination="aRG-aV-EYR" id="1ut-zS-bDn"/>
+                        <outlet property="delegate" destination="aRG-aV-EYR" id="awN-sR-Eo0"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer enabled="NO" direction="right" id="t6Z-Ks-R9O">
                     <connections>
                         <action selector="swipeRight:" destination="aRG-aV-EYR" id="nd3-h2-flI"/>
+                        <outlet property="delegate" destination="aRG-aV-EYR" id="iJ4-ye-q0g"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer enabled="NO" direction="left" numberOfTouchesRequired="2" id="UF1-GK-hQX">
                     <connections>
                         <action selector="doubleSwipeLeft:" destination="aRG-aV-EYR" id="ZVm-qT-Syz"/>
+                        <outlet property="delegate" destination="aRG-aV-EYR" id="jeh-QX-sVh"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -344,13 +349,13 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="CfI-dt-wl4"/>
+                                <exclude reference="R8Q-HF-9rC"/>
                                 <exclude reference="DVY-V3-hp0"/>
                                 <exclude reference="q7O-U5-dBm"/>
                                 <exclude reference="tkc-TS-E7Q"/>
-                                <exclude reference="CfI-dt-wl4"/>
-                                <exclude reference="R8Q-HF-9rC"/>
-                                <exclude reference="XWL-Tl-DVu"/>
                                 <exclude reference="tPr-jL-8Pz"/>
+                                <exclude reference="XWL-Tl-DVu"/>
                             </mask>
                         </variation>
                         <connections>
@@ -504,6 +509,6 @@
         <image name="two-swipe-right" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sIa-MG-7Uc"/>
+        <segue reference="vEd-AV-WLo"/>
     </inferredMetricsTieBreakers>
 </document>
