@@ -50,6 +50,13 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         
         speechSynthesizer.delegate = self
         speakTheText(userManager.trainingText)
+        
+        //programmatically set numberOfTouchesRequired for doubleSwipeRight and doubleSwipeLeft to 2. Assigning greater than one touch at designtime in the storyboard causes a a known buffer overrun bug in UISwipeGestureRecognizer.  When a UISwipeGestureRecognizer's number of required touches is configured to be greater than 1 in a storyboard, the UISwipeGestureRecognizer fails to allocate a sufficiently large enough buffer to track the state of multiple (more than one) touches.  When more than one touch occurs the memory adjacent to the buffer is overwritten, leading to undefined behavior.
+        
+        //The workaround is to set the number of required touches for all swipe gesture recognizers in your storyboard to be 1.  If a swipe gesture recognizer requires more than one touch, modify its numberOfTouchesRequired property in code (in -viewDidLoad)
+        
+        view.gestureRecognizers!(doubleSwipeLeft).numberOfTouchesRequired = 2
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
