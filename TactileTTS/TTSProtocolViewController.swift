@@ -27,10 +27,13 @@ class TTSProtocolViewController: UIViewController, UIGestureRecognizerDelegate {
         ttsProtocol.goForwardByParagraph()
     }
     
+    @IBOutlet var doubleSwipeLeft: UISwipeGestureRecognizer!
     
     @IBAction func swipeRightTwoFinger(_ sender: UISwipeGestureRecognizer) {
         ttsProtocol.goBackByParagraph()
     }
+    
+    @IBOutlet var doubleSwipeRight: UISwipeGestureRecognizer!
     
     @IBOutlet weak var progressBar: UIProgressView!
     
@@ -84,6 +87,14 @@ class TTSProtocolViewController: UIViewController, UIGestureRecognizerDelegate {
             forwardByParagraphImage.isHidden = true
             forwardByParagraphLabel.isHidden = true
         }
+        
+        //programmatically set numberOfTouchesRequired for doubleSwipeRight and doubleSwipeLeft to 2. Assigning greater than one touch at designtime in the storyboard causes a a known buffer overrun bug in UISwipeGestureRecognizer.  When a UISwipeGestureRecognizer's number of required touches is configured to be greater than 1 in a storyboard, the UISwipeGestureRecognizer fails to allocate a sufficiently large enough buffer to track the state of multiple (more than one) touches.  When more than one touch occurs the memory adjacent to the buffer is overwritten, leading to undefined behavior.
+        
+        //The workaround is to set the number of required touches for all swipe gesture recognizers in your storyboard to be 1.  If a swipe gesture recognizer requires more than one touch, modify its numberOfTouchesRequired property in code (in -viewDidLoad)
+        
+        self.doubleSwipeLeft.numberOfTouchesRequired = 2
+        self.doubleSwipeRight.numberOfTouchesRequired = 2
+
 
     }
     

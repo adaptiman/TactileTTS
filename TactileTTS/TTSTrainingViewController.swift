@@ -35,10 +35,14 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         speakTheText("Go forward one paragraph.")
     }
     
+    @IBOutlet var doubleSwipeLeft: UISwipeGestureRecognizer!
+    
     @IBAction func doubleSwipeRight(_ sender: UISwipeGestureRecognizer) {
         userManager.writeGestureData("TBP",currentCursorPosition: 0)
         speakTheText("Go back one paragraph.")
     }
+    
+    @IBOutlet var doubleSwipeRight: UISwipeGestureRecognizer!
     
     fileprivate let userManager = UserManager.sharedInstance
     
@@ -55,8 +59,8 @@ class TTSTrainingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         
         //The workaround is to set the number of required touches for all swipe gesture recognizers in your storyboard to be 1.  If a swipe gesture recognizer requires more than one touch, modify its numberOfTouchesRequired property in code (in -viewDidLoad)
         
-        view.gestureRecognizers!(doubleSwipeLeft).numberOfTouchesRequired = 2
-        
+        self.doubleSwipeLeft.numberOfTouchesRequired = 2
+        self.doubleSwipeRight.numberOfTouchesRequired = 2
     }
     
     override func viewWillAppear(_ animated: Bool) {

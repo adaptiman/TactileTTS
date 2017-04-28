@@ -100,7 +100,7 @@ class UserManager { //this is a Singleton pattern
         
         //generate a participant group between 0 (control) and 4 (experimentals)
         participantGroup = Int(arc4random_uniform(5))
-        participantGroup = 100
+//        participantGroup = 100
         print("generateParticipantGroup=\(participantGroup)")
         return participantGroup
     }
@@ -181,8 +181,8 @@ class UserManager { //this is a Singleton pattern
         
         //load the trainingText
         //        let trainingLocation = NSBundle.mainBundle().pathForResource("training", ofType: "txt")
-//        let trainingLocation = Bundle.main.path(forResource: "training", ofType: "txt")
-        let trainingLocation = Bundle.main.path(forResource: "filler", ofType: "txt")
+        let trainingLocation = Bundle.main.path(forResource: "training", ofType: "txt")
+//        let trainingLocation = Bundle.main.path(forResource: "filler", ofType: "txt")
         trainingText = try! NSString(contentsOfFile: trainingLocation!, encoding: String.Encoding.utf8.rawValue)
         
         //load the protocolText
@@ -195,8 +195,8 @@ class UserManager { //this is a Singleton pattern
         if participantGroup == 0 {
             orientationFileName = "orientationControl" as String
         } else {
-//            orientationFileName = "orientationExperimental" as String
-            orientationFileName = "filler" as String
+            orientationFileName = "orientationExperimental" as String
+//            orientationFileName = "filler" as String
         }
         
         let orientationLocation = Bundle.main.path(forResource: orientationFileName, ofType: "txt")

@@ -185,33 +185,35 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doubleSwipeLeft" destination="UF1-GK-hQX" id="37Y-WR-Ose"/>
+                        <outlet property="doubleSwipeRight" destination="X1e-ZO-8Ag" id="w0K-eR-kt6"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="showExperimentalProtocol" id="vEd-AV-WLo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o30-Dp-FR9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer enabled="NO" id="86g-u6-5TJ">
+                <tapGestureRecognizer enabled="NO" id="86g-u6-5TJ" userLabel="tap">
                     <connections>
                         <action selector="tap:" destination="aRG-aV-EYR" id="kn6-Ao-82W"/>
                     </connections>
                 </tapGestureRecognizer>
-                <swipeGestureRecognizer enabled="NO" direction="left" id="iiJ-1P-egq">
+                <swipeGestureRecognizer enabled="NO" direction="left" id="iiJ-1P-egq" userLabel="swipeLeft">
                     <connections>
                         <action selector="swipeLeft:" destination="aRG-aV-EYR" id="z66-Np-v8s"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer enabled="NO" direction="right" id="X1e-ZO-8Ag">
-                    <connections>
-                        <action selector="doubleSwipeRight:" destination="aRG-aV-EYR" id="1ut-zS-bDn"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer enabled="NO" direction="right" id="t6Z-Ks-R9O">
+                <swipeGestureRecognizer enabled="NO" direction="right" id="t6Z-Ks-R9O" userLabel="swipeRight">
                     <connections>
                         <action selector="swipeRight:" destination="aRG-aV-EYR" id="nd3-h2-flI"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer enabled="NO" direction="left" id="UF1-GK-hQX">
+                <swipeGestureRecognizer enabled="NO" direction="left" id="UF1-GK-hQX" userLabel="doubleSwipeLeft">
                     <connections>
                         <action selector="doubleSwipeLeft:" destination="aRG-aV-EYR" id="ZVm-qT-Syz"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer enabled="NO" direction="right" id="X1e-ZO-8Ag" userLabel="doubleSwipeRight">
+                    <connections>
+                        <action selector="doubleSwipeRight:" destination="aRG-aV-EYR" id="1ut-zS-bDn"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -365,6 +367,8 @@
                         <outlet property="backByParagraphLabel" destination="mrk-1s-eXM" id="Qve-fr-2DR"/>
                         <outlet property="backBySentenceImage" destination="bVe-PE-Lli" id="Nc6-kw-X9k"/>
                         <outlet property="backBySentenceLabel" destination="HHf-RL-qjj" id="bRY-zu-bdZ"/>
+                        <outlet property="doubleSwipeLeft" destination="dcB-tp-xPB" id="asm-pq-vlg"/>
+                        <outlet property="doubleSwipeRight" destination="hEH-iF-ApS" id="HvY-sF-gXX"/>
                         <outlet property="forwardByParagraphImage" destination="imM-ID-GsB" id="lb2-7D-xa7"/>
                         <outlet property="forwardByParagraphLabel" destination="uc2-TW-tut" id="cy1-K9-NEA"/>
                         <outlet property="forwardBySentenceImage" destination="vHG-23-rh4" id="jfu-xQ-vCv"/>
@@ -375,31 +379,31 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="liT-3R-BWI">
+                <tapGestureRecognizer id="liT-3R-BWI" userLabel="tap">
                     <connections>
                         <action selector="tap:" destination="BYZ-38-t0r" id="igk-a3-h0t"/>
                         <outlet property="delegate" destination="BYZ-38-t0r" id="jVp-yN-u09"/>
                     </connections>
                 </tapGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="dSM-0S-lmE">
+                <swipeGestureRecognizer direction="right" id="dSM-0S-lmE" userLabel="swipeRight">
                     <connections>
                         <action selector="swipeRight:" destination="BYZ-38-t0r" id="C6x-Z4-8ze"/>
                         <outlet property="delegate" destination="BYZ-38-t0r" id="ASy-L9-f2m"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="Oln-Uq-7fu">
+                <swipeGestureRecognizer direction="left" id="Oln-Uq-7fu" userLabel="swipeLeft">
                     <connections>
                         <action selector="swipeLeft:" destination="BYZ-38-t0r" id="TCe-bM-lg6"/>
                         <outlet property="delegate" destination="BYZ-38-t0r" id="azE-GA-qxD"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" numberOfTouchesRequired="2" id="dcB-tp-xPB">
+                <swipeGestureRecognizer direction="left" id="dcB-tp-xPB" userLabel="doubleSwipeLeft">
                     <connections>
                         <action selector="swipeLeftTwoFinger:" destination="BYZ-38-t0r" id="eqC-nt-nZQ"/>
                         <outlet property="delegate" destination="BYZ-38-t0r" id="aRz-5o-uU4"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="right" numberOfTouchesRequired="2" id="hEH-iF-ApS">
+                <swipeGestureRecognizer direction="right" id="hEH-iF-ApS" userLabel="doubleSwipeRight">
                     <connections>
                         <action selector="swipeRightTwoFinger:" destination="BYZ-38-t0r" id="zlJ-FP-Mso"/>
                         <outlet property="delegate" destination="BYZ-38-t0r" id="t5r-bd-7Il"/>

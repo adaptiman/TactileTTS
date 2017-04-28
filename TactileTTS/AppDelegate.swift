@@ -28,15 +28,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //setup all of the vars and paths
         userManager.setupTheExperiment()
         
-//        if userManager.participantTrial > 1 {
-//            //if this is not the initial run, skip to the Phase 2 survey
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "PhaseTwoViewController")
-//            self.window?.rootViewController = initialViewController
-//            self.window?.makeKeyAndVisible()
-//            
-//            return true
-//        }
+        if userManager.participantTrial > 1 {
+            //if this is not the initial run, skip to the Phase 2 survey
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "PhaseTwoViewController")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+            
+            return true
+        }
         
         // TODO: Move this to where you establish a user session
         self.logUser()
