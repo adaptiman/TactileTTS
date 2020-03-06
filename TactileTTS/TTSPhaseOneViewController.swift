@@ -67,7 +67,7 @@ class TTSPhaseOneViewController: UIViewController {
         
     }
     
-    func fireTimer() {
+    @objc func fireTimer() {
         //print("tick!")
         self.webView.evaluateJavaScript("document.getElementById('EndOfSurvey')") { (result, error) -> Void in
             //print("\(result),\(error)")

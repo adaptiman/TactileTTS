@@ -98,7 +98,7 @@ class TTSProtocolViewController: UIViewController, UIGestureRecognizerDelegate {
 
     }
     
-    func protocolComplete(_ object: Notification) {
+    @objc func protocolComplete(_ object: Notification) {
         
         //print("protocolComplete")
         
@@ -111,7 +111,7 @@ class TTSProtocolViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     
-    func updateProgress(_ object: Notification) {
+    @objc func updateProgress(_ object: Notification) {
         
         //print("updating progress")
         
